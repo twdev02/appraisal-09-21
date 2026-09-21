@@ -804,8 +804,8 @@ function parseGenderPairs(formatted: string): Array<{ male?: number; female?: nu
   const source = String(formatted || '');
   if (!source || /not\s+reported/i.test(source)) return [];
   return source.split(/\r?\n/).map((line) => {
-    const male = line.match(/Male:\s*n\s*=\s*(\d+)/i)?.[1];
-    const female = line.match(/Female:\s*n\s*=\s*(\d+)/i)?.[1];
+    const male = line.match(/\bMale:\s*n\s*=\s*(\d+)/i)?.[1];
+    const female = line.match(/\bFemale:\s*n\s*=\s*(\d+)/i)?.[1];
     return {
       male: male ? Number(male) : undefined,
       female: female ? Number(female) : undefined,

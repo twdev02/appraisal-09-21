@@ -40,7 +40,11 @@ export const SelfValidationBadge: React.FC<Props> = ({ issues = [], className = 
       </button>
       {open && (
         <span className="absolute left-0 top-full z-50 mt-1 w-max max-w-[320px] rounded-md border border-slate-200 bg-white px-2.5 py-2 text-[10px] font-medium leading-snug text-slate-700 shadow-lg">
-          {primary.message}
+          {visible.map((issue) => (
+            <span key={issue.id} className="block whitespace-normal break-words [&+span]:mt-2">
+              {issue.status === 'fail' ? 'Fail' : 'Review'}: {issue.message}
+            </span>
+          ))}
         </span>
       )}
     </span>

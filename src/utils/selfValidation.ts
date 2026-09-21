@@ -58,8 +58,8 @@ const parseGenderPairs = (value: unknown): Array<{ male: number; female: number 
   const text = String(value ?? '');
   const results: Array<{ male: number; female: number }> = [];
   const patterns = [
-    /Male:\s*n\s*=\s*(\d+)[\s\S]{0,100}?Female:\s*n\s*=\s*(\d+)/gi,
-    /Female:\s*n\s*=\s*(\d+)[\s\S]{0,100}?Male:\s*n\s*=\s*(\d+)/gi,
+    /\bMale:\s*n\s*=\s*(\d+)[^\r\n]{0,100}?\bFemale:\s*n\s*=\s*(\d+)/gi,
+    /\bFemale:\s*n\s*=\s*(\d+)[^\r\n]{0,100}?\bMale:\s*n\s*=\s*(\d+)/gi,
   ];
   for (let p = 0; p < patterns.length; p++) {
     let m: RegExpExecArray | null;
@@ -98,6 +98,23 @@ const extractFollowUpCenter = (value: unknown, fieldIsFollowUp = false): { value
 
 export function runSelfValidation(data: FullAppraisalData): SelfValidationState {
   const issues: SelfValidationIssue[] = [];
+  // Source disagreement remains reviewable even after the selected Markdown
+  // value makes downstream arithmetic consistent. Editing a value alone does
+  // not establish that the independent source conflict has been resolved.
+  const sourceChecks = [
+    ['patientCount', 'Patient count', data.methodological?.patientsNumber?.id],
+    ['gender', 'Gender distribution', data.relevance?.itemH_gender?.id],
+    ['followUp', 'Follow-up', data.relevance?.itemJ_rangeOfTime?.id],
+    ['clinicalOutcome', 'Clinical outcomes', data.contribution?.clinicalSignificance?.id],
+  ] as const;
+  for (const [field, label, itemId] of sourceChecks) {
+    const validation = data.evidenceValidation?.[field];
+    if (validation?.status === 'conflict') {
+      addIssue(issues, 'review', 3, `step3.${itemId || field}`,
+        `${label}: PDF/Gemini and Markdown disagree (PDF: ${validation.pdfValue}; Markdown: ${validation.markdownValue}). Check the original source before finalizing.`,
+        `markdown.${field}`);
+    }
+  }
   const dueList = data.dueList?.length
     ? data.dueList
     : data.due
