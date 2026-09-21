@@ -195,6 +195,21 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
   validateScoredSection(data.methodological, 'methodological');
   validateScoredSection(data.contribution, 'contribution');
 
+  // Acceptable report / data collation: the selected quality tier must match
+  // the 9-item checklist it is derived from (0-2 missing=High(3), 3-6=Minor(2),
+  // 7-9=Insufficient(1)), not just be an internally consistent score/label pair.
+  const reportQuality = data.suitability?.acceptableReportDataCollation;
+  if (reportQuality?.reportedChecklist?.length) {
+    const missingCount = reportQuality.reportedChecklist.filter((entry) => !entry.reported).length;
+    const expectedScore = missingCount <= 2 ? 3 : missingCount <= 6 ? 2 : 1;
+    const currentScore = reportQuality.userFinalScore ?? reportQuality.aiRecommendedScore;
+    if (Number(currentScore) !== expectedScore) {
+      addIssue(issues, 'fail', 3, `step3.${reportQuality.id}`,
+        `Selected quality tier does not match the report/data-collation checklist (${missingCount}/9 items not reported should score ${expectedScore}, currently ${currentScore}).`,
+        'reportedChecklist');
+    }
+  }
+
   const gender = data.relevance?.itemH_gender;
   if (gender) {
     if (/requires review|review required/i.test(gender.comment || '')) {
@@ -303,6 +318,12 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
     if (event.isAggregate && event.parentEvent && event.isSubItem === false) {
       addIssue(issues, 'review', 4, target, 'Nested aggregate metadata is internally inconsistent and should be checked.', 'hierarchy');
     }
+    if (event.classificationStatus === 'review_required') {
+      addIssue(issues, 'review', 4, target, event.reviewReason || 'Extraction marked this event as needing classification review.', 'classification');
+    }
+    if (event.breakdownCompleteness && event.breakdownCompleteness !== 'Complete') {
+      addIssue(issues, 'review', 4, target, `This event's breakdown into components is ${event.breakdownCompleteness.toLowerCase()}; confirm against the source before finalizing.`, 'breakdown');
+    }
     if (inDiscussionOrReferences(event.evidenceLocation)) {
       addIssue(issues, 'fail', 4, target, 'Safety event evidence points to Discussion/References rather than current-study Results/Tables.', 'evidence');
     }
@@ -339,6 +360,12 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
       }
     }
   });
+
+  if (data.safety?.hasSafetyNotReported && events.length > 0) {
+    addIssue(issues, 'fail', 4, 'step4.summary.status',
+      `Safety is flagged as not reported, but ${events.length} safety event(s) are present in the extracted list.`,
+      'hasSafetyNotReported');
+  }
 
   const mortality = data.safety?.summary;
   if (mortality) {
