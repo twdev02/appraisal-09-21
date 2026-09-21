@@ -560,6 +560,20 @@ function eventGroupKey(event: any): string {
   return normalizeKey(event?.groupId || event?.groupName || event?.studyGroupOrDevice || '');
 }
 
+// A group's stored name may carry a clarifying descriptor (e.g. "Simultaneous
+// group (side by side)") that a Markdown-reconstructed row or prose mention
+// omits (just "Simultaneous group"), since normalizeKey only strips punctuation
+// generically and does not drop parenthetical content as a whole unit. Allow a
+// token-containment match as a fallback for that case.
+function keysContainmentMatch(a: string, b: string): boolean {
+  if (!a || !b) return false;
+  const tokensA = new Set(a.split(' ').filter(Boolean));
+  const tokensB = new Set(b.split(' ').filter(Boolean));
+  if (tokensA.size === 0 || tokensB.size === 0) return false;
+  const isSubset = (small: Set<string>, big: Set<string>) => [...small].every((token) => big.has(token));
+  return isSubset(tokensA, tokensB) || isSubset(tokensB, tokensA);
+}
+
 function groupCompatible(existing: any, mdEvent: any, researchGroups: any[]): boolean {
   if (researchGroups.length === 1) return true;
   const existingId = String(existing?.groupId || '').trim();
@@ -569,6 +583,17 @@ function groupCompatible(existing: any, mdEvent: any, researchGroups: any[]): bo
   const left = eventGroupKey(existing);
   const right = eventGroupKey(mdEvent);
   if (left && right && left === right) return true;
+
+  if (left && right && keysContainmentMatch(left, right)) {
+    // Only accept the fallback when no OTHER research group's own key would
+    // also containment-match either side, to stay conservative.
+    const otherGroupKeys = researchGroups
+      .map((g: any) => normalizeKey(g?.groupName || ''))
+      .filter((key: string) => key && key !== left);
+    const ambiguous = otherGroupKeys.some((key: string) => keysContainmentMatch(key, right) || keysContainmentMatch(key, left));
+    if (!ambiguous) return true;
+  }
+
   const generic = (value: string) => !value || /study wide|all patients|overall/.test(value);
   return generic(left) && generic(right);
 }
