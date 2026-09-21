@@ -1579,7 +1579,7 @@ export function parseRangeOfTimeData(
 
   // Explicit table headers outrank proximity and UI-order heuristics. Keep the
   // complete column inventory, including parent totals and nested subgroups.
-  const cohortRows = extractCohortTableRows(preDiscussionText, researchGroups);
+  const cohortRows = extractCohortTableRows(normalizedText, researchGroups);
   const timeRow = (pattern: RegExp) => cohortRows.find(row => pattern.test(row.label) && /\b(?:days?|weeks?|months?|years?)\b/i.test(row.label));
   const formatRow = (row: typeof cohortRows[number], proxy = false) => researchGroups.map((group, index) => {
     const column = row.groupColumns[index];
@@ -1590,13 +1590,14 @@ export function parseRangeOfTimeData(
       return `${cohortDisplayName(row, group, column)}: Not reported (possible merged footnote digit; review required)`;
     }
     const value = row.cells[column].replace(/[¹²³⁴⁵⁶⁷⁸⁹]/g, '');
+    if (/^(?:Not reached|NR)$/i.test(value)) return `${group.groupName}: ${row.label}: ${value}`;
     const cell = value.match(/^(\d+(?:\.\d+)?)(.*)$/)!;
     const endpoint = proxy ? 'survival' : /follow[- ]?up/i.test(row.label) ? 'follow-up' : describePatencyEndpoint(row.label);
     return `${cohortDisplayName(row, group, column)}: ${proxy ? 'Overall survival used as a proxy because follow-up duration was not reported: ' : ''}${stat} ${endpoint}: ${cell[1]} ${unit}${cell[2]}`;
   }).join('\n');
   const applicationRow = timeRow(patencyEndpointRegex);
   if (applicationRow) { appDuration = formatRow(applicationRow); appQuote = applicationRow.quote; }
-  const repeatRow = cohortRows.find(row => /^(?:Reintervention after\b|Repeat procedures?\b)/i.test(row.label));
+  const repeatRow = cohortRows.find(row => /^(?:Re-?intervention\b|Repeat procedures?\b)/i.test(row.label));
   if (repeatRow) {
     repeatExposures = researchGroups.map((group, index) => {
       const column = repeatRow.groupColumns[index];

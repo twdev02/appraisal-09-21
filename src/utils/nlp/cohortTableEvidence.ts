@@ -1,3 +1,4 @@
+import { explicitOutcomeTables } from './explicitOutcomeTables';
 import type { ResearchGroup } from '../../types';
 
 // Resolve columns by their full cohort identity, never by the order of the UI
@@ -44,7 +45,7 @@ export function extractCohortTableRows(text: string, groups: ResearchGroup[]): C
     return [name, ...(first.length >= 4 ? [first] : [])];
   }).filter(Boolean))].sort((a, b) => b.length - a.length);
   if (!roots.length) return [];
-  const result: CohortTableRow[] = [];
+  const result: CohortTableRow[] = explicitOutcomeTables(text, groups);
   for (let index = 0; index < tables.length; index++) {
     const table = tables[index];
     if (/univariate|multivariate|literature|prior studies/i.test(table[1])) continue;
