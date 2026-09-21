@@ -195,7 +195,7 @@ export async function prepareAnalysisContext(req: any, res: any): Promise<Prepar
   if (!geminiExtractionSuccess || !aiResponseText) {
     return res.status(500).json({
       success: false,
-      error: 'Gemini extraction failed: gemini-3.5-flash failed to respond.',
+      error: 'Gemini extraction failed: gemini-3.8-flash failed to respond.',
       failedField: 'Gemini PDF Analysis',
     });
   }

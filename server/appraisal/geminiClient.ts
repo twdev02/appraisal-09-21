@@ -108,7 +108,7 @@ export const getGeminiClient = (): GoogleGenAI | null => {
         const quotaError: any = new Error(
           clients.length > 1
             ? 'Gemini daily free-tier quota is exhausted for all configured API projects. Add another backup key from a different Google AI project or retry after the quota resets.'
-            : 'Gemini daily free-tier quota is exhausted for gemini-3.5-flash. Add GEMINI_API_KEY_2 from a different Google AI project or retry after the quota resets.'
+            : 'Gemini daily free-tier quota is exhausted for gemini-3.8-flash. Add GEMINI_API_KEY_2 from a different Google AI project or retry after the quota resets.'
         );
         quotaError.status = 429;
         quotaError.code = 'GEMINI_DAILY_QUOTA_EXCEEDED';
@@ -123,7 +123,7 @@ export const getGeminiClient = (): GoogleGenAI | null => {
 };
 
 
-// Robust Gemini caller using gemini-3.5-flash. It retries transient provider
+// Robust Gemini caller using gemini-3.8-flash. It retries transient provider
 // failures, but it DOES NOT waste retries on the daily per-project quota.
 export async function callGeminiWithRetry(
   genAi: GoogleGenAI,
@@ -131,7 +131,7 @@ export async function callGeminiWithRetry(
   config: any,
   maxRetries = 2
 ): Promise<string> {
-  const model = 'gemini-3.5-flash';
+  const model = 'gemini-3.8-flash';
   // Main extraction may retry transient provider failures. Focused repair calls
   // pass maxRetries=0 so one difficult paper cannot keep a single HTTP request
   // open through several full retry cycles and trigger a browser "Failed to fetch".
@@ -220,6 +220,6 @@ export async function callGeminiWithRetry(
     }
   }
 
-  throw lastError || new Error('Gemini API extraction failed with gemini-3.5-flash after maximum retries.');
+  throw lastError || new Error('Gemini API extraction failed with gemini-3.8-flash after maximum retries.');
 }
 
