@@ -1592,7 +1592,7 @@ export function parseRangeOfTimeData(
     const value = row.cells[column].replace(/[¹²³⁴⁵⁶⁷⁸⁹]/g, '');
     if (/^(?:Not reached|NR)$/i.test(value)) return `${group.groupName}: ${row.label}: ${value}`;
     const cell = value.match(/^(\d+(?:\.\d+)?)(.*)$/)!;
-    const endpoint = proxy ? 'survival' : /follow[- ]?up/i.test(row.label) ? 'follow-up' : describePatencyEndpoint(row.label);
+    const endpoint = proxy ? 'survival' : /follow[- ]?up/i.test(row.label) ? 'follow-up' : describePatencyEndpoint(row.label) + (/in effective drainage cases/i.test(row.label) ? ' [effective drainage cases only]' : '');
     return `${cohortDisplayName(row, group, column)}: ${proxy ? 'Overall survival used as a proxy because follow-up duration was not reported: ' : ''}${stat} ${endpoint}: ${cell[1]} ${unit}${cell[2]}`;
   }).join('\n');
   const applicationRow = timeRow(patencyEndpointRegex);

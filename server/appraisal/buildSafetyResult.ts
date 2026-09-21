@@ -1,3 +1,4 @@
+import { explicitOutcomeTables } from '../../src/utils/nlp/explicitOutcomeTables';
 import { extractReinterventionNarrative } from './reinterventionNarrative';
 import {
   parseStructuredSafetyTableFromText,
@@ -63,6 +64,33 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
     if (resultsMatch?.[1]) return resultsMatch[1];
     return source.split(/(?:^|\n)\s*(?:\d+\.?\s*)?(?:discussion|references)\b/i)[0] || source;
   })();
+
+  const explicitRows = explicitOutcomeTables(paperText, researchGroups);
+  // Recover only rows inside a source-defined adverse-event block.
+  let safetyBlock = false;
+  let safetyTable = '';
+  for (const row of explicitRows) {
+    if (row.location !== safetyTable) { safetyBlock = false; safetyTable = row.location; }
+    if (/^Adverse events\b/i.test(row.label)) { safetyBlock = true; continue; }
+    if (/^(?:RBO|Cumulative|Re-?intervention|Technical success|Overall survival)\b/i.test(row.label)) safetyBlock = false;
+    if (!safetyBlock) continue;
+    const population = explicitRows.find(r => r.location === row.location && r.label === 'Number of patients');
+    researchGroups.forEach((group: any, index: number) => {
+      const column = row.groupColumns[index];
+      if (column === undefined) return;
+      const metric = row.cells[column].match(/^(\d+)(?:\s*\(([0-9.]+)\))?$/);
+      if (!metric) return;
+      rawSafetyEvents = rawSafetyEvents.filter(event => !(
+        String(event.eventName || '').toLowerCase() === row.label.toLowerCase() &&
+        (event.groupId === group.id || event.groupName === group.groupName)));
+      rawSafetyEvents.push({eventName: row.label, eventType: 'Adverse Event / Complication',
+        groupId: group.id, groupName: group.groupName, numerator: metric[1],
+        denominator: population?.cells[column] || 'Not reported',
+        reportedPercentage: metric[2] ? `${metric[2]}%` : 'Not reported',
+        numeratorType: 'patients', denominatorType: 'patients', timing: 'Not reported',
+        evidenceQuote: row.quote, evidenceLocation: row.location});
+    });
+  }
 
   const initialSafetyValidation = sanitizeSafetyEventCandidates(rawSafetyEvents, {
     paperText: currentStudySafetyText,
@@ -924,6 +952,21 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
         evidenceLocation: `Results table - ${activeTiming} Re-intervention`,
         status: 'Reported' as const,
       });
+    });
+  }
+
+  // Named source columns override positional and MD reintervention guesses.
+  const explicitReintervention = explicitRows.find(row => /^Re-?intervention\s*[, (]/i.test(row.label));
+  if (explicitReintervention) {
+    const population = explicitRows.find(row => row.location === explicitReintervention.location && row.label === 'Number of patients');
+    researchGroups.forEach((_: any, index: number) => {
+      const column = explicitReintervention.groupColumns[index];
+      if (column === undefined) return;
+      const metric = explicitReintervention.cells[column].match(/^(\d+)(?:\s*\(([0-9.]+)\))?$/);
+      if (!metric) return;
+      tableReinterventionMetricsByGroup[index] = [{numerator: metric[1], denominator: population?.cells[column] || 'Not reported',
+        percentage: metric[2] ? `${metric[2]}%` : '', percentageSource: 'Reported', status: 'Reported',
+        evidenceQuote: explicitReintervention.quote, evidenceLocation: explicitReintervention.location}];
     });
   }
 

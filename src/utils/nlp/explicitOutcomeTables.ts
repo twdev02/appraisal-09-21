@@ -10,7 +10,7 @@ export function explicitOutcomeTables(text: string, groups: ResearchGroup[]): Co
     .replace(/\b(?:sbs|stenting|at|the|group|cohort|arm)\b/g, ' ').replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
   const output: CohortTableRow[] = [];
   captions.forEach((caption, i) => {
-    if (!/^(?:patient characteristics|baseline characteristics|clinical outcomes)\b/i.test(caption[1])) return;
+    if (!/^(?:patient characteristics|baseline characteristics|clinical outcomes)\b/i.test(caption[1]) || /previous|published|literature|review|other studies/i.test(caption[1])) return;
     const block = source.slice(caption.index! + caption[0].length, captions[i + 1]?.index ?? source.length);
     const lines = block.split(/\r?\n/);
     const firstRow = lines.findIndex(line => /\t/.test(line) && /^\s*(?:Age|Procedure time|Technical success|Clinical success|Functional success)\b/i.test(line));
