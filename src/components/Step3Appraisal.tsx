@@ -91,7 +91,7 @@ const GroupSegmentedField: React.FC<{ text?: string; groupNames: string[] }> = (
       {segments.map((seg, i) => (
         <div key={i} className="bg-white rounded border border-slate-200 p-2">
           {seg.group && (
-            <div className="text-[11px] font-bold text-slate-700 bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5 mb-1 inline-block">
+            <div className="text-[9.5px] font-semibold text-slate-500 uppercase tracking-wide mb-0.5 truncate">
               {seg.group}
             </div>
           )}
