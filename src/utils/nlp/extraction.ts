@@ -1355,7 +1355,7 @@ export function parseRangeOfTimeData(
     repeatExposures = researchGroups.map((g, i) => {
       const m = reintByGroup.get(i);
       return m ? `${g.groupName}: ${formatReinterventionMetric(m)}` : `${g.groupName}: Not reported`;
-    }).join('; ');
+    }).join('\n');
   } else if (repeatExposures === 'Not reported') {
     const singleReint = currentStudyOutcomeText.match(/(?:re-?intervention|repeat\s+(?:ERCP|stenting))[^.\n]{0,100}?(\d+)\s*(?:\(\s*(\d+(?:\.\d+)?)\s*%\s*\))?/i);
     if (singleReint) {
