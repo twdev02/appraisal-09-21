@@ -59,3 +59,11 @@ The runtime `/api/convert-to-md` route and the separate PDF → Markdown Lab wer
 2. Copy `.env.example` to `.env` or configure AI Studio Secrets.
 3. Set `GEMINI_API_KEY` (optional backup keys remain supported if already configured).
 4. Run: `npm run dev`
+
+PDF analysis uses a short upload request followed by polling, so model extraction
+and repair calls do not keep a gateway connection open. Run the Express server
+(`npm run dev`, or `npm run build` then `npm start`); `npm run preview` only serves
+the frontend and cannot process analyses. Jobs live in one server process, with
+up to four running at once and up to 32 retained jobs. Completed results expire
+after 15 minutes. A server restart requires retrying unfinished articles; multiple
+server replicas require a shared job store/worker before deployment.
