@@ -523,6 +523,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
           rangeOfTimeDetails: {
             ...parsedRangeOfTime.rangeOfTimeDetails,
             durationOfFollowUp: markdownDemographics.followUp.formattedDuration,
+            isFollowUpProxySurvival: false,
           },
           status: 'Reported' as any,
         };

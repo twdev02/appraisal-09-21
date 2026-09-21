@@ -1,3 +1,4 @@
+import { extractCohortTableRows, cohortDisplayName } from './cohortTableEvidence';
 import type {
   DueSetup,
   DueItem,
@@ -192,6 +193,31 @@ export function formatGenderDistribution(
 } {
   const combinedText = `${aiGenderComment || ''}\n${aiGenderQuote || ''}\n${paperText}`.replace(/[–—−]/g, '-');
   const groupNames = researchGroups.map((g, i) => g?.groupName || `Group ${i + 1}`);
+
+  const baselineRows = extractCohortTableRows(paperText, researchGroups)
+    .filter(row => /baseline|patient characteristics|demographic/i.test(row.location));
+  const counts = baselineRows.find(row => /^(?:Number of patients|Total patients)/i.test(row.label));
+  const males = baselineRows.find(row => /^Male\b/i.test(row.label) && row.location === counts?.location);
+  const females = baselineRows.find(row => /^Female\b/i.test(row.label) && row.location === counts?.location);
+  if (counts && (males || females)) {
+    const rows = researchGroups.map((group, index) => {
+      const column = counts.groupColumns[index];
+      if (column === undefined) return `${group.groupName} — Not reported (column mapping requires review)`;
+      const total = Number(counts.cells[column]);
+      const male = males ? Number(males.cells[column].match(/^\d+/)?.[0]) : undefined;
+      const female = females ? Number(females.cells[column].match(/^\d+/)?.[0]) : undefined;
+      const name = cohortDisplayName(counts, group, column);
+      if (!Number.isFinite(total) || (male !== undefined && male > total) || (female !== undefined && female > total)
+        || (male !== undefined && female !== undefined && male + female !== total)) {
+        return `${name} — Not reported (inconsistent baseline counts; review required)`;
+      }
+      const canDerive = !/\b(?:unknown|other|non[- ]?binary)\s*(?:sex|gender)?\s*\d/i.test(paperText);
+      return `${name} — ${male !== undefined ? `Male: n = ${male}` : canDerive ? `Male: n = ${total - female!} [derived from group N=${total}]` : 'Male: Not reported'}, ` +
+        `${female !== undefined ? `Female: n = ${female}` : canDerive ? `Female: n = ${total - male!} [derived from group N=${total}]` : 'Female: Not reported'}`;
+    });
+    return { formattedDistribution: rows.join('\n'), isReported: rows.some(row => /n = \d/.test(row)),
+      quote: [counts, males, females].filter(Boolean).map(row => row!.quote).join(' | '), location: counts.location };
+  }
 
   const formatPct = (_n: number, _total?: number, reportedPct?: string) => {
     if (reportedPct) return ` (${reportedPct}%)`;
@@ -543,15 +569,11 @@ export function formatGenderDistribution(
       const columnForGroup = (groupIndex: number): number | undefined => {
         const expectedN = groupN(groupIndex);
         if (expectedN) {
-          const exact = sourcePatientCounts.findIndex((n, idx) => n === expectedN && !usedColumns.has(idx));
-          if (exact >= 0) {
-            usedColumns.add(exact);
-            return exact;
+          const exact = sourcePatientCounts.map((n, idx) => n === expectedN && !usedColumns.has(idx) ? idx : -1).filter(idx => idx >= 0);
+          if (exact.length === 1 && researchGroups.filter((_, index) => groupN(index) === expectedN).length === 1) {
+            usedColumns.add(exact[0]);
+            return exact[0];
           }
-        }
-        if (sourcePatientCounts.length === researchGroups.length && !usedColumns.has(groupIndex)) {
-          usedColumns.add(groupIndex);
-          return groupIndex;
         }
         return undefined;
       };

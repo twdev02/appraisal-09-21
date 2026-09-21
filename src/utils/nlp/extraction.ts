@@ -1,3 +1,4 @@
+import { extractCohortTableRows, cohortDisplayName } from './cohortTableEvidence';
 import type {
   DueSetup,
   DueItem,
@@ -625,9 +626,9 @@ export function parseRangeOfTimeData(
     .replace(/([A-Za-z])-\s*\n\s*([a-z])/g, '$1$2');
 
   // Quantitative outcomes must come from the CURRENT study only.
-  const resultsSectionMatch = normalizedText.match(
-    /(?:^|\n)\s*(?:\d+\.?\s*)?results\s*(?:\n|$)([\s\S]*?)(?=(?:\n\s*(?:\d+\.?\s*)?(?:discussion|conclusion|conclusions|references)\b)|$)/i
-  );
+  const resultsSectionMatch = [...normalizedText.matchAll(
+    /(?:^|\n)\s*(?:\d+\.?\s*)?results\s*(?:\n|$)([\s\S]*?)(?=(?:\n\s*(?:\d+\.?\s*)?(?:discussion|conclusion|conclusions|references)\b)|$)/gi
+  )].at(-1);
   const preDiscussionText = normalizedText.split(/(?:^|\n)\s*(?:\d+\.?\s*)?(?:discussion|references)\b/i)[0] || normalizedText;
   const abstractResultsMatch = preDiscussionText.match(
     /\bresults\s*:?\s*([\s\S]*?)(?=\b(?:conclusion|conclusions|keywords?|introduction)\b)/i
@@ -925,9 +926,9 @@ export function parseRangeOfTimeData(
       if (!rowUnit) continue;
       const cells = extractStatCells(endpointSegment, rowUnit);
 
-      if (cells.length < researchGroups.length) continue;
+      if (cells.length !== researchGroups.length) continue;
       let sourceOrder = sourceGroupOrderNearLine(lineIndex);
-      if (sourceOrder.length < researchGroups.length) sourceOrder = researchGroups.map((_, i) => i);
+      if (sourceOrder.length !== researchGroups.length) continue;
 
       const byGroup = new Map<number, any>();
       sourceOrder.slice(0, researchGroups.length).forEach((groupIndex, cellIndex) => {
@@ -1043,9 +1044,9 @@ export function parseRangeOfTimeData(
       const rowUnit = endpointSegment.match(/\b(days?|weeks?|months?|years?|d|wk|wks|mo|mos|yr|yrs)\b/i)?.[1];
       if (!rowUnit) continue;
       const cells = extractStatCells(endpointSegment, rowUnit);
-      if (cells.length < researchGroups.length) continue;
+      if (cells.length !== researchGroups.length) continue;
       let sourceOrder = sourceGroupOrderNearLine(lineIndex);
-      if (sourceOrder.length < researchGroups.length) sourceOrder = researchGroups.map((_, i) => i);
+      if (sourceOrder.length !== researchGroups.length) continue;
       const byGroup = new Map<number, any>();
       sourceOrder.slice(0, researchGroups.length).forEach((groupIndex, cellIndex) => byGroup.set(groupIndex, cells[cellIndex]));
       const stat = /\bmean\b/i.test(logicalLine) ? 'Mean' : 'Median';
@@ -1325,9 +1326,9 @@ export function parseRangeOfTimeData(
       const line = lines[lineIndex];
       if (!/re-?intervention/i.test(line) || plannedProcedureKeyword.test(line)) continue;
       const cells = Array.from(line.matchAll(/(\d+)\s*\(\s*(\d+(?:\.\d+)?)\s*%?\s*\)/g)).map((m) => ({ n: m[1], pct: m[2] }));
-      if (cells.length < researchGroups.length) continue;
+      if (cells.length !== researchGroups.length) continue;
       let sourceOrder = sourceGroupOrderNearLine(lineIndex);
-      if (sourceOrder.length < researchGroups.length) sourceOrder = researchGroups.map((_, i) => i);
+      if (sourceOrder.length !== researchGroups.length) continue;
       sourceOrder.slice(0, researchGroups.length).forEach((gi, ci) => {
         if (!reintByGroup.has(gi)) reintByGroup.set(gi, cells[ci]);
       });
@@ -1350,10 +1351,10 @@ export function parseRangeOfTimeData(
       const cells = Array.from(line.matchAll(
         /(\d+)\s*\(\s*(\d+(?:\.\d+)?)\s*%?\s*\)/g
       )).map((m) => ({ n: m[1], pct: m[2] }));
-      if (cells.length < researchGroups.length) continue;
+      if (cells.length !== researchGroups.length) continue;
 
       let sourceOrder = sourceGroupOrderNearLine(lineIndex);
-      if (sourceOrder.length < researchGroups.length) sourceOrder = researchGroups.map((_, i) => i);
+      if (sourceOrder.length !== researchGroups.length) continue;
       sourceOrder.slice(0, researchGroups.length).forEach((gi, ci) => {
         reintByGroup.set(gi, cells[ci]);
       });
@@ -1451,10 +1452,10 @@ export function parseRangeOfTimeData(
       const cells = Array.from(valuePart.matchAll(
         /(\d+(?:\.\d+)?)\s*\(\s*([0-9.]+\s*[-–]\s*[0-9.]+|[^)]*(?:range|IQR)[^)]*)\)/gi
       )).map((m) => ({ value: m[1], detail: m[2].trim(), unit: rowUnit }));
-      if (cells.length < researchGroups.length) continue;
+      if (cells.length !== researchGroups.length) continue;
 
       let sourceOrder = sourceGroupOrderNearLine(lineIndex);
-      if (sourceOrder.length < researchGroups.length) sourceOrder = researchGroups.map((_, i) => i);
+      if (sourceOrder.length !== researchGroups.length) continue;
       const byGroup = new Map<number, any>();
       sourceOrder.slice(0, researchGroups.length).forEach((gi, ci) => byGroup.set(gi, cells[ci]));
       followUpDuration = researchGroups.map((g, i) => {
@@ -1499,9 +1500,9 @@ export function parseRangeOfTimeData(
       const rowUnit = valuePart.match(/\b(days?|weeks?|months?|years?|d|wk|wks|mo|mos|yr|yrs)\b/i)?.[1];
       if (!rowUnit) continue;
       const cells = Array.from(valuePart.matchAll(/(\d+(?:\.\d+)?)\s*\(\s*([^)]+)\)/g)).map((m) => ({ value: m[1], detail: m[2], unit: rowUnit }));
-      if (cells.length < researchGroups.length) continue;
+      if (cells.length !== researchGroups.length) continue;
       let sourceOrder = sourceGroupOrderNearLine(lineIndex);
-      if (sourceOrder.length < researchGroups.length) sourceOrder = researchGroups.map((_, i) => i);
+      if (sourceOrder.length !== researchGroups.length) continue;
       const byGroup = new Map<number, any>();
       sourceOrder.slice(0, researchGroups.length).forEach((gi, ci) => byGroup.set(gi, cells[ci]));
       followUpDuration = researchGroups.map((g, i) => {
@@ -1551,9 +1552,9 @@ export function parseRangeOfTimeData(
       const statistic = /\bmedian\b/i.test(survivalRowText) ? 'Median' : /\bmean\b/i.test(survivalRowText) ? 'Mean' : 'Survival';
       const cells = Array.from(survivalRowText.matchAll(/(\d+(?:\.\d+)?)\s*\(\s*([^)]+)\)/g))
         .map((m) => ({ value: m[1], detail: m[2], unit: rowUnit }));
-      if (cells.length < researchGroups.length) continue;
+      if (cells.length !== researchGroups.length) continue;
       let sourceOrder = sourceGroupOrderNearLine(lineIndex, survivalLines);
-      if (sourceOrder.length < researchGroups.length) sourceOrder = researchGroups.map((_, i) => i);
+      if (sourceOrder.length !== researchGroups.length) continue;
       const byGroup = new Map<number, any>();
       sourceOrder.slice(0, researchGroups.length).forEach((gi, ci) => byGroup.set(gi, cells[ci]));
       followUpDuration = researchGroups.map((g, i) => {
@@ -1615,6 +1616,42 @@ export function parseRangeOfTimeData(
         }
       }
     }
+  }
+
+  // Explicit table headers outrank proximity and UI-order heuristics. Keep the
+  // complete column inventory, including parent totals and nested subgroups.
+  const cohortRows = extractCohortTableRows(preDiscussionText, researchGroups);
+  const timeRow = (pattern: RegExp) => cohortRows.find(row => pattern.test(row.label) && /\b(?:days?|weeks?|months?|years?)\b/i.test(row.label));
+  const formatRow = (row: typeof cohortRows[number], proxy = false) => researchGroups.map((group, index) => {
+    const column = row.groupColumns[index];
+    if (column === undefined) return `${group.groupName}: Not reported (column mapping requires review)`;
+    const unit = row.label.match(/\b(?:days?|weeks?|months?|years?)\b/i)![0];
+    const stat = /\bmean\b/i.test(row.label) ? 'Mean' : /\bmedian\b/i.test(row.label) ? 'Median' : 'Reported';
+    if (/^\d+$/.test(row.cells[column]) && row.footnoteMarkers?.some(marker => row.cells[column].length > marker.length && row.cells[column].endsWith(marker))) {
+      return `${cohortDisplayName(row, group, column)}: Not reported (possible merged footnote digit; review required)`;
+    }
+    const value = row.cells[column].replace(/[¹²³⁴⁵⁶⁷⁸⁹]/g, '');
+    const cell = value.match(/^(\d+(?:\.\d+)?)(.*)$/)!;
+    const endpoint = proxy ? 'survival' : /follow[- ]?up/i.test(row.label) ? 'follow-up' : describePatencyEndpoint(row.label);
+    return `${cohortDisplayName(row, group, column)}: ${proxy ? 'Overall survival used as a proxy because follow-up duration was not reported: ' : ''}${stat} ${endpoint}: ${cell[1]} ${unit}${cell[2]}`;
+  }).join('\n');
+  const applicationRow = timeRow(patencyEndpointRegex);
+  if (applicationRow) { appDuration = formatRow(applicationRow); appQuote = applicationRow.quote; }
+  const repeatRow = cohortRows.find(row => /^(?:Reintervention after\b|Repeat procedures?\b)/i.test(row.label));
+  if (repeatRow) {
+    repeatExposures = researchGroups.map((group, index) => {
+      const column = repeatRow.groupColumns[index];
+      return column === undefined ? `${group.groupName}: Not reported (column mapping requires review)`
+        : `${cohortDisplayName(repeatRow, group, column)}: ${repeatRow.label}: ${repeatRow.cells[column]} [as reported; source denominator]`;
+    }).join('\n');
+    repeatQuote = repeatRow.quote;
+  }
+  const directFollowUp = timeRow(/follow[- ]?up/i);
+  const survivalRow = timeRow(/^(?:overall\s+survival|patient\s+survival|survival\s+time|median\s+survival|mean\s+survival)/i);
+  if (directFollowUp) {
+    followUpDuration = formatRow(directFollowUp); followUpQuote = directFollowUp.quote; isProxySurvival = false;
+  } else if (survivalRow && (followUpDuration === 'Not reported' || isProxySurvival)) {
+    followUpDuration = formatRow(survivalRow, true); followUpQuote = survivalRow.quote; isProxySurvival = true;
   }
 
   const selectedOptions: string[] = [];

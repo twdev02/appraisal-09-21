@@ -33,6 +33,7 @@ MANDATORY EXTRACTION RULES:
    - Must expand medical abbreviations (e.g. 'EUS-GBD' = EUS-guided gallbladder drainage = transgastric/transduodenal gallbladder drainage; 'WON' = walled-off necrosis; 'PFC' = pancreatic fluid collection).
    - If primary target organ and drainage procedure match any DUE indication, classify as "Same indication".
 10. Relevance Checklist - Gender (Item H):
+    - Bind every gender/time/outcome value to its EXACT source column header, including the full parent/subgroup path. A parent group's "overall" column is not the study-wide population. Never align cells by the order of researchGroups or by a matching sample size alone. Preserve mean vs median and the reported endpoint; mark derived sex counts explicitly. Superscript footnote digits are not part of numeric values. If a column is ambiguous, leave that group value Not reported rather than borrowing a sibling/parent value.
     - Extract patient sex/gender counts in the strict format:
        Male: n = [number]
        Female: n = [number]

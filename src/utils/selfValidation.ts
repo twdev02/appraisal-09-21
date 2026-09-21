@@ -197,6 +197,9 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
 
   const gender = data.relevance?.itemH_gender;
   if (gender) {
+    if (/requires review|review required/i.test(gender.comment || '')) {
+      addIssue(issues, 'review', 3, `step3.${gender.id}`, 'Gender source columns or counts could not be safely reconciled. Check the original baseline table.', 'groupMapping');
+    }
     const pairs = parseGenderPairs(`${gender.comment || ''}\n${gender.evidence?.quote || ''}`);
     if (pairs.length === 1 && articleN !== null) {
       const total = pairs[0].male + pairs[0].female;
@@ -212,6 +215,9 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
   const range = data.relevance?.itemJ_rangeOfTime;
   if (range?.rangeOfTimeDetails) {
     const details = range.rangeOfTimeDetails;
+    if (/requires review|review required/i.test(`${details.durationOfApplicationOrUse}\n${details.durationOfFollowUp}`)) {
+      addIssue(issues, 'review', 3, `step3.${range.id}`, 'A time value has ambiguous cohort mapping or a possible merged footnote digit. Confirm the source table before using it.', 'groupMapping');
+    }
     const allMissing = [details.durationOfApplicationOrUse, details.numberOfRepeatExposures, details.durationOfFollowUp].every(missing);
     const source = String(data.rawPaperText || '').split(/(?:^|\n)\s*(?:discussion|references)\b/i)[0] || '';
     if (allMissing && /\b(?:patency|indwell(?:ing)?|dwell\s+time|follow[- ]?up|survival|reintervention|repeat\s+(?:stent|procedure)|another\s+stent|second\s+stent)\b/i.test(source)) {
