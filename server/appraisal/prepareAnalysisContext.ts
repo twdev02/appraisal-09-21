@@ -36,14 +36,30 @@ export interface PreparedAnalysisContext {
   primaryResearchGroup: any;
 }
 
+function sendKeepAlive(res: any) {
+  try {
+    if (res && !res.headersSent && typeof res.write === 'function') {
+      res.write(' ');
+      if (typeof res.flush === 'function') {
+        res.flush();
+      }
+    }
+  } catch (e) {
+    // Ignore if client disconnected
+  }
+}
+
 /**
  * Stage 1-2: request/PDF/Gemini extraction plus research-group normalization.
  * This is a structural extraction from the former analyzePdfRoute.ts; appraisal
  * scoring and safety logic intentionally live in separate stages.
  */
 export async function prepareAnalysisContext(req: any, res: any): Promise<PreparedAnalysisContext | any> {
+  const startTime = Date.now();
+  console.log(`[Pipeline] Analysis started at ${new Date().toISOString()}`);
   req.setTimeout(300000);
   res.setTimeout(300000);
+  sendKeepAlive(res);
   let paperText = req.body.paperText || '';
   const markdownText = typeof req.body.markdownText === 'string' ? req.body.markdownText : '';
   const markdownDemographics = extractMarkdownDemographicEvidence(markdownText);
@@ -116,6 +132,9 @@ export async function prepareAnalysisContext(req: any, res: any): Promise<Prepar
     }
   }
 
+  sendKeepAlive(res);
+  console.log(`[Stage 1 Completed] PDF text extraction finished in ${Date.now() - startTime}ms`);
+
   const contentParts: any[] = [];
 
   // Prioritize extracted clean text (from pdf-parse) over heavy multimodal
@@ -164,7 +183,11 @@ export async function prepareAnalysisContext(req: any, res: any): Promise<Prepar
       };
 
       aiResponseText = await callGeminiWithRetry(ai, contents, config);
-      if (aiResponseText) geminiExtractionSuccess = true;
+      if (aiResponseText) {
+        geminiExtractionSuccess = true;
+        sendKeepAlive(res);
+        console.log(`[Stage 2 Completed] Main Gemini extraction finished in ${Date.now() - startTime}ms`);
+      }
     } catch (err: any) {
       const errMsg = err?.message || String(err);
       console.error('Gemini extraction error:', err);
