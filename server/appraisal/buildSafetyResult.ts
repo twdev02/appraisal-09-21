@@ -983,6 +983,20 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
         .replace(/\b(?:group|cohort|arm)\b$/i, '')
         .replace(/\s+/g, ' ')
         .trim();
+    // A research group's stored name can carry a clarifying descriptor (e.g.
+    // "Simultaneous group (side by side)") that the table's own column/row
+    // header omits when the technique is already implied by contrast with the
+    // other rows (the header just says "Simultaneous group"). Exact-key
+    // equality then never finds that header line. Fall back to token-set
+    // containment, only when it resolves to exactly one line.
+    const tableGroupKeyMatchesLine = (groupKey: string, lineKey: string) => {
+      if (groupKey === lineKey) return true;
+      const groupTokens = new Set(groupKey.split(' ').filter(Boolean));
+      const lineTokens = new Set(lineKey.split(' ').filter(Boolean));
+      if (groupTokens.size === 0 || lineTokens.size === 0) return false;
+      const isSubset = (small: Set<string>, big: Set<string>) => [...small].every((token) => big.has(token));
+      return isSubset(groupTokens, lineTokens) || isSubset(lineTokens, groupTokens);
+    };
 
     const tableChunks = normalizedSafetyText.split(/(?=\bTable\s+\d+\b)/i);
     for (const tableChunk of tableChunks) {
@@ -994,7 +1008,12 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
 
       const groupLineIndices = researchGroups.map((group: any) => {
         const key = normalizeTableGroupKey(group.groupName);
-        return tableLines.findIndex((line: string) => normalizeTableGroupKey(line) === key);
+        const exactIndex = tableLines.findIndex((line: string) => normalizeTableGroupKey(line) === key);
+        if (exactIndex >= 0) return exactIndex;
+        const containmentIndices = tableLines
+          .map((line: string, index: number) => (tableGroupKeyMatchesLine(key, normalizeTableGroupKey(line)) ? index : -1))
+          .filter((index: number) => index >= 0);
+        return containmentIndices.length === 1 ? containmentIndices[0] : -1;
       });
       if (groupLineIndices.some((index: number) => index < 0)) continue;
 
@@ -1106,6 +1125,19 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
       .replace(/\b(?:group|cohort|arm)\b$/i, '')
       .replace(/\s+/g, ' ')
       .trim();
+  // Whole-word containment fallback for when the AI echoes the group name
+  // without a clarifying descriptor our researchGroups entry carries (e.g.
+  // "Simultaneous group" vs "Simultaneous group (side by side)"). Comparing
+  // whole tokens (not substrings) keeps "Covered SEMS" from matching
+  // "Uncovered SEMS" the way naive substring matching would.
+  const summaryGroupKeyMatches = (a: string, b: string) => {
+    if (a === b) return true;
+    const tokensA = new Set(a.split(' ').filter(Boolean));
+    const tokensB = new Set(b.split(' ').filter(Boolean));
+    if (tokensA.size === 0 || tokensB.size === 0) return false;
+    const isSubset = (small: Set<string>, big: Set<string>) => [...small].every((token) => big.has(token));
+    return isSubset(tokensA, tokensB) || isSubset(tokensB, tokensA);
+  };
 
   const resolveGroupMortality = (gs: any, useOverallFallback: boolean) => {
     const groupValue = !isMissingExtractedValue(gs?.mortality) ? String(gs.mortality).trim() : 'Not reported';
@@ -1170,11 +1202,15 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
   const groupSummaries = researchGroups.length > 0
     ? researchGroups.map((matchedG: any, index: number) => {
         const matchedKey = normalizeSummaryGroupKey(matchedG.groupName);
-        const gs = rawGroupSummaries.find(
+        const byIdOrExactName = rawGroupSummaries.find(
           (summary: any) =>
             (summary.groupId && summary.groupId === matchedG.id) ||
             (summary.groupName && normalizeSummaryGroupKey(summary.groupName) === matchedKey)
-        ) || {};
+        );
+        const containmentCandidates = byIdOrExactName ? [] : rawGroupSummaries.filter(
+          (summary: any) => summary.groupName && summaryGroupKeyMatches(normalizeSummaryGroupKey(summary.groupName), matchedKey)
+        );
+        const gs = byIdOrExactName || (containmentCandidates.length === 1 ? containmentCandidates[0] : {});
 
         const deterministicReinterventions = tableReinterventionMetricsByGroup[index] || [];
         const narrative = narrativeReinterventions.find(item => item.groupIndex === index);
