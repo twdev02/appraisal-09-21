@@ -1,0 +1,823 @@
+5.1.1 Search Site: https://www.pubmed.gov
+A.	Niti-S Pyloric/Duodenal Stents – Uncovered type
+(1) Search Terms: “Patient / Population / Problem + Intervention”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Pyloric stricture	5,648
+	2	Pyloric obstruction	6,323
+	3	Duodenal stricture	2,250
+	4	Duodenal obstruction	8,564
+	5	Gastric outlet obstruction	9,201
+	6	Malignant pyloric stricture	693
+	7	Malignant pyloric obstruction	868
+	8	Malignant duodenal stricture	667
+	9	Malignant duodenal obstruction	2,160
+	10	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8 OR #9	18,463
+Intervention	11	Self-expandable metallic stent	2,744
+	12	Self-expandable metal stent	3,707
+	13	SEMS	3,274
+	14	Taewoong	228
+	15	Niti-S	77
+	16	Uncovered stent	1,524
+	17	#11 OR #12 OR #13 OR #14 OR #15 OR #16	7,168
+Result	18	#10 AND #17	493
+Date-Publication	19	2025/01/01~2025/12/31	30
+Filter	20	Humans	12
+
+ 
+ 
+Articles (12)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1.	Endoscopic ultrasonography-guided gastroenterostomy versus uncovered duodenal metal stenting for unresectable malignant gastric outlet obstruction (DRA-GOO): a multicentre randomised controlled trial. Teoh AYB, Lakhtakia S, Tarantino I, Perez-Miranda M, Kunda R, Maluf-Filho F, Dhir V, Basha J, Chan SM, Ligresti D, Ma MTW, de la Serna-Higuera C, Yip HC, Ng EKW, Chiu PWY, Itoi T. Lancet Gastroenterol Hepatol. 2025 Jun;10(6):e8-e16. doi: 10.1016/S2468-1253(25)00136-0. PMID: 40347959 Clinical Trial.	Not selected
+Reason for Exclusion 
+Insufficient information: Valid information relevant to performance and/or safety are limited
+2.	EUS guided gastrojejunostomy: techniques and outcomes. Jayanna SH, Rana SS. Expert Rev Gastroenterol Hepatol. 2025 Jul;19(7):745-754. doi: 10.1080/17474124.2025.2512168. Epub 2025 May 27. PMID: 40411777 Review.	Not selected
+Reason for Exclusion 
+Insufficient information: Valid information relevant to performance and/or safety are limited
+3.	Is endoscopic ultrasound-guided gastroenterostomy better than surgical gastrojejunostomy or duodenal stenting? Teoh AYB, Chan SM, Yip HC. Dig Endosc. 2025 Jan;37(1):77-84. doi: 10.1111/den.14929. Epub 2024 Oct 6. PMID: 39370536 Free PMC article. Review.	Selected (1)
+Reason for Selection
+This review aims to compare EUS-GJ, Duodenal stenting, and Surgical gastrojejunostomy
+4.	Advancing care in malignant gastric outlet obstruction: a contemporary review of management strategies. Wierzbicka A, Shah T. Curr Opin Gastroenterol. 2025 Nov 1;41(6):409-415. doi: 10.1097/MOG.0000000000001101. Epub 2025 Apr 23. PMID: 40304723 Review.	Not selected
+Reason for Exclusion 
+Irrelevant articles: This review summarizes the data on management strategies for MGOO by EUS-GE and SGJ.
+5.	[Palliative Surgical Approaches for Malignant Upper Gastrointestinal Obstruction]. Maruyama S, Higuchi Y, Shoda K, Kawaguchi Y, Ichikawa D. Gan To Kagaku Ryoho. 2025 Oct;52(10):716-719. PMID: 41139964 Review. Japanese.	Not selected
+Reason for Exclusion 
+Insufficient information: Valid information relevant to performance and/or safety are limited
+6.	A real-world study of balloon dilation vs. self-expandable metal stents for benign gastric outlet obstruction. Liu P, Zhang Y, Guo C, Han X, Bi Y. BMC Gastroenterol. 2025 Aug 19;25(1):599. doi: 10.1186/s12876-025-04225-y. PMID: 40830837 Free PMC article.	Selected (2)
+Reason for Selection
+This comparative study presents the safety and efficacy of balloon dilation and SEMS for benign GOO
+7.	Optimizing EUS-guided choledochoduodenostomy with lumen-apposing metal stents for primary drainage of malignant distal biliary obstruction (SCORPION-IIp): a prospective pilot study. Fritzsche JA, Fockens P, Besselink MG, Busch OR, Daams F, Wielenga MCB, Wilmink JW, Voermans RP, Van Wanrooij RLJ. Gastrointest Endosc. 2025 May;101(5):1009-1016. doi: 10.1016/j.gie.2024.10.012. Epub 2024 Oct 16. PMID: 39424003 Clinical Trial.	Not selected
+Reason for Exclusion 
+Irrelevant articles: This clinical trial presents EUS-CDS with LAMS for malignant distal biliary obstruction
+8.	Clinical outcomes and predictive factors for stent patency in malignant duodenojejunal obstruction: comparison of distal duodenum and proximal jejunum. Lee HS, So H, Lee Y, Cho SH, Huh G, Song TJ, Seo DW, Oh D. J Gastrointest Surg. 2025 Dec;29(12):102252. doi: 10.1016/j.gassur.2025.102252. Epub 2025 Oct 14. PMID: 41101379	Not selected
+Reason for Exclusion 
+Insufficient information: Valid information relevant to performance and/or safety are limited
+9.	Feasibility and clinical utility of stone extraction balloon catheter-assisted endoscopic stenting for malignant distal duodenal and proximal jejunal obstruction (with video). Park JH, Kim YR, Hwang JC, Lee KM, Yoo BM, Kim JH, Shin EJ, Yang MJ. Surg Endosc. 2025 Aug;39(8):5413-5420. doi: 10.1007/s00464-025-11861-8. Epub 2025 Jul 7. PMID: 40624422	Not selected
+Reason for Exclusion 
+Insufficient information: Valid information relevant to performance and/or safety are limited
+10.	Clinical Outcomes of Secondary Duodenal Self-Expandable Metallic Stenting for Duodenal Stent Dysfunction in Patients with Malignant Duodenal Obstruction: A Retrospective Multicenter Study. So H, Joo HD, Song TJ, Ko SW, Lee HS, Cho SH, Oh D, Han SY, Kim DU, Seo DW. Gut Liver. 2025 Nov 15;19(6):909-916. doi: 10.5009/gnl240014. Epub 2024 May 22. PMID: 38772730 Free PMC article.	Selected (3)
+Reason for Selection 
+This multicenter study analyzed the clinical outcomes of secondary duodenal SEMS placement for MDO
+11.	Reintervention After Endoscopic Ultrasound-Guided Choledochoduodenostomy for Distal Malignant Biliary Obstruction. Giri S, Shah B, Narayan J, Chavan R, Donapati VR, Khare S, Varghese J, Mallick B, Kale A, Sundaram S. Surg Laparosc Endosc Percutan Tech. 2025 Aug 1;35(4):e1382. doi: 10.1097/SLE.0000000000001382. PMID: 40497695	Not selected
+Reason for Exclusion 
+Insufficient information: Valid information relevant to performance and/or safety are limited
+12.	Successful conversion of percutaneous transhepatic gallbladder drainage to endoscopic ultrasound-guided hepaticogastrostomy combined with antegrade stenting for a malignant distal biliary obstruction due to invasive intraductal papillary mucinous carcinoma: a case report. Yoshimoto T, Takajo T, Takihara H, Yamamoto R. J Med Case Rep. 2025 Dec 24;19(1):644. doi: 10.1186/s13256-025-05714-0. PMID: 41444674 Free PMC article. 	Not selected
+Reason for Exclusion 
+Irrelevant articles: This case report reports the conversion of percutaneous transhepatic gallbladder drainage to EUS-HGS combined with antegrade stenting
+
+ 
+(2) Search Terms: “Patient / Population / Problem + Outcome”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Pyloric stricture	5,648
+	2	Pyloric obstruction	6,323
+	3	Duodenal stricture	2,250
+	4	Duodenal obstruction	8,564
+	5	Gastric outlet obstruction	9,201
+	6	Malignant pyloric stricture	693
+	7	Malignant pyloric obstruction	868
+	8	Malignant duodenal stricture	667
+	9	Malignant duodenal obstruction	2,160
+	10	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8 OR #9	18,463
+Outcome	11	Stent patency	12,534
+	12	Obstruction relief	7,191
+	13	Obstruction resolution	10,307
+	14	Obstruction improvement	73,351
+	15	#11 OR #12 OR #13 OR #14	97,118
+Result	16	#10 AND #15	1,782
+Date-Publication	17	2025/01/01~2025/12/31	143
+Filter	18	Humans	44
+
+ 
+ 
+Articles (44)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1.	Endoscopic ultrasonography-guided gastroenterostomy versus uncovered duodenal metal stenting for unresectable malignant gastric outlet obstruction (DRA-GOO): a multicentre randomised controlled trial. Teoh AYB, Lakhtakia S, Tarantino I, Perez-Miranda M, Kunda R, Maluf-Filho F, Dhir V, Basha J, Chan SM, Ligresti D, Ma MTW, de la Serna-Higuera C, Yip HC, Ng EKW, Chiu PWY, Itoi T. Lancet Gastroenterol Hepatol. 2025 Jun;10(6):e8-e16. doi: 10.1016/S2468-1253(25)00136-0. PMID: 40347959 Clinical Trial.	Duplicated
+2.	Novel nutrition strategies in gastric and esophageal cancer. Boyle E, Elliott JA. Expert Rev Gastroenterol Hepatol. 2025 Jan-Feb;19(2):89-104. doi: 10.1080/17474124.2025.2457444. Epub 2025 Jan 30. PMID: 39864091 Review.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This review presents nutrition strategies in gastric and esophageal cancer
+3.	Advancing care in malignant gastric outlet obstruction: a contemporary review of management strategies. Wierzbicka A, Shah T. Curr Opin Gastroenterol. 2025 Nov 1;41(6):409-415. doi: 10.1097/MOG.0000000000001101. Epub 2025 Apr 23. PMID: 40304723 Review.	Duplicated
+4.	Is endoscopic ultrasound-guided gastroenterostomy better than surgical gastrojejunostomy or duodenal stenting? Teoh AYB, Chan SM, Yip HC. Dig Endosc. 2025 Jan;37(1):77-84. doi: 10.1111/den.14929. Epub 2024 Oct 6. PMID: 39370536 Free PMC article. Review.	Duplicated
+5.	Esophageal motility disorders other than achalasia. Kim N, Kelahan L, Carucci LR. Abdom Radiol (NY). 2025 Sep;50(9):3993-4003. doi: 10.1007/s00261-025-04828-9. Epub 2025 Mar 1. PMID: 40024921 Review.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This review presents esophageal motility disorders except achalasia
+6.	Endoscopic ultrasound-guided gastroenterostomy for the treatment of gastric outlet obstruction secondary to acute pancreatitis. Wannhoff A, Canakis A, Sharaiha RZ, Fayyaz F, Schlag C, Sharma N, Elsayed I, Khashab MA, Baron TH, Caca K, Irani SS. Endoscopy. 2025 Mar;57(3):249-254. doi: 10.1055/a-2452-5307. Epub 2024 Nov 11. PMID: 39529322	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This multicenter study presents the outcomes of EUS-GE in benign GOO caused by duodenal stenosis
+7.	[Palliative Surgical Approaches for Malignant Upper Gastrointestinal Obstruction]. Maruyama S, Higuchi Y, Shoda K, Kawaguchi Y, Ichikawa D. Gan To Kagaku Ryoho. 2025 Oct;52(10):716-719. PMID: 41139964 Review. Japanese.     	Duplicated
+8.	Long-Term Outcomes of EUS-Guided Gastroenterostomy: A Large, Single-Center Experience. Trieu JA, Kahlenberg S, Gilman AJ, Hathorn K, Baron TH. Clin Transl Gastroenterol. 2025 Jan 1;16(1):e00648. doi: 10.14309/ctg.0000000000000648. PMID: 39620984 Free PMC article.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents long-term outcomes of EUS-GE with using LAMS
+9.	EUS-directed transduodenal ERCP in concomitant gastric outlet and biliary obstruction. Kesar V, Abel WF, Bapaye J, Wasserman RD, Rozenberg J, Garikipati S, Mönkemüller KE, Kesar V, Yeaton P. Gastrointest Endosc. 2025 Apr;101(4):885-889. doi: 10.1016/j.gie.2024.12.003. Epub 2024 Dec 9. PMID: 39662635	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents EUS-directed transduodenal ERCP with using LAMS
+10.	Long-term outcomes of EUS-guided balloon-occluded gastrojejunostomy bypass for malignant gastric outlet obstruction (with video). Tsuchiya T, Itoi T, Ishii K, Tanaka R, Tonozuka R, Mukai S, Nagai K, Yamamoto K, Matsunami Y, Kojima H, Minami H, Asano K, Sofuni A. Gastrointest Endosc. 2025 Jan;101(1):195-199. doi: 10.1016/j.gie.2024.07.006. Epub 2024 Jul 23. PMID: 39053650	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents EUS-guided balloon-occluded gastrojejunostomy bypass for MGOO
+11.	A national perspective on palliative interventions for malignant gastric outlet obstruction. Ng AP, Hadaya JE, Sanaiha Y, Chervu NL, Girgis MD, Benharash P. J Gastrointest Surg. 2025 Feb;29(2):101884. doi: 10.1016/j.gassur.2024.101884. Epub 2024 Nov 14. PMID: 39547591	Selected (4)
+Reason for Selection
+This comparative study presents short-term clinical and financial outcomes associated with GJ and Endoscopic Stenting in MGOO
+12.	Endoscopic Ultrasound-Guided Gastrojejunostomy as a Primary Treatment Modality for Malignant Gastric Outlet Obstruction: A Large Multicenter Experience. Sonthalia N, Chavan R, Singh P, Narayan J, Sud S, Shah CN, Zanwar S, Tewari A, Rajput S, Singla V, Roy A, Koul S, Goel A, Ghoshal UC, Goenka MK. J Gastroenterol Hepatol. 2025 Jun;40(6):1515-1524. doi: 10.1111/jgh.16959. Epub 2025 Apr 4. PMID: 40181785	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This multicenter study presents endoscopic EUS-GJ for MGOO
+13.	Safety and feasibility of laparoscopic stomach-partitioning gastrojejunostomy combined with neoadjuvant chemotherapy followed by minimally invasive gastrectomy for resectable gastric cancer with gastric outlet obstruction. Tanaka T, Suda K, Nakauchi M, Fujita M, Suzuki K, Umeki Y, Serizawa A, Akimoto S, Watanabe Y, Shibasaki S, Matsuoka H, Inaba K, Uyama I. Surg Endosc. 2025 Feb;39(2):837-849. doi: 10.1007/s00464-024-11427-0. Epub 2024 Dec 2. PMID: 39623174	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents safety and feasibility of laparoscopic stomach-partitioning gastrojejunostomy combined with chemotherapy
+14.	Clinical Success Impacts Overall Survival in Patients Undergoing Palliation for Malignant Gastric Outlet Obstruction Using Enteral Stents or Endoscopic Ultrasound Guided Gastroenterostomy. Mahajan A, Sundaram S, Puri R, Shravan GH, Mane K, Kale A, Patkar S, Goel M, Shrikhande S, Chaudhari V, Patil P, Mehta S. J Gastroenterol Hepatol. 2025 Oct;40(10):2552-2559. doi: 10.1111/jgh.70066. Epub 2025 Aug 30. PMID: 40884246 Free PMC article.	Selected (5)
+Reason for Selection
+This comparative study presents clinical success and overall survival in EUS-GE and Enteral Stents
+15.	Duodenal obstruction secondary to metastatic breast cancer. O'Neill RS, Field A, Kim BSM, Ferguson JS, Ghaly S, Dear RF. J Cancer Res Ther. 2025 Apr 1;21(3):755-757. doi: 10.4103/jcrt.jcrt_2022_24. Epub 2025 Jul 5. PMID: 40616566	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report reports a patient with metastatic breast cancer who underwent chemotherapy
+16.	Comparing palliative gastrectomy and gastrojejunostomy for advanced gastric cancer: impact on survival and postoperative outcomes. Lessing Y, Inbar-Weissman T, Cohen R, Messer N, Erlich-Feingold O, Kanani F, Lahat G, Orbach L. Minerva Surg. 2025 Dec;80(6):452-460. doi: 10.23736/S2724-5691.25.11028-9. PMID: 41622824	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This comparative study presents survival and outcomes of palliative gastrectomy and gastrojejunostomy
+17.	Biomechanical Impact of Partitioning Position and Angle on Post-SPGJ Gastric Emptying. Fan Z, Li Q, Xu F, Zhang H, Ye X, Zheng Z, Zhang J. Ann N Y Acad Sci. 2025 Dec;1554(1):227-238. doi: 10.1111/nyas.70104. Epub 2025 Oct 22. PMID: 41123176	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents the biomechanical impact of post-SPGJ
+18.	Clinical outcomes and predictive factors for stent patency in malignant duodenojejunal obstruction: comparison of distal duodenum and proximal jejunum. Lee HS, So H, Lee Y, Cho SH, Huh G, Song TJ, Seo DW, Oh D. J Gastrointest Surg. 2025 Dec;29(12):102252. doi: 10.1016/j.gassur.2025.102252. Epub 2025 Oct 14. PMID: 41101379	Duplicated
+19.	Feasibility and clinical utility of stone extraction balloon catheter-assisted endoscopic stenting for malignant distal duodenal and proximal jejunal obstruction (with video). Park JH, Kim YR, Hwang JC, Lee KM, Yoo BM, Kim JH, Shin EJ, Yang MJ. Surg Endosc. 2025 Aug;39(8):5413-5420. doi: 10.1007/s00464-025-11861-8. Epub 2025 Jul 7. PMID: 40624422	Duplicated
+20.	Clinical Outcomes of Secondary Duodenal Self-Expandable Metallic Stenting for Duodenal Stent Dysfunction in Patients with Malignant Duodenal Obstruction: A Retrospective Multicenter Study. So H, Joo HD, Song TJ, Ko SW, Lee HS, Cho SH, Oh D, Han SY, Kim DU, Seo DW. Gut Liver. 2025 Nov 15;19(6):909-916. doi: 10.5009/gnl240014. Epub 2024 May 22. PMID: 38772730 Free PMC article.	Duplicated
+21.	Robotic-assisted trans-mesocolic side-to-side duodenojejunostomy for palliative management of malignant distal duodenal obstruction. Yin H, Sharma D, Wang JJ, Ganjouei AA, Kouanda A, Hirose K, Nakakura E, Kirkwood K, Corvera C, Alseidi A, Adam MA. Chin Clin Oncol. 2025 Feb;14(1):5. doi: 10.21037/cco-24-87. PMID: 40081386	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report reports robotic-assisted trans-mesocolic side-to-side duodenojejunostomy for DDO
+22.	A Rare Presentation of IgG4-Related Disease with Gastric Outlet Obstruction and Lymphadenopathy: A Case Report. Alsaifi M, Al Sawafi Y, Al Julandani N. Int J Surg Pathol. 2025 Jun;33(4):982-986. doi: 10.1177/10668969241291889. Epub 2024 Nov 25. PMID: 39584697	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report reports a patient with IgG4-related disease with GOO
+23.	Endoscopic Ultrasound Guided Gastro-Gastrostomy for Management of Pouch Outlet Obstruction Secondary to Vertical Banded Gastroplasty: Efficacy and Safety. Hoilat G, Celdir M, Gerke H. Obes Surg. 2025 Aug;35(8):3316-3320. doi: 10.1007/s11695-025-07957-8. Epub 2025 Jul 16. PMID: 40670891 Free PMC article.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents EUS-gastrogastromy for pouch outlet obstruction
+24.	Gastric bezoar entering the duodenum causing intestinal obstruction: A case report. Wang H, Zhang Y, Zhong H, Zhang H, Ma Y. Medicine (Baltimore). 2025 Sep 5;104(36):e44149. doi: 10.1097/MD.0000000000044149. PMID: 40922313 Free PMC article.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report reports a patient with gastric bezoar who underwent laparoscopic assisted jejunotomy
+25.	[Endoscopic ultrasound-guided gastro-enteric anastomosis for malignant gastric outlet obstruction: Initial experience in an endoscopic center in Lima-Peru]. Chirinos-Vega JA, Ponce de León Molina OE. Rev Gastroenterol Peru. 2025 Jul-Sep;45(3):300-306. PMID: 41230673 Spanish.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents EUS-GE with LAMS for MGOO
+26.	Surgical Management of Groove Pancreatitis: Lessons Learnt and Long-Term Experience. Agarwal L, Rathore KS, Varshney VK, Soni S, Selvakumar B, Varshney P, Agarwal A, Verma V, Sureka B, Yadav T. Dig Dis Sci. 2025 Jul;70(7):2521-2533. doi: 10.1007/s10620-025-09025-8. Epub 2025 Apr 9. PMID: 40205281	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study reviews the surgical experience in managing Groove Pancreatitis
+27.	ANCA-Negative Eosinophilic Granulomatosis With Polyangiitis Presenting With Duodenal Stenosis: A Case Report. Chen J, Liu J, Luo M, Guo J. Am J Case Rep. 2025 Dec 27;26:e951493. doi: 10.12659/AJCR.951493. PMID: 41454498 Free PMC article.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report reports a patient with duodenal stenosis due to EGPA who underwent early immunosuppressive therapy
+28.	Long-term outcomes of laparoscopic duodenojejunostomy for superior mesenteric artery syndrome. Wills MV, Barajas-Gamboa JS, Mocanu V, Conner A, Brown J, Restrepo-Rodas G, Lee S, Navarrete S, Corcelles R, Allemang M, Rodriguez J, Strong A, Dang J, Kroh M. Surg Endosc. 2025 Aug;39(8):5235-5243. doi: 10.1007/s00464-025-11774-6. Epub 2025 Jun 27. PMID: 40576774 Free PMC article.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents long-term outcomes of laparoscopic duodenojejunostomy for superior mesenteric artery syndrome
+29.	Modified Devine exclusion for unresectable gastric cancer: a bridge from palliative to curative treatment. Fontainhas J, Gomes A, Nunes V. BMJ Case Rep. 2025 Apr 24;18(4):e265812. doi: 10.1136/bcr-2025-265812. PMID: 40280571	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report reports a patient with unresectable gastric cancer who underwent partial stomach partitioning gastrojejunostomy and systemic therapy
+30.	Optimizing EUS-guided choledochoduodenostomy with lumen-apposing metal stents for primary drainage of malignant distal biliary obstruction (SCORPION-IIp): a prospective pilot study. Fritzsche JA, Fockens P, Besselink MG, Busch OR, Daams F, Wielenga MCB, Wilmink JW, Voermans RP, Van Wanrooij RLJ. Gastrointest Endosc. 2025 May;101(5):1009-1016. doi: 10.1016/j.gie.2024.10.012. Epub 2024 Oct 16. PMID: 39424003 Clinical Trial.	Duplicated
+31.	Trisomy 21 Children With Duodenal Atresia or Anorectal Malformation: NSQIP-P Surgical Outcomes Study. Gely Y, Moreci R, Roberts H, Danos D, Zagory J. J Surg Res. 2025 Jun;310:194-202. doi: 10.1016/j.jss.2025.03.020. Epub 2025 Apr 26. PMID: 40288091	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents NSQIP-P surgical outcomes of Trisomy 21 children with duodenal atresia or anorectal malformation 
+32.	Johanson-Blizzard syndrome with cystic dilation of the cochlea and hypoplastic modiolus: a case report. Mangali NP, Antony A, Kumar N. Pediatr Radiol. 2025 Jan;55(1):195-200. doi: 10.1007/s00247-024-06118-w. Epub 2024 Dec 7. PMID: 39644353	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report reports overall outcomes of Johanson-Blizzard syndrome
+33.	Revisional single anastomosis duodeno-ileal bypass with sleeve gastrectomy after failed adjustable gastric band or sleeve gastrectomy: a meta-analysis of efficacy and safety. Esparham A, Anari Moghadam H, Khorgami Z. Surg Obes Relat Dis. 2026 Mar;22(3):359-368. doi: 10.1016/j.soard.2025.10.018. Epub 2025 Nov 8. PMID: 41372014 Review.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This review presents SADI-S after failed adjustable gastric banding or sleeve gastrectomy procedures
+34.	Double jeopardy in early infancy: aperta lipomyelomeningocele with Chiari II malformation complicated by infantile hypertrophic pyloric stenosis. Kattamanchi D, Jayaraman K, Kamalakannan SK, Arun A. BMJ Case Rep. 2025 Nov 10;18(11):e268860. doi: 10.1136/bcr-2025-268860. PMID: 41218952	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report reports a patient with aperta LMMC who underwent Ramstedt pyloromyotomy with simultaneous VP shunt revision
+35.	Investigation of tube replacement cases of percutaneous transesophageal gastro-tubing in cancer patients. Nakama R, Sone M, Sugawara S, Itou C, Kimura S, Ozawa M, Oshima T, Murakami S, Kusumoto M. Jpn J Radiol. 2025 Aug;43(8):1380-1385. doi: 10.1007/s11604-025-01770-0. Epub 2025 Mar 29. PMID: 40156741 Free PMC article.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study present cases of PTEG tube replacement
+36.	Outcomes After Duodenoduodenostomy for Superior Mesenteric Artery Syndrome. Ang D, Hofmann A, Attili A, Sang W, Soltani T, Richards W, Ferber L, Taylor D. Am Surg. 2025 Apr;91(4):561-569. doi: 10.1177/00031348241300361. Epub 2024 Nov 20. PMID: 39568120	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents the duodenoduodenostomy for superior mesenteric artery syndrome
+37.	Identifying predictive markers for survival in malignant biliary obstruction following percutaneous transhepatic biliary drainage. Chan K, Vigneswaran G, Modi S, Sew Hee C, Maclean D, Stedman B, Bryant T, Maher B. Clin Radiol. 2025 Mar;82:106772. doi: 10.1016/j.crad.2024.106772. Epub 2024 Dec 15. PMID: 39874925	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents independent predictors of post-PTBD
+38.	Factors influencing early surgical outcomes of intestinal atresia in a resource-limited tertiary center. Wassie MT, Girma SM, Gebru FT, Aklilu WK, Mammo TN. Pediatr Surg Int. 2025 Jul 5;41(1):202. doi: 10.1007/s00383-025-06100-z. PMID: 40616700	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study identifies factors influencing outcomes in affected infants to inform targeted interventions
+39.	Esophageal obstruction secondary to enteral nutrition via nasogastric tube in moderate traumatic brain injury: A case report and literature review. Jiang Q, Liu M, Liu Y, Fu P, Li S, Zha L. Medicine (Baltimore). 2025 Dec 19;104(51):e46755. doi: 10.1097/MD.0000000000046755. PMID: 41431083 Free PMC article. Review.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This review presents esophageal obstruction due to enteral nutrition via nasogastric tube in moderate traumatic brain injury
+40.	Improving retention of pediatric feeding tubes with a nasal bridle: a randomized controlled trial. Foster M, Armijo-Garcia V, Gelfond J, Meyer AD. Trials. 2025 May 14;26(1):159. doi: 10.1186/s13063-025-08867-x. PMID: 40369642 Free PMC article. Clinical Trial.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study compares AMT Bridle Pro® nasal bridle versus conventional tape to safely reduce tube dislodgement in pediatric patients
+41.	Delayed gastric conduit emptying after esophagectomy: attempt at a clinically relevant classification. Schneider MA, Viggiani D'Avalos L, Gerdes S, Vetter D, Gutschow CA. Dis Esophagus. 2025 Sep 1;38(5):doaf090. doi: 10.1093/dote/doaf090. PMID: 41124318 Free PMC article.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study proposes a classification that categorizes DGCE according to the predominant case-specific pathophysiology
+42.	Postoperative management of pediatric patients undergoing single-stage laryngotracheal reconstruction in the United States: A survey of ASPO members. Hazkani I, Bruss D, Rowland M, Valika T, Ida J, Thompson D, Lavin J. Am J Otolaryngol. 2025 Jan-Feb;46(1):104509. doi: 10.1016/j.amjoto.2024.104509. Epub 2024 Nov 12. PMID: 39567288	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study assesses post-ssLTR practices among pediatric otolaryngologists
+43.	Possible familial predisposition in superior mesenteric artery syndrome with surgical management: A case report. Maraqah M, Al Tamimi MF, Abu Aram S, Hmedat S, Abueisha M, Hmeedat Y. Medicine (Baltimore). 2025 May 23;104(21):e42613. doi: 10.1097/MD.0000000000042613. PMID: 40419881 Free PMC article.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report reports possible familial predisposition in superior mesenteric artery syndrome with surgical management
+44.	Oncological outcomes of palliative minimally invasive distal pancreatectomy for unexpected metastatic pancreatic ductal adenocarcinoma: A single-center experience. Park Y, Hwang DW, Lee JH, Song KB, Jun E, Lee W, Sung MK, Kim SC. Surgery. 2025 Jun;182:109331. doi: 10.1016/j.surg.2025.109331. Epub 2025 Mar 25. PMID: 40138876	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This comparative study compares the outcomes of palliative minimally invasive distal pancreatectomy with those of minimally invasive biopsy
+
+ 
+(3) Search Terms: “Patients + Comparator + Outcome”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Pyloric stricture	5,651
+	2	Pyloric obstruction	6,330
+	3	Duodenal stricture	2,254
+	4	Duodenal obstruction	8,588
+	5	Gastric outlet obstruction	9,226
+	6	Malignant pyloric stricture	694
+	7	Malignant pyloric obstruction	870
+	8	Malignant duodenal stricture	668
+	9	Malignant duodenal obstruction	2,170
+	10	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8 OR #9	18,511
+Comparator	11	Surgery	6,313,457
+	12	Plastic stent	5,046
+	13	Balloon dilation	17,802
+	14	Self-expandable metallic stent	2,758
+	15	Self-expandable metal stent	3,725
+	16	SEMS	3,296
+	17	Uncovered stent	1,530
+	18	WallFlex	89
+	19	WallFlex Soft	4
+	20	Hanarostent	26
+	21	Evolution	900,564
+	22	EGIS	668
+	23	Bonastent	12
+	24	#11 OR #12 OR #13 OR #14 OR #15 OR #16 OR #17 OR #18 OR #19 OR #20 OR #21 OR #22 OR #23	7,169,958
+Outcome	25	Stent patency	12,604
+	26	Obstruction relief	7,217
+	27	Obstruction resolution	10,366
+	28	Obstruction improvement	73,786
+	29	#25 OR #26 OR #27 OR #28	97,661
+Result	30	#10 AND #24 AND #29	1,477
+Date-Publication	31	2025/01/01~2025/12/31	97
+Filter	32	Humans	40
+ 
+ 
+ 
+Articles (40)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1.	Endoscopic ultrasonography-guided gastroenterostomy versus uncovered duodenal metal stenting for unresectable malignant gastric outlet obstruction (DRA-GOO): a multicentre randomised controlled trial. Teoh AYB, Lakhtakia S, Tarantino I, Perez-Miranda M, Kunda R, Maluf-Filho F, Dhir V, Basha J, Chan SM, Ligresti D, Ma MTW, de la Serna-Higuera C, Yip HC, Ng EKW, Chiu PWY, Itoi T. Lancet Gastroenterol Hepatol. 2025 Jun;10(6):e8-e16. doi: 10.1016/S2468-1253(25)00136-0. PMID: 40347959 Clinical Trial.	Duplicated
+2.	Novel nutrition strategies in gastric and esophageal cancer. Boyle E, Elliott JA. Expert Rev Gastroenterol Hepatol. 2025 Jan-Feb;19(2):89-104. doi: 10.1080/17474124.2025.2457444. Epub 2025 Jan 30. PMID: 39864091 Review.	Duplicated
+3.	Is endoscopic ultrasound-guided gastroenterostomy better than surgical gastrojejunostomy or duodenal stenting? Teoh AYB, Chan SM, Yip HC. Dig Endosc. 2025 Jan;37(1):77-84. doi: 10.1111/den.14929. Epub 2024 Oct 6. PMID: 39370536 Free PMC article. Review.	Duplicated
+4.	Advancing care in malignant gastric outlet obstruction: a contemporary review of management strategies. Wierzbicka A, Shah T. Curr Opin Gastroenterol. 2025 Nov 1;41(6):409-415. doi: 10.1097/MOG.0000000000001101. Epub 2025 Apr 23. PMID: 40304723 Review.	Duplicated
+5.	Endoscopic ultrasound-guided gastroenterostomy for the treatment of gastric outlet obstruction secondary to acute pancreatitis. Wannhoff A, Canakis A, Sharaiha RZ, Fayyaz F, Schlag C, Sharma N, Elsayed I, Khashab MA, Baron TH, Caca K, Irani SS. Endoscopy. 2025 Mar;57(3):249-254. doi: 10.1055/a-2452-5307. Epub 2024 Nov 11. PMID: 39529322	Duplicated
+6.	[Palliative Surgical Approaches for Malignant Upper Gastrointestinal Obstruction]. Maruyama S, Higuchi Y, Shoda K, Kawaguchi Y, Ichikawa D. Gan To Kagaku Ryoho. 2025 Oct;52(10):716-719. PMID: 41139964 Review. Japanese.	Duplicated
+7.	Long-Term Outcomes of EUS-Guided Gastroenterostomy: A Large, Single-Center Experience. Trieu JA, Kahlenberg S, Gilman AJ, Hathorn K, Baron TH. Clin Transl Gastroenterol. 2025 Jan 1;16(1):e00648. doi: 10.14309/ctg.0000000000000648. PMID: 39620984 Free PMC article.	Duplicated
+8.	EUS-directed transduodenal ERCP in concomitant gastric outlet and biliary obstruction. Kesar V, Abel WF, Bapaye J, Wasserman RD, Rozenberg J, Garikipati S, Mönkemüller KE, Kesar V, Yeaton P. Gastrointest Endosc. 2025 Apr;101(4):885-889. doi: 10.1016/j.gie.2024.12.003. Epub 2024 Dec 9. PMID: 39662635	Duplicated
+9.	Long-term outcomes of EUS-guided balloon-occluded gastrojejunostomy bypass for malignant gastric outlet obstruction (with video). Tsuchiya T, Itoi T, Ishii K, Tanaka R, Tonozuka R, Mukai S, Nagai K, Yamamoto K, Matsunami Y, Kojima H, Minami H, Asano K, Sofuni A. Gastrointest Endosc. 2025 Jan;101(1):195-199. doi: 10.1016/j.gie.2024.07.006. Epub 2024 Jul 23. PMID: 39053650	Duplicated
+10.	A national perspective on palliative interventions for malignant gastric outlet obstruction. Ng AP, Hadaya JE, Sanaiha Y, Chervu NL, Girgis MD, Benharash P. J Gastrointest Surg. 2025 Feb;29(2):101884. doi: 10.1016/j.gassur.2024.101884. Epub 2024 Nov 14. PMID: 39547591	Duplicated
+11.	Endoscopic Ultrasound-Guided Gastrojejunostomy as a Primary Treatment Modality for Malignant Gastric Outlet Obstruction: A Large Multicenter Experience. Sonthalia N, Chavan R, Singh P, Narayan J, Sud S, Shah CN, Zanwar S, Tewari A, Rajput S, Singla V, Roy A, Koul S, Goel A, Ghoshal UC, Goenka MK. J Gastroenterol Hepatol. 2025 Jun;40(6):1515-1524. doi: 10.1111/jgh.16959. Epub 2025 Apr 4. PMID: 40181785	Duplicated
+12.	Safety and feasibility of laparoscopic stomach-partitioning gastrojejunostomy combined with neoadjuvant chemotherapy followed by minimally invasive gastrectomy for resectable gastric cancer with gastric outlet obstruction. Tanaka T, Suda K, Nakauchi M, Fujita M, Suzuki K, Umeki Y, Serizawa A, Akimoto S, Watanabe Y, Shibasaki S, Matsuoka H, Inaba K, Uyama I. Surg Endosc. 2025 Feb;39(2):837-849. doi: 10.1007/s00464-024-11427-0. Epub 2024 Dec 2. PMID: 39623174	Duplicated
+13.	Clinical Success Impacts Overall Survival in Patients Undergoing Palliation for Malignant Gastric Outlet Obstruction Using Enteral Stents or Endoscopic Ultrasound Guided Gastroenterostomy. Mahajan A, Sundaram S, Puri R, Shravan GH, Mane K, Kale A, Patkar S, Goel M, Shrikhande S, Chaudhari V, Patil P, Mehta S. J Gastroenterol Hepatol. 2025 Oct;40(10):2552-2559. doi: 10.1111/jgh.70066. Epub 2025 Aug 30. PMID: 40884246 Free PMC article.	Duplicated
+14.	Optimizing EUS-guided choledochoduodenostomy with lumen-apposing metal stents for primary drainage of malignant distal biliary obstruction (SCORPION-IIp): a prospective pilot study. Fritzsche JA, Fockens P, Besselink MG, Busch OR, Daams F, Wielenga MCB, Wilmink JW, Voermans RP, Van Wanrooij RLJ. Gastrointest Endosc. 2025 May;101(5):1009-1016. doi: 10.1016/j.gie.2024.10.012. Epub 2024 Oct 16. PMID: 39424003 Clinical Trial.	Duplicated
+15.	Biomechanical Impact of Partitioning Position and Angle on Post-SPGJ Gastric Emptying. Fan Z, Li Q, Xu F, Zhang H, Ye X, Zheng Z, Zhang J. Ann N Y Acad Sci. 2025 Dec;1554(1):227-238. doi: 10.1111/nyas.70104. Epub 2025 Oct 22. PMID: 41123176	Duplicated
+16.	Duodenal obstruction secondary to metastatic breast cancer. O'Neill RS, Field A, Kim BSM, Ferguson JS, Ghaly S, Dear RF. J Cancer Res Ther. 2025 Apr 1;21(3):755-757. doi: 10.4103/jcrt.jcrt_2022_24. Epub 2025 Jul 5. PMID: 40616566	Duplicated
+17.	Comparing palliative gastrectomy and gastrojejunostomy for advanced gastric cancer: impact on survival and postoperative outcomes. Lessing Y, Inbar-Weissman T, Cohen R, Messer N, Erlich-Feingold O, Kanani F, Lahat G, Orbach L. Minerva Surg. 2025 Dec;80(6):452-460. doi: 10.23736/S2724-5691.25.11028-9. PMID: 41622824	Duplicated
+18.	Clinical outcomes and predictive factors for stent patency in malignant duodenojejunal obstruction: comparison of distal duodenum and proximal jejunum. Lee HS, So H, Lee Y, Cho SH, Huh G, Song TJ, Seo DW, Oh D. J Gastrointest Surg. 2025 Dec;29(12):102252. doi: 10.1016/j.gassur.2025.102252. Epub 2025 Oct 14. PMID: 41101379	Duplicated
+19.	Long-term outcomes of laparoscopic duodenojejunostomy for superior mesenteric artery syndrome. Wills MV, Barajas-Gamboa JS, Mocanu V, Conner A, Brown J, Restrepo-Rodas G, Lee S, Navarrete S, Corcelles R, Allemang M, Rodriguez J, Strong A, Dang J, Kroh M. Surg Endosc. 2025 Aug;39(8):5235-5243. doi: 10.1007/s00464-025-11774-6. Epub 2025 Jun 27. PMID: 40576774 Free PMC article.	Duplicated
+20.	Feasibility and clinical utility of stone extraction balloon catheter-assisted endoscopic stenting for malignant distal duodenal and proximal jejunal obstruction (with video). Park JH, Kim YR, Hwang JC, Lee KM, Yoo BM, Kim JH, Shin EJ, Yang MJ. Surg Endosc. 2025 Aug;39(8):5413-5420. doi: 10.1007/s00464-025-11861-8. Epub 2025 Jul 7. PMID: 40624422	Duplicated
+21.	Clinical Outcomes of Secondary Duodenal Self-Expandable Metallic Stenting for Duodenal Stent Dysfunction in Patients with Malignant Duodenal Obstruction: A Retrospective Multicenter Study. So H, Joo HD, Song TJ, Ko SW, Lee HS, Cho SH, Oh D, Han SY, Kim DU, Seo DW. Gut Liver. 2025 Nov 15;19(6):909-916. doi: 10.5009/gnl240014. Epub 2024 May 22. PMID: 38772730 Free PMC article.	Duplicated
+22.	Robotic-assisted trans-mesocolic side-to-side duodenojejunostomy for palliative management of malignant distal duodenal obstruction. Yin H, Sharma D, Wang JJ, Ganjouei AA, Kouanda A, Hirose K, Nakakura E, Kirkwood K, Corvera C, Alseidi A, Adam MA. Chin Clin Oncol. 2025 Feb;14(1):5. doi: 10.21037/cco-24-87. PMID: 40081386	Duplicated
+23.	A Rare Presentation of IgG4-Related Disease with Gastric Outlet Obstruction and Lymphadenopathy: A Case Report. Alsaifi M, Al Sawafi Y, Al Julandani N. Int J Surg Pathol. 2025 Jun;33(4):982-986. doi: 10.1177/10668969241291889. Epub 2024 Nov 25. PMID: 39584697	Duplicated
+24.	Endoscopic Ultrasound Guided Gastro-Gastrostomy for Management of Pouch Outlet Obstruction Secondary to Vertical Banded Gastroplasty: Efficacy and Safety. Hoilat G, Celdir M, Gerke H. Obes Surg. 2025 Aug;35(8):3316-3320. doi: 10.1007/s11695-025-07957-8. Epub 2025 Jul 16. PMID: 40670891 Free PMC article.	Duplicated
+25.	Trisomy 21 Children With Duodenal Atresia or Anorectal Malformation: NSQIP-P Surgical Outcomes Study. Gely Y, Moreci R, Roberts H, Danos D, Zagory J. J Surg Res. 2025 Jun;310:194-202. doi: 10.1016/j.jss.2025.03.020. Epub 2025 Apr 26. PMID: 40288091	Duplicated
+26.	Gastric bezoar entering the duodenum causing intestinal obstruction: A case report. Wang H, Zhang Y, Zhong H, Zhang H, Ma Y. Medicine (Baltimore). 2025 Sep 5;104(36):e44149. doi: 10.1097/MD.0000000000044149. PMID: 40922313 Free PMC article.	Duplicated
+27.	[Endoscopic ultrasound-guided gastro-enteric anastomosis for malignant gastric outlet obstruction: Initial experience in an endoscopic center in Lima-Peru]. Chirinos-Vega JA, Ponce de León Molina OE. Rev Gastroenterol Peru. 2025 Jul-Sep;45(3):300-306. PMID: 41230673 Spanish.	Duplicated
+28.	Surgical Management of Groove Pancreatitis: Lessons Learnt and Long-Term Experience. Agarwal L, Rathore KS, Varshney VK, Soni S, Selvakumar B, Varshney P, Agarwal A, Verma V, Sureka B, Yadav T. Dig Dis Sci. 2025 Jul;70(7):2521-2533. doi: 10.1007/s10620-025-09025-8. Epub 2025 Apr 9. PMID: 40205281	Duplicated
+29.	Modified Devine exclusion for unresectable gastric cancer: a bridge from palliative to curative treatment. Fontainhas J, Gomes A, Nunes V. BMJ Case Rep. 2025 Apr 24;18(4):e265812. doi: 10.1136/bcr-2025-265812. PMID: 40280571	Duplicated
+30.	Outcomes After Duodenoduodenostomy for Superior Mesenteric Artery Syndrome. Ang D, Hofmann A, Attili A, Sang W, Soltani T, Richards W, Ferber L, Taylor D. Am Surg. 2025 Apr;91(4):561-569. doi: 10.1177/00031348241300361. Epub 2024 Nov 20. PMID: 39568120	Duplicated
+31.	Double jeopardy in early infancy: aperta lipomyelomeningocele with Chiari II malformation complicated by infantile hypertrophic pyloric stenosis. Kattamanchi D, Jayaraman K, Kamalakannan SK, Arun A. BMJ Case Rep. 2025 Nov 10;18(11):e268860. doi: 10.1136/bcr-2025-268860. PMID: 41218952	Duplicated
+32.	Possible familial predisposition in superior mesenteric artery syndrome with surgical management: A case report. Maraqah M, Al Tamimi MF, Abu Aram S, Hmedat S, Abueisha M, Hmeedat Y. Medicine (Baltimore). 2025 May 23;104(21):e42613. doi: 10.1097/MD.0000000000042613. PMID: 40419881 Free PMC article.	Duplicated
+33.	Revisional single anastomosis duodeno-ileal bypass with sleeve gastrectomy after failed adjustable gastric band or sleeve gastrectomy: a meta-analysis of efficacy and safety. Esparham A, Anari Moghadam H, Khorgami Z. Surg Obes Relat Dis. 2026 Mar;22(3):359-368. doi: 10.1016/j.soard.2025.10.018. Epub 2025 Nov 8. PMID: 41372014 Review.	Duplicated
+34.	Investigation of tube replacement cases of percutaneous transesophageal gastro-tubing in cancer patients. Nakama R, Sone M, Sugawara S, Itou C, Kimura S, Ozawa M, Oshima T, Murakami S, Kusumoto M. Jpn J Radiol. 2025 Aug;43(8):1380-1385. doi: 10.1007/s11604-025-01770-0. Epub 2025 Mar 29. PMID: 40156741 Free PMC article.	Duplicated
+35.	Postoperative management of pediatric patients undergoing single-stage laryngotracheal reconstruction in the United States: A survey of ASPO members. Hazkani I, Bruss D, Rowland M, Valika T, Ida J, Thompson D, Lavin J. Am J Otolaryngol. 2025 Jan-Feb;46(1):104509. doi: 10.1016/j.amjoto.2024.104509. Epub 2024 Nov 12. PMID: 39567288	Duplicated
+36.	Identifying predictive markers for survival in malignant biliary obstruction following percutaneous transhepatic biliary drainage. Chan K, Vigneswaran G, Modi S, Sew Hee C, Maclean D, Stedman B, Bryant T, Maher B. Clin Radiol. 2025 Mar;82:106772. doi: 10.1016/j.crad.2024.106772. Epub 2024 Dec 15. PMID: 39874925	Duplicated
+37.	Factors influencing early surgical outcomes of intestinal atresia in a resource-limited tertiary center. Wassie MT, Girma SM, Gebru FT, Aklilu WK, Mammo TN. Pediatr Surg Int. 2025 Jul 5;41(1):202. doi: 10.1007/s00383-025-06100-z. PMID: 40616700	Duplicated
+38.	Esophageal obstruction secondary to enteral nutrition via nasogastric tube in moderate traumatic brain injury: A case report and literature review. Jiang Q, Liu M, Liu Y, Fu P, Li S, Zha L. Medicine (Baltimore). 2025 Dec 19;104(51):e46755. doi: 10.1097/MD.0000000000046755. PMID: 41431083 Free PMC article. Review.	Duplicated
+39.	Delayed gastric conduit emptying after esophagectomy: attempt at a clinically relevant classification. Schneider MA, Viggiani D'Avalos L, Gerdes S, Vetter D, Gutschow CA. Dis Esophagus. 2025 Sep 1;38(5):doaf090. doi: 10.1093/dote/doaf090. PMID: 41124318 Free PMC article.	Duplicated
+40.	Oncological outcomes of palliative minimally invasive distal pancreatectomy for unexpected metastatic pancreatic ductal adenocarcinoma: A single-center experience. Park Y, Hwang DW, Lee JH, Song KB, Jun E, Lee W, Sung MK, Kim SC. Surgery. 2025 Jun;182:109331. doi: 10.1016/j.surg.2025.109331. Epub 2025 Mar 25. PMID: 40138876	Duplicated
+
+
+ 
+(4) Search Terms: “Intervention” specializing in search scope
+•	Niti-S Pyloric/Duodenal Uncovered Stent [D-Type]
+Categories	No	Keywords	Results
+Intervention	1	Taewoong	228
+	2	Niti-S	77
+	3	Pyloric 	27,512
+	4	Duodenal	134,045
+	5	D type	167,527
+Result	6	#1 AND #2 AND #3 AND #4 AND #5	0
+Date-Publication	7	2025/01/01~2025/12/31	0
+ 
+No relevant search results were found during the literature search.
+ 
+B.	Niti-S Pyloric/Duodenal Stents – Covered type
+(1) Search Terms: “Patient / Population / Problem + Intervention”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Pyloric stricture	5,648
+	2	Pyloric obstruction	6,323
+	3	Duodenal stricture	2,250
+	4	Duodenal obstruction	8,565
+	5	Gastric outlet obstruction	9,201
+	6	Malignant pyloric stricture	693
+	7	Malignant pyloric obstruction	868
+	8	Malignant duodenal stricture	667
+	9	Malignant duodenal obstruction	2,161
+	10	Benign pyloric stricture	119
+	11	Benign pyloric obstruction	157
+	12	Benign duodenal stricture	295
+	13	Benign duodenal obstruction	296
+	14	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8 OR #9 OR #10 OR #11 OR #12 OR #13	18,464
+Intervention	15	Self-expandable metallic stent	2,744
+	16	Self-expandable metal stent	3,709
+	17	SEMS	3,275
+	18	Taewoong	228
+	19	Niti-S	77
+	20	Covered stent	10,583
+	21	#15 OR #16 OR #17 OR #18 OR #19 OR #20	15,051
+Result	22	#14 AND #21	565
+Date-Publication	23	2025/01/01~2025/12/31	32
+Filter	24	Humans	12
+
+
+ 
+
+ 
+Articles (12)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1.	Endoscopic ultrasonography-guided gastroenterostomy versus uncovered duodenal metal stenting for unresectable malignant gastric outlet obstruction (DRA-GOO): a multicentre randomised controlled trial. Teoh AYB, Lakhtakia S, Tarantino I, Perez-Miranda M, Kunda R, Maluf-Filho F, Dhir V, Basha J, Chan SM, Ligresti D, Ma MTW, de la Serna-Higuera C, Yip HC, Ng EKW, Chiu PWY, Itoi T. Lancet Gastroenterol Hepatol. 2025 Jun;10(6):e8-e16. doi: 10.1016/S2468-1253(25)00136-0. PMID: 40347959 Clinical Trial.	Duplicated
+2.	EUS guided gastrojejunostomy: techniques and outcomes. Jayanna SH, Rana SS. Expert Rev Gastroenterol Hepatol. 2025 Jul;19(7):745-754. doi: 10.1080/17474124.2025.2512168. Epub 2025 May 27. PMID: 40411777 Review.	Duplicated
+3.	Is endoscopic ultrasound-guided gastroenterostomy better than surgical gastrojejunostomy or duodenal stenting? Teoh AYB, Chan SM, Yip HC. Dig Endosc. 2025 Jan;37(1):77-84. doi: 10.1111/den.14929. Epub 2024 Oct 6. PMID: 39370536 Free PMC article. Review.	Duplicated
+4.	Advancing care in malignant gastric outlet obstruction: a contemporary review of management strategies. Wierzbicka A, Shah T. Curr Opin Gastroenterol. 2025 Nov 1;41(6):409-415. doi: 10.1097/MOG.0000000000001101. Epub 2025 Apr 23. PMID: 40304723 Review.	Duplicated
+5.	[Palliative Surgical Approaches for Malignant Upper Gastrointestinal Obstruction]. Maruyama S, Higuchi Y, Shoda K, Kawaguchi Y, Ichikawa D. Gan To Kagaku Ryoho. 2025 Oct;52(10):716-719. PMID: 41139964 Review. Japanese.	Duplicated
+6.	A real-world study of balloon dilation vs. self-expandable metal stents for benign gastric outlet obstruction. Liu P, Zhang Y, Guo C, Han X, Bi Y. BMC Gastroenterol. 2025 Aug 19;25(1):599. doi: 10.1186/s12876-025-04225-y. PMID: 40830837 Free PMC article.	Duplicated
+7.	Optimizing EUS-guided choledochoduodenostomy with lumen-apposing metal stents for primary drainage of malignant distal biliary obstruction (SCORPION-IIp): a prospective pilot study. Fritzsche JA, Fockens P, Besselink MG, Busch OR, Daams F, Wielenga MCB, Wilmink JW, Voermans RP, Van Wanrooij RLJ. Gastrointest Endosc. 2025 May;101(5):1009-1016. doi: 10.1016/j.gie.2024.10.012. Epub 2024 Oct 16. PMID: 39424003 Clinical Trial.	Duplicated
+8.	Clinical outcomes and predictive factors for stent patency in malignant duodenojejunal obstruction: comparison of distal duodenum and proximal jejunum. Lee HS, So H, Lee Y, Cho SH, Huh G, Song TJ, Seo DW, Oh D. J Gastrointest Surg. 2025 Dec;29(12):102252. doi: 10.1016/j.gassur.2025.102252. Epub 2025 Oct 14. PMID: 41101379	Duplicated
+9.	Feasibility and clinical utility of stone extraction balloon catheter-assisted endoscopic stenting for malignant distal duodenal and proximal jejunal obstruction (with video). Park JH, Kim YR, Hwang JC, Lee KM, Yoo BM, Kim JH, Shin EJ, Yang MJ. Surg Endosc. 2025 Aug;39(8):5413-5420. doi: 10.1007/s00464-025-11861-8. Epub 2025 Jul 7. PMID: 40624422	Duplicated
+10.	Clinical Outcomes of Secondary Duodenal Self-Expandable Metallic Stenting for Duodenal Stent Dysfunction in Patients with Malignant Duodenal Obstruction: A Retrospective Multicenter Study. So H, Joo HD, Song TJ, Ko SW, Lee HS, Cho SH, Oh D, Han SY, Kim DU, Seo DW. Gut Liver. 2025 Nov 15;19(6):909-916. doi: 10.5009/gnl240014. Epub 2024 May 22. PMID: 38772730 Free PMC article.	Duplicated
+11.	Technical failure of endoscopic ultrasound-guided choledochoduodenostomy: multicenter study on rescue techniques, consequences, and risk factors. Beunon C, Debourdeau A, Schaefer M, Wallenhorst T, Perez-Cuadrado-Robles E, Belle A, Gonzalez JM, Camus Duboc M, Caillol F, Toudic HP, Pioche M, Danset JB, Sportes A, Brieau B, Ben Soussan E, Petiet M, Martin A, Oumrani S, Maire F, Lemmers A, Prat F, Caillo L, Gérard R, Albouys J, Lorenzo D; and the ETC Working Group. Endoscopy. 2025 Sep;57(9):990-1000. doi: 10.1055/a-2541-2973. Epub 2025 Feb 17. PMID: 39961367     	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This multicenter study presents risk factors for technical failure of EUS-CDS in patients with biliary obstruction
+12.	Reintervention After Endoscopic Ultrasound-Guided Choledochoduodenostomy for Distal Malignant Biliary Obstruction. Giri S, Shah B, Narayan J, Chavan R, Donapati VR, Khare S, Varghese J, Mallick B, Kale A, Sundaram S. Surg Laparosc Endosc Percutan Tech. 2025 Aug 1;35(4):e1382. doi: 10.1097/SLE.0000000000001382. PMID: 40497695	Duplicated
+
+ 
+(2) Search Terms: “Patient / Population / Problem + Outcome”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Pyloric stricture	5,648
+	2	Pyloric obstruction	6,323
+	3	Duodenal stricture	2,250
+	4	Duodenal obstruction	8,565
+	5	Gastric outlet obstruction	9,201
+	6	Malignant pyloric stricture	693
+	7	Malignant pyloric obstruction	868
+	8	Malignant duodenal stricture	667
+	9	Malignant duodenal obstruction	2,161
+	10	Benign pyloric stricture	119
+	11	Benign pyloric obstruction	157
+	12	Benign duodenal stricture	295
+	13	Benign duodenal obstruction	296
+	14	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8 OR #9 OR #10 OR #11 OR #12 OR #13	18,464
+Outcome	15	Stent patency	12,536
+	16	Obstruction relief	7,194
+	17	Obstruction resolution	10,308
+	18	Obstruction improvement	73,360
+	19	Removal	856,200
+	20	#15 OR #16 OR #17 OR #18 OR #19	948,534
+Result	21	#14 AND #20	2,480
+Date-Publication	22	2025/01/01~2025/12/31	178
+Filter	23	Humans	53
+
+ 
+
+ 
+Articles (53)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1.	Endoscopic ultrasonography-guided gastroenterostomy versus uncovered duodenal metal stenting for unresectable malignant gastric outlet obstruction (DRA-GOO): a multicentre randomised controlled trial. Teoh AYB, Lakhtakia S, Tarantino I, Perez-Miranda M, Kunda R, Maluf-Filho F, Dhir V, Basha J, Chan SM, Ligresti D, Ma MTW, de la Serna-Higuera C, Yip HC, Ng EKW, Chiu PWY, Itoi T. Lancet Gastroenterol Hepatol. 2025 Jun;10(6):e8-e16. doi: 10.1016/S2468-1253(25)00136-0. PMID: 40347959 Clinical Trial.	Duplicated
+2.	Novel nutrition strategies in gastric and esophageal cancer. Boyle E, Elliott JA. Expert Rev Gastroenterol Hepatol. 2025 Jan-Feb;19(2):89-104. doi: 10.1080/17474124.2025.2457444. Epub 2025 Jan 30. PMID: 39864091 Review.	Duplicated
+3.	Advancing care in malignant gastric outlet obstruction: a contemporary review of management strategies. Wierzbicka A, Shah T. Curr Opin Gastroenterol. 2025 Nov 1;41(6):409-415. doi: 10.1097/MOG.0000000000001101. Epub 2025 Apr 23. PMID: 40304723 Review.	Duplicated
+4.	Is endoscopic ultrasound-guided gastroenterostomy better than surgical gastrojejunostomy or duodenal stenting? Teoh AYB, Chan SM, Yip HC. Dig Endosc. 2025 Jan;37(1):77-84. doi: 10.1111/den.14929. Epub 2024 Oct 6. PMID: 39370536 Free PMC article. Review.	Duplicated
+5.	Esophageal motility disorders other than achalasia. Kim N, Kelahan L, Carucci LR. Abdom Radiol (NY). 2025 Sep;50(9):3993-4003. doi: 10.1007/s00261-025-04828-9. Epub 2025 Mar 1. PMID: 40024921 Review.	Duplicated
+6.	Endoscopic ultrasound-guided gastroenterostomy for the treatment of gastric outlet obstruction secondary to acute pancreatitis. Wannhoff A, Canakis A, Sharaiha RZ, Fayyaz F, Schlag C, Sharma N, Elsayed I, Khashab MA, Baron TH, Caca K, Irani SS. Endoscopy. 2025 Mar;57(3):249-254. doi: 10.1055/a-2452-5307. Epub 2024 Nov 11. PMID: 39529322	Duplicated
+7.	[Palliative Surgical Approaches for Malignant Upper Gastrointestinal Obstruction]. Maruyama S, Higuchi Y, Shoda K, Kawaguchi Y, Ichikawa D. Gan To Kagaku Ryoho. 2025 Oct;52(10):716-719. PMID: 41139964 Review. Japanese.	Duplicated
+8.	Long-Term Outcomes of EUS-Guided Gastroenterostomy: A Large, Single-Center Experience. Trieu JA, Kahlenberg S, Gilman AJ, Hathorn K, Baron TH. Clin Transl Gastroenterol. 2025 Jan 1;16(1):e00648. doi: 10.14309/ctg.0000000000000648. PMID: 39620984 Free PMC article.	Duplicated
+9.	EUS-directed transduodenal ERCP in concomitant gastric outlet and biliary obstruction. Kesar V, Abel WF, Bapaye J, Wasserman RD, Rozenberg J, Garikipati S, Mönkemüller KE, Kesar V, Yeaton P. Gastrointest Endosc. 2025 Apr;101(4):885-889. doi: 10.1016/j.gie.2024.12.003. Epub 2024 Dec 9. PMID: 39662635	Duplicated
+10.	Long-term outcomes of EUS-guided balloon-occluded gastrojejunostomy bypass for malignant gastric outlet obstruction (with video). Tsuchiya T, Itoi T, Ishii K, Tanaka R, Tonozuka R, Mukai S, Nagai K, Yamamoto K, Matsunami Y, Kojima H, Minami H, Asano K, Sofuni A. Gastrointest Endosc. 2025 Jan;101(1):195-199. doi: 10.1016/j.gie.2024.07.006. Epub 2024 Jul 23. PMID: 39053650	Duplicated
+11.	A national perspective on palliative interventions for malignant gastric outlet obstruction. Ng AP, Hadaya JE, Sanaiha Y, Chervu NL, Girgis MD, Benharash P. J Gastrointest Surg. 2025 Feb;29(2):101884. doi: 10.1016/j.gassur.2024.101884. Epub 2024 Nov 14. PMID: 39547591	Duplicated
+12.	Endoscopic Ultrasound-Guided Gastrojejunostomy as a Primary Treatment Modality for Malignant Gastric Outlet Obstruction: A Large Multicenter Experience. Sonthalia N, Chavan R, Singh P, Narayan J, Sud S, Shah CN, Zanwar S, Tewari A, Rajput S, Singla V, Roy A, Koul S, Goel A, Ghoshal UC, Goenka MK. J Gastroenterol Hepatol. 2025 Jun;40(6):1515-1524. doi: 10.1111/jgh.16959. Epub 2025 Apr 4. PMID: 40181785	Duplicated
+13.	Safety and feasibility of laparoscopic stomach-partitioning gastrojejunostomy combined with neoadjuvant chemotherapy followed by minimally invasive gastrectomy for resectable gastric cancer with gastric outlet obstruction. Tanaka T, Suda K, Nakauchi M, Fujita M, Suzuki K, Umeki Y, Serizawa A, Akimoto S, Watanabe Y, Shibasaki S, Matsuoka H, Inaba K, Uyama I. Surg Endosc. 2025 Feb;39(2):837-849. doi: 10.1007/s00464-024-11427-0. Epub 2024 Dec 2. PMID: 39623174	Duplicated
+14.	Clinical Success Impacts Overall Survival in Patients Undergoing Palliation for Malignant Gastric Outlet Obstruction Using Enteral Stents or Endoscopic Ultrasound Guided Gastroenterostomy. Mahajan A, Sundaram S, Puri R, Shravan GH, Mane K, Kale A, Patkar S, Goel M, Shrikhande S, Chaudhari V, Patil P, Mehta S. J Gastroenterol Hepatol. 2025 Oct;40(10):2552-2559. doi: 10.1111/jgh.70066. Epub 2025 Aug 30. PMID: 40884246 Free PMC article.	Duplicated
+15.	Duodenal obstruction secondary to metastatic breast cancer. O'Neill RS, Field A, Kim BSM, Ferguson JS, Ghaly S, Dear RF. J Cancer Res Ther. 2025 Apr 1;21(3):755-757. doi: 10.4103/jcrt.jcrt_2022_24. Epub 2025 Jul 5. PMID: 40616566	Duplicated
+16.	Comparing palliative gastrectomy and gastrojejunostomy for advanced gastric cancer: impact on survival and postoperative outcomes. Lessing Y, Inbar-Weissman T, Cohen R, Messer N, Erlich-Feingold O, Kanani F, Lahat G, Orbach L. Minerva Surg. 2025 Dec;80(6):452-460. doi: 10.23736/S2724-5691.25.11028-9. PMID: 41622824	Duplicated
+17.	Biomechanical Impact of Partitioning Position and Angle on Post-SPGJ Gastric Emptying. Fan Z, Li Q, Xu F, Zhang H, Ye X, Zheng Z, Zhang J. Ann N Y Acad Sci. 2025 Dec;1554(1):227-238. doi: 10.1111/nyas.70104. Epub 2025 Oct 22. PMID: 41123176	Duplicated
+18.	Clinical outcomes and predictive factors for stent patency in malignant duodenojejunal obstruction: comparison of distal duodenum and proximal jejunum. Lee HS, So H, Lee Y, Cho SH, Huh G, Song TJ, Seo DW, Oh D. J Gastrointest Surg. 2025 Dec;29(12):102252. doi: 10.1016/j.gassur.2025.102252. Epub 2025 Oct 14. PMID: 41101379	Duplicated
+19.	Feasibility and clinical utility of stone extraction balloon catheter-assisted endoscopic stenting for malignant distal duodenal and proximal jejunal obstruction (with video). Park JH, Kim YR, Hwang JC, Lee KM, Yoo BM, Kim JH, Shin EJ, Yang MJ. Surg Endosc. 2025 Aug;39(8):5413-5420. doi: 10.1007/s00464-025-11861-8. Epub 2025 Jul 7. PMID: 40624422	Duplicated
+20.	Clinical Outcomes of Secondary Duodenal Self-Expandable Metallic Stenting for Duodenal Stent Dysfunction in Patients with Malignant Duodenal Obstruction: A Retrospective Multicenter Study. So H, Joo HD, Song TJ, Ko SW, Lee HS, Cho SH, Oh D, Han SY, Kim DU, Seo DW. Gut Liver. 2025 Nov 15;19(6):909-916. doi: 10.5009/gnl240014. Epub 2024 May 22. PMID: 38772730 Free PMC article.	Duplicated
+21.	Robotic-assisted trans-mesocolic side-to-side duodenojejunostomy for palliative management of malignant distal duodenal obstruction. Yin H, Sharma D, Wang JJ, Ganjouei AA, Kouanda A, Hirose K, Nakakura E, Kirkwood K, Corvera C, Alseidi A, Adam MA. Chin Clin Oncol. 2025 Feb;14(1):5. doi: 10.21037/cco-24-87. PMID: 40081386	Duplicated
+22.	A Rare Presentation of IgG4-Related Disease with Gastric Outlet Obstruction and Lymphadenopathy: A Case Report. Alsaifi M, Al Sawafi Y, Al Julandani N. Int J Surg Pathol. 2025 Jun;33(4):982-986. doi: 10.1177/10668969241291889. Epub 2024 Nov 25. PMID: 39584697	Duplicated
+23.	Endoscopic Ultrasound Guided Gastro-Gastrostomy for Management of Pouch Outlet Obstruction Secondary to Vertical Banded Gastroplasty: Efficacy and Safety. Hoilat G, Celdir M, Gerke H. Obes Surg. 2025 Aug;35(8):3316-3320. doi: 10.1007/s11695-025-07957-8. Epub 2025 Jul 16. PMID: 40670891 Free PMC article.	Duplicated
+24.	Duodenal pyloric gland adenoma with a long pedicle causes intestinal obstruction: A case report. Zhu L, Lv S, Li Y, Yao K. Medicine (Baltimore). 2025 Jul 11;104(28):e43331. doi: 10.1097/MD.0000000000043331. PMID: 40660594 Free PMC article.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report presents a patient with PGA who underwent hot trap resection
+25.	Quality standards and curriculum for training in cholangiopancreatoscopy: European Society of Gastrointestinal Endoscopy (ESGE) Position Statement. Johnson G, Webster G, Papaefthymiou A, Teles de Campos S, Czakó L, Schlag C, Hollenbach M, Anderloni A, Ahmed W, Boskoski I, Ellrichmann M, Gkolfakis P, Hritz I, Hucl T, Kylänpää L, Manno M, Poley JW, Vila JJ, Tham TC, Ferlitsch M. Endoscopy. 2025 Sep;57(9):1056-1069. doi: 10.1055/a-2619-8434. Epub 2025 Jun 30. PMID: 40588224	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This guideline is about curriculum for training in cholangiopancreatoscopy
+26.	Gastric bezoar entering the duodenum causing intestinal obstruction: A case report. Wang H, Zhang Y, Zhong H, Zhang H, Ma Y. Medicine (Baltimore). 2025 Sep 5;104(36):e44149. doi: 10.1097/MD.0000000000044149. PMID: 40922313 Free PMC article.	Duplicated
+27.	[Endoscopic ultrasound-guided gastro-enteric anastomosis for malignant gastric outlet obstruction: Initial experience in an endoscopic center in Lima-Peru]. Chirinos-Vega JA, Ponce de León Molina OE. Rev Gastroenterol Peru. 2025 Jul-Sep;45(3):300-306. PMID: 41230673 Spanish.	Duplicated
+28.	Surgical Management of Groove Pancreatitis: Lessons Learnt and Long-Term Experience. Agarwal L, Rathore KS, Varshney VK, Soni S, Selvakumar B, Varshney P, Agarwal A, Verma V, Sureka B, Yadav T. Dig Dis Sci. 2025 Jul;70(7):2521-2533. doi: 10.1007/s10620-025-09025-8. Epub 2025 Apr 9. PMID: 40205281	Duplicated
+29.	Minimally Invasive Left Colonic Interposition For Corrosive Esophageal Stricture: Technique and Outcomes. Tien TPD, Loc NVV, Trung LV, Vuong NL. Surg Laparosc Endosc Percutan Tech. 2025 Dec 1;35(6):e1404. doi: 10.1097/SLE.0000000000001404. PMID: 40899331	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents left colonic interposition for corrosive esophageal stricture
+30.	Endoscopic submucosal dissection combined surgery for the treatment of ectopic gastric mucosa and ectopic pancreas in muscularis propria and serosal layer of the stomach: A rare case report and review of the literature. Chen Y, Cao Y, Zhi L, Huang R. Medicine (Baltimore). 2025 Feb 28;104(9):e41297. doi: 10.1097/MD.0000000000041297. PMID: 40020126 PMC article. Review.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report presents endoscopic submucosal dissection combined surgery for ectopic gastric mucosa and ectopic pancreas in muscularis propria and serosal layer of the stomach
+31.	ANCA-Negative Eosinophilic Granulomatosis With Polyangiitis Presenting With Duodenal Stenosis: A Case Report. Chen J, Liu J, Luo M, Guo J. Am J Case Rep. 2025 Dec 27;26:e951493. doi: 10.12659/AJCR.951493. PMID: 41454498 Free PMC article.	Duplicated
+32.	Long-term outcomes of laparoscopic duodenojejunostomy for superior mesenteric artery syndrome. Wills MV, Barajas-Gamboa JS, Mocanu V, Conner A, Brown J, Restrepo-Rodas G, Lee S, Navarrete S, Corcelles R, Allemang M, Rodriguez J, Strong A, Dang J, Kroh M. Surg Endosc. 2025 Aug;39(8):5235-5243. doi: 10.1007/s00464-025-11774-6. Epub 2025 Jun 27. PMID: 40576774 Free PMC article.	Duplicated
+33.	Modified Devine exclusion for unresectable gastric cancer: a bridge from palliative to curative treatment. Fontainhas J, Gomes A, Nunes V. BMJ Case Rep. 2025 Apr 24;18(4):e265812. doi: 10.1136/bcr-2025-265812. PMID: 40280571	Duplicated
+34.	Optimizing EUS-guided choledochoduodenostomy with lumen-apposing metal stents for primary drainage of malignant distal biliary obstruction (SCORPION-IIp): a prospective pilot study. Fritzsche JA, Fockens P, Besselink MG, Busch OR, Daams F, Wielenga MCB, Wilmink JW, Voermans RP, Van Wanrooij RLJ. Gastrointest Endosc. 2025 May;101(5):1009-1016. doi: 10.1016/j.gie.2024.10.012. Epub 2024 Oct 16. PMID: 39424003 Clinical Trial.	Duplicated
+35.	Trisomy 21 Children With Duodenal Atresia or Anorectal Malformation: NSQIP-P Surgical Outcomes Study. Gely Y, Moreci R, Roberts H, Danos D, Zagory J. J Surg Res. 2025 Jun;310:194-202. doi: 10.1016/j.jss.2025.03.020. Epub 2025 Apr 26. PMID: 40288091	Duplicated
+36.	Biliopancreatic limb obstruction after one-anastomosis gastric bypass; a very rare and fatal event: A case report and literature review. Athar R, Khalaj A, Shapori P. Asian J Endosc Surg. 2025 Jan-Dec;18(1):e13402. doi: 10.1111/ases.13402. PMID: 39477528 Review.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This review presents vary rare case of biliopancreatic limb obstruction after one-anastomosis gastric bypass
+37.	Application of Intragastric Single-Incision Laparoscopy Surgery in the Management of Gastroesophageal Junction Gastrointestinal Stromal Tumors. Zheng JB, Chen N, Lin Y, Liu J, Lian L, Wang H. J Vis Exp. 2025 Jun 17;(220). doi: 10.3791/67663. PMID: 40622924	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report presents intragastric single-incision laparoscopy surgery for GIST at the GEJ
+38.	Investigation of tube replacement cases of percutaneous transesophageal gastro-tubing in cancer patients. Nakama R, Sone M, Sugawara S, Itou C, Kimura S, Ozawa M, Oshima T, Murakami S, Kusumoto M. Jpn J Radiol. 2025 Aug;43(8):1380-1385. doi: 10.1007/s11604-025-01770-0. Epub 2025 Mar 29. PMID: 40156741 Free PMC article.	Duplicated
+39.	Corrosive substance ingestion in children: clinical features, management and outcomes in a tertiary care setting. Irlayıcı FI, Elmas A, Akcam M. Eur J Pediatr. 2025 Aug 13;184(9):549. doi: 10.1007/s00431-025-06402-3. PMID: 40802074	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This study presents clinical features, management and outcomes of pediatric patients with corrosive ingestion
+40.	Johanson-Blizzard syndrome with cystic dilation of the cochlea and hypoplastic modiolus: a case report. Mangali NP, Antony A, Kumar N. Pediatr Radiol. 2025 Jan;55(1):195-200. doi: 10.1007/s00247-024-06118-w. Epub 2024 Dec 7. PMID: 39644353	Duplicated
+41.	Revisional single anastomosis duodeno-ileal bypass with sleeve gastrectomy after failed adjustable gastric band or sleeve gastrectomy: a meta-analysis of efficacy and safety. Esparham A, Anari Moghadam H, Khorgami Z. Surg Obes Relat Dis. 2026 Mar;22(3):359-368. doi: 10.1016/j.soard.2025.10.018. Epub 2025 Nov 8. PMID: 41372014 Review.	Duplicated
+42.	Double jeopardy in early infancy: aperta lipomyelomeningocele with Chiari II malformation complicated by infantile hypertrophic pyloric stenosis. Kattamanchi D, Jayaraman K, Kamalakannan SK, Arun A. BMJ Case Rep. 2025 Nov 10;18(11):e268860. doi: 10.1136/bcr-2025-268860. PMID: 41218952	Duplicated
+43.	Duodenal lipoma - An unusual finding, location and presentation. Tarrio I, Andrade AJ, Moreira M, Lopes L. Rev Esp Enferm Dig. 2025 Aug;117(8):459-460. doi: 10.17235/reed.2023.10087/2023. PMID: 38095175	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report presents unusual location and presentation of duodenal lipoma
+44.	Outcomes After Duodenoduodenostomy for Superior Mesenteric Artery Syndrome. Ang D, Hofmann A, Attili A, Sang W, Soltani T, Richards W, Ferber L, Taylor D. Am Surg. 2025 Apr;91(4):561-569. doi: 10.1177/00031348241300361. Epub 2024 Nov 20. PMID: 39568120	Duplicated
+45.	Identifying predictive markers for survival in malignant biliary obstruction following percutaneous transhepatic biliary drainage. Chan K, Vigneswaran G, Modi S, Sew Hee C, Maclean D, Stedman B, Bryant T, Maher B. Clin Radiol. 2025 Mar;82:106772. doi: 10.1016/j.crad.2024.106772. Epub 2024 Dec 15. PMID: 39874925	Duplicated
+46.	Improving retention of pediatric feeding tubes with a nasal bridle: a randomized controlled trial. Foster M, Armijo-Garcia V, Gelfond J, Meyer AD. Trials. 2025 May 14;26(1):159. doi: 10.1186/s13063-025-08867-x. PMID: 40369642 Free PMC article. Clinical Trial.	Duplicated
+47.	Factors influencing early surgical outcomes of intestinal atresia in a resource-limited tertiary center. Wassie MT, Girma SM, Gebru FT, Aklilu WK, Mammo TN. Pediatr Surg Int. 2025 Jul 5;41(1):202. doi: 10.1007/s00383-025-06100-z. PMID: 40616700	Duplicated
+48.	[A Case of Laparoscopic Total Gastrectomy and Enterostomy with R Anastomosis for Advanced Gastric Cancer in an Older Patient]. Katsuyama S, Masuzawa T, Sugimura K, Yanagisawa K, Shinke G, Kinoshita M, Ikeshima R, Hiraki M, Ohmura Y, Hata T, Takeda Y, Murata K. Gan To Kagaku Ryoho. 2025 Apr;52(4):323-325. PMID: 40360408 Japanese.	Not Selected
+Reason for Exclusion 
+Irrelevant articles: This case report presents laparoscopic total gastrectomy and enterostomy with R anastomosis for advanced gastric cancer in an older patient
+49.	Esophageal obstruction secondary to enteral nutrition via nasogastric tube in moderate traumatic brain injury: A case report and literature review. Jiang Q, Liu M, Liu Y, Fu P, Li S, Zha L. Medicine (Baltimore). 2025 Dec 19;104(51):e46755. doi: 10.1097/MD.0000000000046755. PMID: 41431083 Free PMC article. Review.	Duplicated
+50.	Delayed gastric conduit emptying after esophagectomy: attempt at a clinically relevant classification. Schneider MA, Viggiani D'Avalos L, Gerdes S, Vetter D, Gutschow CA. Dis Esophagus. 2025 Sep 1;38(5):doaf090. doi: 10.1093/dote/doaf090. PMID: 41124318 Free PMC article.	Duplicated
+51.	Postoperative management of pediatric patients undergoing single-stage laryngotracheal reconstruction in the United States: A survey of ASPO members. Hazkani I, Bruss D, Rowland M, Valika T, Ida J, Thompson D, Lavin J. Am J Otolaryngol. 2025 Jan-Feb;46(1):104509. doi: 10.1016/j.amjoto.2024.104509. Epub 2024 Nov 12. PMID: 39567288	Duplicated
+52.	Possible familial predisposition in superior mesenteric artery syndrome with surgical management: A case report. Maraqah M, Al Tamimi MF, Abu Aram S, Hmedat S, Abueisha M, Hmeedat Y. Medicine (Baltimore). 2025 May 23;104(21):e42613. doi: 10.1097/MD.0000000000042613. PMID: 40419881 Free PMC article.	Duplicated
+53.	Oncological outcomes of palliative minimally invasive distal pancreatectomy for unexpected metastatic pancreatic ductal adenocarcinoma: A single-center experience. Park Y, Hwang DW, Lee JH, Song KB, Jun E, Lee W, Sung MK, Kim SC. Surgery. 2025 Jun;182:109331. doi: 10.1016/j.surg.2025.109331. Epub 2025 Mar 25. PMID: 40138876	Duplicated
+ 
+(3) Search Terms: “Patients + Comparator + Outcome”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Pyloric stricture	5,651
+	2	Pyloric obstruction	6,330
+	3	Duodenal stricture	2,254
+	4	Duodenal obstruction	8,588
+	5	Gastric outlet obstruction	9,226
+	6	Malignant pyloric stricture	694
+	7	Malignant pyloric obstruction	870
+	8	Malignant duodenal stricture	668
+	9	Malignant duodenal obstruction	2,170
+	10	Benign pyloric stricture	119
+	11	Benign pyloric obstruction	157
+	12	Benign duodenal stricture	295
+	13	Benign duodenal obstruction	297
+	14	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8 OR #9 OR #10 OR #11 OR #12 OR #13	18,511
+Comparator	15	Surgery	6,313,457
+	16	Plastic stent	5,046
+	17	Balloon dilation	17,802
+	18	Self-expandable metallic stent	2,758
+	19	Self-expandable metal stent	3,725
+	20	SEMS	3,296
+	21	Covered stent	10,638
+	22	WallFlex	89
+	23	WallFlex Soft	4
+	24	Hanarostent	26
+	25	Evolution	900,564
+	26	EGIS	668
+	27	Bonastent	12
+	28	#15 OR #16 OR #17 OR #18 OR #19 OR #20 OR #21 OR #22 OR #23 OR #24 OR #25 OR #26 OR #27	7,171,334
+Outcome	29	Stent patency	12,604
+	30	Obstruction relief	7,217
+	31	Obstruction resolution	10,366
+	32	Obstruction improvement	73,786
+	33	Removal	858,667
+	34	#29 OR #30 OR #31 OR #32 OR #33	951,504
+Result	35	#14 AND #28 AND #34	2,100
+Date-Publication	36	2025/01/01~2025/12/31	127
+Filter	37	Humans	49
+
+ 
+ 
+ 
+Articles (49)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1.	Endoscopic ultrasonography-guided gastroenterostomy versus uncovered duodenal metal stenting for unresectable malignant gastric outlet obstruction (DRA-GOO): a multicentre randomised controlled trial. Teoh AYB, Lakhtakia S, Tarantino I, Perez-Miranda M, Kunda R, Maluf-Filho F, Dhir V, Basha J, Chan SM, Ligresti D, Ma MTW, de la Serna-Higuera C, Yip HC, Ng EKW, Chiu PWY, Itoi T. Lancet Gastroenterol Hepatol. 2025 Jun;10(6):e8-e16. doi: 10.1016/S2468-1253(25)00136-0. PMID: 40347959      Clinical Trial.     	Duplicated
+2.	Novel nutrition strategies in gastric and esophageal cancer. Boyle E, Elliott JA. Expert Rev Gastroenterol Hepatol. 2025 Jan-Feb;19(2):89-104. doi: 10.1080/17474124.2025.2457444. Epub 2025 Jan 30. PMID: 39864091 Review.	Duplicated
+3.	Is endoscopic ultrasound-guided gastroenterostomy better than surgical gastrojejunostomy or duodenal stenting? Teoh AYB, Chan SM, Yip HC. Dig Endosc. 2025 Jan;37(1):77-84. doi: 10.1111/den.14929. Epub 2024 Oct 6. PMID: 39370536 Free PMC article. Review.	Duplicated
+4.	Advancing care in malignant gastric outlet obstruction: a contemporary review of management strategies. Wierzbicka A, Shah T. Curr Opin Gastroenterol. 2025 Nov 1;41(6):409-415. doi: 10.1097/MOG.0000000000001101. Epub 2025 Apr 23. PMID: 40304723 Review.	Duplicated
+5.	Endoscopic ultrasound-guided gastroenterostomy for the treatment of gastric outlet obstruction secondary to acute pancreatitis. Wannhoff A, Canakis A, Sharaiha RZ, Fayyaz F, Schlag C, Sharma N, Elsayed I, Khashab MA, Baron TH, Caca K, Irani SS. Endoscopy. 2025 Mar;57(3):249-254. doi: 10.1055/a-2452-5307. Epub 2024 Nov 11. PMID: 39529322	Duplicated
+6.	[Palliative Surgical Approaches for Malignant Upper Gastrointestinal Obstruction]. Maruyama S, Higuchi Y, Shoda K, Kawaguchi Y, Ichikawa D. Gan To Kagaku Ryoho. 2025 Oct;52(10):716-719.
+PMID: 41139964 Review. Japanese.	Duplicated
+7.	Long-Term Outcomes of EUS-Guided Gastroenterostomy: A Large, Single-Center Experience. Trieu JA, Kahlenberg S, Gilman AJ, Hathorn K, Baron TH. Clin Transl Gastroenterol. 2025 Jan 1;16(1):e00648. doi: 10.14309/ctg.0000000000000648. PMID: 39620984 Free PMC article.	Duplicated
+8.	EUS-directed transduodenal ERCP in concomitant gastric outlet and biliary obstruction. Kesar V, Abel WF, Bapaye J, Wasserman RD, Rozenberg J, Garikipati S, Mönkemüller KE, Kesar V, Yeaton P. Gastrointest Endosc. 2025 Apr;101(4):885-889. doi: 10.1016/j.gie.2024.12.003. Epub 2024 Dec 9. PMID: 39662635	Duplicated
+9.	Long-term outcomes of EUS-guided balloon-occluded gastrojejunostomy bypass for malignant gastric outlet obstruction (with video). Tsuchiya T, Itoi T, Ishii K, Tanaka R, Tonozuka R, Mukai S, Nagai K, Yamamoto K, Matsunami Y, Kojima H, Minami H, Asano K, Sofuni A. Gastrointest Endosc. 2025 Jan;101(1):195-199. doi: 10.1016/j.gie.2024.07.006. Epub 2024 Jul 23. PMID: 39053650	Duplicated
+10.	A national perspective on palliative interventions for malignant gastric outlet obstruction. Ng AP, Hadaya JE, Sanaiha Y, Chervu NL, Girgis MD, Benharash P. J Gastrointest Surg. 2025 Feb;29(2):101884. doi: 10.1016/j.gassur.2024.101884. Epub 2024 Nov 14. PMID: 39547591	Duplicated
+11.	Endoscopic Ultrasound-Guided Gastrojejunostomy as a Primary Treatment Modality for Malignant Gastric Outlet Obstruction: A Large Multicenter Experience. Sonthalia N, Chavan R, Singh P, Narayan J, Sud S, Shah CN, Zanwar S, Tewari A, Rajput S, Singla V, Roy A, Koul S, Goel A, Ghoshal UC, Goenka MK. J Gastroenterol Hepatol. 2025 Jun;40(6):1515-1524. doi: 10.1111/jgh.16959. Epub 2025 Apr 4. PMID: 40181785	Duplicated
+12.	Safety and feasibility of laparoscopic stomach-partitioning gastrojejunostomy combined with neoadjuvant chemotherapy followed by minimally invasive gastrectomy for resectable gastric cancer with gastric outlet obstruction. Tanaka T, Suda K, Nakauchi M, Fujita M, Suzuki K, Umeki Y, Serizawa A, Akimoto S, Watanabe Y, Shibasaki S, Matsuoka H, Inaba K, Uyama I. Surg Endosc. 2025 Feb;39(2):837-849. doi: 10.1007/s00464-024-11427-0. Epub 2024 Dec 2. PMID: 39623174	Duplicated
+13.	Corrosive substance ingestion in children: clinical features, management and outcomes in a tertiary care setting. Irlayıcı FI, Elmas A, Akcam M. Eur J Pediatr. 2025 Aug 13;184(9):549. doi: 10.1007/s00431-025-06402-3. PMID: 40802074	Duplicated
+14.	Clinical Success Impacts Overall Survival in Patients Undergoing Palliation for Malignant Gastric Outlet Obstruction Using Enteral Stents or Endoscopic Ultrasound Guided Gastroenterostomy. Mahajan A, Sundaram S, Puri R, Shravan GH, Mane K, Kale A, Patkar S, Goel M, Shrikhande S, Chaudhari V, Patil P, Mehta S. J Gastroenterol Hepatol. 2025 Oct;40(10):2552-2559. doi: 10.1111/jgh.70066. Epub 2025 Aug 30. PMID: 40884246 Free PMC article.	Duplicated
+15.	Optimizing EUS-guided choledochoduodenostomy with lumen-apposing metal stents for primary drainage of malignant distal biliary obstruction (SCORPION-IIp): a prospective pilot study. Fritzsche JA, Fockens P, Besselink MG, Busch OR, Daams F, Wielenga MCB, Wilmink JW, Voermans RP, Van Wanrooij RLJ. Gastrointest Endosc. 2025 May;101(5):1009-1016. doi: 10.1016/j.gie.2024.10.012. Epub 2024 Oct 16. PMID: 39424003 Clinical Trial.	Duplicated
+16.	Biomechanical Impact of Partitioning Position and Angle on Post-SPGJ Gastric Emptying. Fan Z, Li Q, Xu F, Zhang H, Ye X, Zheng Z, Zhang J. Ann N Y Acad Sci. 2025 Dec;1554(1):227-238. doi: 10.1111/nyas.70104. Epub 2025 Oct 22. PMID: 41123176	Duplicated
+17.	Endoscopic submucosal dissection combined surgery for the treatment of ectopic gastric mucosa and ectopic pancreas in muscularis propria and serosal layer of the stomach: A rare case report and review of the literature. Chen Y, Cao Y, Zhi L, Huang R. Medicine (Baltimore). 2025 Feb 28;104(9):e41297. doi: 10.1097/MD.0000000000041297. PMID: 40020126 Free PMC article. Review.	Duplicated
+18.	Duodenal obstruction secondary to metastatic breast cancer. O'Neill RS, Field A, Kim BSM, Ferguson JS, Ghaly S, Dear RF. J Cancer Res Ther. 2025 Apr 1;21(3):755-757. doi: 10.4103/jcrt.jcrt_2022_24. Epub 2025 Jul 5. PMID: 40616566	Duplicated
+19.	Comparing palliative gastrectomy and gastrojejunostomy for advanced gastric cancer: impact on survival and postoperative outcomes. Lessing Y, Inbar-Weissman T, Cohen R, Messer N, Erlich-Feingold O, Kanani F, Lahat G, Orbach L. Minerva Surg. 2025 Dec;80(6):452-460. doi: 10.23736/S2724-5691.25.11028-9. PMID: 41622824	Duplicated
+20.	Clinical outcomes and predictive factors for stent patency in malignant duodenojejunal obstruction: comparison of distal duodenum and proximal jejunum. Lee HS, So H, Lee Y, Cho SH, Huh G, Song TJ, Seo DW, Oh D. J Gastrointest Surg. 2025 Dec;29(12):102252. doi: 10.1016/j.gassur.2025.102252. Epub 2025 Oct 14. PMID: 41101379	Duplicated
+21.	Long-term outcomes of laparoscopic duodenojejunostomy for superior mesenteric artery syndrome. Wills MV, Barajas-Gamboa JS, Mocanu V, Conner A, Brown J, Restrepo-Rodas G, Lee S, Navarrete S, Corcelles R, Allemang M, Rodriguez J, Strong A, Dang J, Kroh M. Surg Endosc. 2025 Aug;39(8):5235-5243. doi: 10.1007/s00464-025-11774-6. Epub 2025 Jun 27. PMID: 40576774 Free PMC article.	Duplicated
+22.	Feasibility and clinical utility of stone extraction balloon catheter-assisted endoscopic stenting for malignant distal duodenal and proximal jejunal obstruction (with video). Park JH, Kim YR, Hwang JC, Lee KM, Yoo BM, Kim JH, Shin EJ, Yang MJ. Surg Endosc. 2025 Aug;39(8):5413-5420. doi: 10.1007/s00464-025-11861-8. Epub 2025 Jul 7. PMID: 40624422	Duplicated
+23.	Clinical Outcomes of Secondary Duodenal Self-Expandable Metallic Stenting for Duodenal Stent Dysfunction in Patients with Malignant Duodenal Obstruction: A Retrospective Multicenter Study. So H, Joo HD, Song TJ, Ko SW, Lee HS, Cho SH, Oh D, Han SY, Kim DU, Seo DW. Gut Liver. 2025 Nov 15;19(6):909-916. doi: 10.5009/gnl240014. Epub 2024 May 22. PMID: 38772730 Free PMC article.	Duplicated
+24.	Robotic-assisted trans-mesocolic side-to-side duodenojejunostomy for palliative management of malignant distal duodenal obstruction. Yin H, Sharma D, Wang JJ, Ganjouei AA, Kouanda A, Hirose K, Nakakura E, Kirkwood K, Corvera C, Alseidi A, Adam MA. Chin Clin Oncol. 2025 Feb;14(1):5. doi: 10.21037/cco-24-87. PMID: 40081386	Duplicated
+25.	Duodenal pyloric gland adenoma with a long pedicle causes intestinal obstruction: A case report. Zhu L, Lv S, Li Y, Yao K. Medicine (Baltimore). 2025 Jul 11;104(28):e43331. doi: 10.1097/MD.0000000000043331. PMID: 40660594 Free PMC article.	Duplicated
+26.	A Rare Presentation of IgG4-Related Disease with Gastric Outlet Obstruction and Lymphadenopathy: A Case Report. Alsaifi M, Al Sawafi Y, Al Julandani N. Int J Surg Pathol. 2025 Jun;33(4):982-986. doi: 10.1177/10668969241291889. Epub 2024 Nov 25. PMID: 39584697	Duplicated
+27.	Endoscopic Ultrasound Guided Gastro-Gastrostomy for Management of Pouch Outlet Obstruction Secondary to Vertical Banded Gastroplasty: Efficacy and Safety. Hoilat G, Celdir M, Gerke H. Obes Surg. 2025 Aug;35(8):3316-3320. doi: 10.1007/s11695-025-07957-8. Epub 2025 Jul 16. PMID: 40670891 Free PMC article.	Duplicated
+28.	Quality standards and curriculum for training in cholangiopancreatoscopy: European Society of Gastrointestinal Endoscopy (ESGE) Position Statement. Johnson G, Webster G, Papaefthymiou A, Teles de Campos S, Czakó L, Schlag C, Hollenbach M, Anderloni A, Ahmed W, Boskoski I, Ellrichmann M, Gkolfakis P, Hritz I, Hucl T, Kylänpää L, Manno M, Poley JW, Vila JJ, Tham TC, Ferlitsch M. Endoscopy. 2025 Sep;57(9):1056-1069. doi: 10.1055/a-2619-8434. Epub 2025 Jun 30. PMID: 40588224	Duplicated
+29.	Trisomy 21 Children With Duodenal Atresia or Anorectal Malformation: NSQIP-P Surgical Outcomes Study. Gely Y, Moreci R, Roberts H, Danos D, Zagory J. J Surg Res. 2025 Jun;310:194-202. doi: 10.1016/j.jss.2025.03.020. Epub 2025 Apr 26. PMID: 40288091	Duplicated
+30.	Gastric bezoar entering the duodenum causing intestinal obstruction: A case report. Wang H, Zhang Y, Zhong H, Zhang H, Ma Y. Medicine (Baltimore). 2025 Sep 5;104(36):e44149. doi: 10.1097/MD.0000000000044149. PMID: 40922313 Free PMC article.	Duplicated
+31.	Minimally Invasive Left Colonic Interposition For Corrosive Esophageal Stricture: Technique and Outcomes. Tien TPD, Loc NVV, Trung LV, Vuong NL. Surg Laparosc Endosc Percutan Tech. 2025 Dec 1;35(6):e1404. doi: 10.1097/SLE.0000000000001404. PMID: 40899331	Duplicated
+32.	[Endoscopic ultrasound-guided gastro-enteric anastomosis for malignant gastric outlet obstruction: Initial experience in an endoscopic center in Lima-Peru]. Chirinos-Vega JA, Ponce de León Molina OE. Rev Gastroenterol Peru. 2025 Jul-Sep;45(3):300-306. PMID: 41230673 Spanish.	Duplicated
+33.	Surgical Management of Groove Pancreatitis: Lessons Learnt and Long-Term Experience. Agarwal L, Rathore KS, Varshney VK, Soni S, Selvakumar B, Varshney P, Agarwal A, Verma V, Sureka B, Yadav T. Dig Dis Sci. 2025 Jul;70(7):2521-2533. doi: 10.1007/s10620-025-09025-8. Epub 2025 Apr 9. PMID: 40205281	Duplicated
+34.	Biliopancreatic limb obstruction after one-anastomosis gastric bypass; a very rare and fatal event: A case report and literature review. Athar R, Khalaj A, Shapori P. Asian J Endosc Surg. 2025 Jan-Dec;18(1):e13402. doi: 10.1111/ases.13402. PMID: 39477528 Review.	Duplicated
+35.	Modified Devine exclusion for unresectable gastric cancer: a bridge from palliative to curative treatment. Fontainhas J, Gomes A, Nunes V. BMJ Case Rep. 2025 Apr 24;18(4):e265812. doi: 10.1136/bcr-2025-265812. PMID: 40280571	Duplicated
+36.	Outcomes After Duodenoduodenostomy for Superior Mesenteric Artery Syndrome. Ang D, Hofmann A, Attili A, Sang W, Soltani T, Richards W, Ferber L, Taylor D. Am Surg. 2025 Apr;91(4):561-569. doi: 10.1177/00031348241300361. Epub 2024 Nov 20. PMID: 39568120	Duplicated
+37.	Double jeopardy in early infancy: aperta lipomyelomeningocele with Chiari II malformation complicated by infantile hypertrophic pyloric stenosis. Kattamanchi D, Jayaraman K, Kamalakannan SK, Arun A. BMJ Case Rep. 2025 Nov 10;18(11):e268860. doi: 10.1136/bcr-2025-268860. PMID: 41218952	Duplicated
+38.	Application of Intragastric Single-Incision Laparoscopy Surgery in the Management of Gastroesophageal Junction Gastrointestinal Stromal Tumors. Zheng JB, Chen N, Lin Y, Liu J, Lian L, Wang H. J Vis Exp. 2025 Jun 17;(220). doi: 10.3791/67663. PMID: 40622924	Duplicated
+39.	Investigation of tube replacement cases of percutaneous transesophageal gastro-tubing in cancer patients. Nakama R, Sone M, Sugawara S, Itou C, Kimura S, Ozawa M, Oshima T, Murakami S, Kusumoto M. Jpn J Radiol. 2025 Aug;43(8):1380-1385. doi: 10.1007/s11604-025-01770-0. Epub 2025 Mar 29. PMID: 40156741 Free PMC article.	Duplicated
+40.	Possible familial predisposition in superior mesenteric artery syndrome with surgical management: A case report. Maraqah M, Al Tamimi MF, Abu Aram S, Hmedat S, Abueisha M, Hmeedat Y. Medicine (Baltimore). 2025 May 23;104(21):e42613. doi: 10.1097/MD.0000000000042613. PMID: 40419881 Free PMC article.	Duplicated
+41.	Duodenal lipoma - An unusual finding, location and presentation. Tarrio I, Andrade AJ, Moreira M, Lopes L. Rev Esp Enferm Dig. 2025 Aug;117(8):459-460. doi: 10.17235/reed.2023.10087/2023. PMID: 38095175	Duplicated
+42.	Revisional single anastomosis duodeno-ileal bypass with sleeve gastrectomy after failed adjustable gastric band or sleeve gastrectomy: a meta-analysis of efficacy and safety. Esparham A, Anari Moghadam H, Khorgami Z. Surg Obes Relat Dis. 2026 Mar;22(3):359-368. doi: 10.1016/j.soard.2025.10.018. Epub 2025 Nov 8. PMID: 41372014 Review.	Duplicated
+43.	Postoperative management of pediatric patients undergoing single-stage laryngotracheal reconstruction in the United States: A survey of ASPO members. Hazkani I, Bruss D, Rowland M, Valika T, Ida J, Thompson D, Lavin J. Am J Otolaryngol. 2025 Jan-Feb;46(1):104509. doi: 10.1016/j.amjoto.2024.104509. Epub 2024 Nov 12. PMID: 39567288	Duplicated
+44.	Identifying predictive markers for survival in malignant biliary obstruction following percutaneous transhepatic biliary drainage. Chan K, Vigneswaran G, Modi S, Sew Hee C, Maclean D, Stedman B, Bryant T, Maher B. Clin Radiol. 2025 Mar;82:106772. doi: 10.1016/j.crad.2024.106772. Epub 2024 Dec 15. PMID: 39874925	Duplicated
+45.	[A Case of Laparoscopic Total Gastrectomy and Enterostomy with R Anastomosis for Advanced Gastric Cancer in an Older Patient]. Katsuyama S, Masuzawa T, Sugimura K, Yanagisawa K, Shinke G, Kinoshita M, Ikeshima R, Hiraki M, Ohmura Y, Hata T, Takeda Y, Murata K. Gan To Kagaku Ryoho. 2025 Apr;52(4):323-325. PMID: 40360408 Japanese.	Duplicated
+46.	Factors influencing early surgical outcomes of intestinal atresia in a resource-limited tertiary center. Wassie MT, Girma SM, Gebru FT, Aklilu WK, Mammo TN. Pediatr Surg Int. 2025 Jul 5;41(1):202. doi: 10.1007/s00383-025-06100-z. PMID: 40616700	Duplicated
+47.	Esophageal obstruction secondary to enteral nutrition via nasogastric tube in moderate traumatic brain injury: A case report and literature review. Jiang Q, Liu M, Liu Y, Fu P, Li S, Zha L. Medicine (Baltimore). 2025 Dec 19;104(51):e46755. doi: 10.1097/MD.0000000000046755. PMID: 41431083 Free PMC article. Review.	Duplicated
+48.	Delayed gastric conduit emptying after esophagectomy: attempt at a clinically relevant classification. Schneider MA, Viggiani D'Avalos L, Gerdes S, Vetter D, Gutschow CA. Dis Esophagus. 2025 Sep 1;38(5):doaf090. doi: 10.1093/dote/doaf090. PMID: 41124318 Free PMC article	Duplicated
+49.	Oncological outcomes of palliative minimally invasive distal pancreatectomy for unexpected metastatic pancreatic ductal adenocarcinoma: A single-center experience. Park Y, Hwang DW, Lee JH, Song KB, Jun E, Lee W, Sung MK, Kim SC. Surgery. 2025 Jun;182:109331. doi: 10.1016/j.surg.2025.109331. Epub 2025 Mar 25. PMID: 40138876	Duplicated
+
+ 
+(4) Search Terms: “Intervention” specializing in search scope
+•	Niti-S Pyloric/Duodenal Covered Stent [Full Covered-Type]
+Categories	No	Keywords	Results
+Intervention	1	Taewoong	228
+	2	Niti-S	77
+	3	Pyloric 	27,512
+	4	Duodenal	134,048
+	5	Full covered type	1,605
+Result	6	#1 AND #2 AND #3 AND #4 AND #5	0
+Date-Publication	7	2025/01/01~2025/12/31	0
+
+ 
+No relevant search results were found during the literature search.
+
+ 
+•	Niti-S Pyloric/Duodenal Covered Stent [Both Bare-Type]
+Categories	No	Keywords	Results
+Intervention	1	Taewoong	185
+	2	Niti-S	73
+	3	Pyloric 	27,052
+	4	Duodenal	131,147
+	5	Both bare type	2,655
+Result	6	#1 AND #2 AND #3 AND #4 AND #5	0
+Date-Publication	7	2025/01/01~2025/12/31	0
+
+ 
+No relevant search results were found during the literature search.
+
+ 
+•	Niti-S Pyloric/Duodenal Covered Stent [End Bare-Type]
+Categories	No	Keywords	Results
+Intervention	1	Taewoong	185
+	2	Niti-S	73
+	3	Pyloric 	27,052
+	4	Duodenal	131,147
+	5	End bare type	141
+Result	6	#1 AND #2 AND #3 AND #4 AND #5	0
+Date-Publication	7	2025/01/01~2025/12/31	0
+
+ 
+No relevant search results were found during the literature search.
+
+ 
+C.	ComVi Pyloric/Duodenal Stents
+(1) Search Terms: “Patient / Population / Problem + Intervention”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Pyloric stricture	5,648
+	2	Pyloric obstruction	6,323
+	3	Duodenal stricture	2,250
+	4	Duodenal obstruction	8,565
+	5	Gastric outlet obstruction	9,201
+	6	Malignant pyloric stricture	693
+	7	Malignant pyloric obstruction	868
+	8	Malignant duodenal stricture	667
+	9	Malignant duodenal obstruction	2,161
+	10	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8 OR #9	18,464
+Intervention	11	Self-expandable metallic stent	2,744
+	12	Self-expandable metal stent	3,709
+	13	SEMS	3,275
+	14	Taewoong	228
+	15	ComVi	15
+	16	Covered stent	10,583
+	17	#11 OR #12 OR #13 OR #14 OR #15 OR #16	15,036
+Result	18	#10 AND #17	562
+Date-Publication	19	2025/01/01~2025/12/31	32
+Filter	20	Humans	12
+
+ 
+
+Articles (12)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1.	Endoscopic ultrasonography-guided gastroenterostomy versus uncovered duodenal metal stenting for unresectable malignant gastric outlet obstruction (DRA-GOO): a multicentre randomised controlled trial. Teoh AYB, Lakhtakia S, Tarantino I, Perez-Miranda M, Kunda R, Maluf-Filho F, Dhir V, Basha J, Chan SM, Ligresti D, Ma MTW, de la Serna-Higuera C, Yip HC, Ng EKW, Chiu PWY, Itoi T. Lancet Gastroenterol Hepatol. 2025 Jun;10(6):e8-e16. doi: 10.1016/S2468-1253(25)00136-0. PMID: 40347959 Clinical Trial.	Duplicated
+2.	EUS guided gastrojejunostomy: techniques and outcomes. Jayanna SH, Rana SS. Expert Rev Gastroenterol Hepatol. 2025 Jul;19(7):745-754. doi: 10.1080/17474124.2025.2512168. Epub 2025 May 27. PMID: 40411777 Review.	Duplicated
+3.	Is endoscopic ultrasound-guided gastroenterostomy better than surgical gastrojejunostomy or duodenal stenting? Teoh AYB, Chan SM, Yip HC. Dig Endosc. 2025 Jan;37(1):77-84. doi: 10.1111/den.14929. Epub 2024 Oct 6. PMID: 39370536 Free PMC article. Review.	Duplicated
+4.	Advancing care in malignant gastric outlet obstruction: a contemporary review of management strategies. Wierzbicka A, Shah T. Curr Opin Gastroenterol. 2025 Nov 1;41(6):409-415. doi: 10.1097/MOG.0000000000001101. Epub 2025 Apr 23. PMID: 40304723 Review.	Duplicated
+5.	[Palliative Surgical Approaches for Malignant Upper Gastrointestinal Obstruction]. Maruyama S, Higuchi Y, Shoda K, Kawaguchi Y, Ichikawa D. Gan To Kagaku Ryoho. 2025 Oct;52(10):716-719. PMID: 41139964 Review. Japanese.	Duplicated
+6.	A real-world study of balloon dilation vs. self-expandable metal stents for benign gastric outlet obstruction. Liu P, Zhang Y, Guo C, Han X, Bi Y. BMC Gastroenterol. 2025 Aug 19;25(1):599. doi: 10.1186/s12876-025-04225-y. PMID: 40830837 Free PMC article.	Duplicated
+7.	Optimizing EUS-guided choledochoduodenostomy with lumen-apposing metal stents for primary drainage of malignant distal biliary obstruction (SCORPION-IIp): a prospective pilot study. Fritzsche JA, Fockens P, Besselink MG, Busch OR, Daams F, Wielenga MCB, Wilmink JW, Voermans RP, Van Wanrooij RLJ. Gastrointest Endosc. 2025 May;101(5):1009-1016. doi: 10.1016/j.gie.2024.10.012. Epub 2024 Oct 16. PMID: 39424003 Clinical Trial.	Duplicated
+8.	Clinical outcomes and predictive factors for stent patency in malignant duodenojejunal obstruction: comparison of distal duodenum and proximal jejunum. Lee HS, So H, Lee Y, Cho SH, Huh G, Song TJ, Seo DW, Oh D. J Gastrointest Surg. 2025 Dec;29(12):102252. doi: 10.1016/j.gassur.2025.102252. Epub 2025 Oct 14. PMID: 41101379	Duplicated
+9.	Feasibility and clinical utility of stone extraction balloon catheter-assisted endoscopic stenting for malignant distal duodenal and proximal jejunal obstruction (with video). Park JH, Kim YR, Hwang JC, Lee KM, Yoo BM, Kim JH, Shin EJ, Yang MJ. Surg Endosc. 2025 Aug;39(8):5413-5420. doi: 10.1007/s00464-025-11861-8. Epub 2025 Jul 7. PMID: 40624422	Duplicated
+10.	Clinical Outcomes of Secondary Duodenal Self-Expandable Metallic Stenting for Duodenal Stent Dysfunction in Patients with Malignant Duodenal Obstruction: A Retrospective Multicenter Study. So H, Joo HD, Song TJ, Ko SW, Lee HS, Cho SH, Oh D, Han SY, Kim DU, Seo DW. Gut Liver. 2025 Nov 15;19(6):909-916. doi: 10.5009/gnl240014. Epub 2024 May 22. PMID: 38772730 Free PMC article.	Duplicated
+11.	Technical failure of endoscopic ultrasound-guided choledochoduodenostomy: multicenter study on rescue techniques, consequences, and risk factors. Beunon C, Debourdeau A, Schaefer M, Wallenhorst T, Perez-Cuadrado-Robles E, Belle A, Gonzalez JM, Camus Duboc M, Caillol F, Toudic HP, Pioche M, Danset JB, Sportes A, Brieau B, Ben Soussan E, Petiet M, Martin A, Oumrani S, Maire F, Lemmers A, Prat F, Caillo L, Gérard R, Albouys J, Lorenzo D; and the ETC Working Group. Endoscopy. 2025 Sep;57(9):990-1000. doi: 10.1055/a-2541-2973. Epub 2025 Feb 17. PMID: 39961367	Duplicated
+12.	Reintervention After Endoscopic Ultrasound-Guided Choledochoduodenostomy for Distal Malignant Biliary Obstruction. Giri S, Shah B, Narayan J, Chavan R, Donapati VR, Khare S, Varghese J, Mallick B, Kale A, Sundaram S. Surg Laparosc Endosc Percutan Tech. 2025 Aug 1;35(4):e1382. doi: 10.1097/SLE.0000000000001382. PMID: 40497695	Duplicated
+ 
+(2) Search Terms: “Patient / Population / Problem + Outcome”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Pyloric stricture	5,648
+	2	Pyloric obstruction	6,323
+	3	Duodenal stricture	2,250
+	4	Duodenal obstruction	8,565
+	5	Gastric outlet obstruction	9,201
+	6	Malignant pyloric stricture	693
+	7	Malignant pyloric obstruction	868
+	8	Malignant duodenal stricture	667
+	9	Malignant duodenal obstruction	2,161
+	10	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8 OR #9	18,464
+Outcome	11	Stent patency	12,536
+	12	Obstruction relief	7,194
+	13	Obstruction resolution	10,308
+	14	Obstruction improvement	73,360
+	15	#11 OR #12 OR #13 OR #14 	97,130
+Result	16	#10 AND #15	1,782
+Date-Publication	17	2025/01/01~2025/12/31	143
+Filter	18	Humans	44
+
+ 
+
+
+ 
+Articles (44)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1.	Endoscopic ultrasonography-guided gastroenterostomy versus uncovered duodenal metal stenting for unresectable malignant gastric outlet obstruction (DRA-GOO): a multicentre randomised controlled trial. Teoh AYB, Lakhtakia S, Tarantino I, Perez-Miranda M, Kunda R, Maluf-Filho F, Dhir V, Basha J, Chan SM, Ligresti D, Ma MTW, de la Serna-Higuera C, Yip HC, Ng EKW, Chiu PWY, Itoi T. Lancet Gastroenterol Hepatol. 2025 Jun;10(6):e8-e16. doi: 10.1016/S2468-1253(25)00136-0. PMID: 40347959 Clinical Trial.	Duplicated
+2.	Novel nutrition strategies in gastric and esophageal cancer. Boyle E, Elliott JA. Expert Rev Gastroenterol Hepatol. 2025 Jan-Feb;19(2):89-104. doi: 10.1080/17474124.2025.2457444. Epub 2025 Jan 30. PMID: 39864091      Review.     	Duplicated
+3.	Advancing care in malignant gastric outlet obstruction: a contemporary review of management strategies. Wierzbicka A, Shah T. Curr Opin Gastroenterol. 2025 Nov 1;41(6):409-415. doi: 10.1097/MOG.0000000000001101. Epub 2025 Apr 23. PMID: 40304723      Review.     	Duplicated
+4.	Is endoscopic ultrasound-guided gastroenterostomy better than surgical gastrojejunostomy or duodenal stenting? Teoh AYB, Chan SM, Yip HC. Dig Endosc. 2025 Jan;37(1):77-84. doi: 10.1111/den.14929. Epub 2024 Oct 6. PMID: 39370536      Free PMC article.      Review.     	Duplicated
+5.	Esophageal motility disorders other than achalasia. Kim N, Kelahan L, Carucci LR. Abdom Radiol (NY). 2025 Sep;50(9):3993-4003. doi: 10.1007/s00261-025-04828-9. Epub 2025 Mar 1. PMID: 40024921      Review.     	Duplicated
+6.	Endoscopic ultrasound-guided gastroenterostomy for the treatment of gastric outlet obstruction secondary to acute pancreatitis. Wannhoff A, Canakis A, Sharaiha RZ, Fayyaz F, Schlag C, Sharma N, Elsayed I, Khashab MA, Baron TH, Caca K, Irani SS. Endoscopy. 2025 Mar;57(3):249-254. doi: 10.1055/a-2452-5307. Epub 2024 Nov 11. PMID: 39529322     	Duplicated
+7.	[Palliative Surgical Approaches for Malignant Upper Gastrointestinal Obstruction]. Maruyama S, Higuchi Y, Shoda K, Kawaguchi Y, Ichikawa D. Gan To Kagaku Ryoho. 2025 Oct;52(10):716-719.
+PMID: 41139964      Review.      Japanese.     	Duplicated
+8.	Long-Term Outcomes of EUS-Guided Gastroenterostomy: A Large, Single-Center Experience. Trieu JA, Kahlenberg S, Gilman AJ, Hathorn K, Baron TH. Clin Transl Gastroenterol. 2025 Jan 1;16(1):e00648. doi: 10.14309/ctg.0000000000000648. PMID: 39620984      Free PMC article.     	Duplicated
+9.	EUS-directed transduodenal ERCP in concomitant gastric outlet and biliary obstruction. Kesar V, Abel WF, Bapaye J, Wasserman RD, Rozenberg J, Garikipati S, Mönkemüller KE, Kesar V, Yeaton P. Gastrointest Endosc. 2025 Apr;101(4):885-889. doi: 10.1016/j.gie.2024.12.003. Epub 2024 Dec 9. PMID: 39662635     	Duplicated
+10.	Long-term outcomes of EUS-guided balloon-occluded gastrojejunostomy bypass for malignant gastric outlet obstruction (with video). Tsuchiya T, Itoi T, Ishii K, Tanaka R, Tonozuka R, Mukai S, Nagai K, Yamamoto K, Matsunami Y, Kojima H, Minami H, Asano K, Sofuni A. Gastrointest Endosc. 2025 Jan;101(1):195-199. doi: 10.1016/j.gie.2024.07.006. Epub 2024 Jul 23. PMID: 39053650     	Duplicated
+11.	A national perspective on palliative interventions for malignant gastric outlet obstruction. Ng AP, Hadaya JE, Sanaiha Y, Chervu NL, Girgis MD, Benharash P. J Gastrointest Surg. 2025 Feb;29(2):101884. doi: 10.1016/j.gassur.2024.101884. Epub 2024 Nov 14. PMID: 39547591     	Duplicated
+12.	Endoscopic Ultrasound-Guided Gastrojejunostomy as a Primary Treatment Modality for Malignant Gastric Outlet Obstruction: A Large Multicenter Experience. Sonthalia N, Chavan R, Singh P, Narayan J, Sud S, Shah CN, Zanwar S, Tewari A, Rajput S, Singla V, Roy A, Koul S, Goel A, Ghoshal UC, Goenka MK. J Gastroenterol Hepatol. 2025 Jun;40(6):1515-1524. doi: 10.1111/jgh.16959. Epub 2025 Apr 4. PMID: 40181785     	Duplicated
+13.	Safety and feasibility of laparoscopic stomach-partitioning gastrojejunostomy combined with neoadjuvant chemotherapy followed by minimally invasive gastrectomy for resectable gastric cancer with gastric outlet obstruction. Tanaka T, Suda K, Nakauchi M, Fujita M, Suzuki K, Umeki Y, Serizawa A, Akimoto S, Watanabe Y, Shibasaki S, Matsuoka H, Inaba K, Uyama I. Surg Endosc. 2025 Feb;39(2):837-849. doi: 10.1007/s00464-024-11427-0. Epub 2024 Dec 2. PMID: 39623174     	Duplicated
+14.	Clinical Success Impacts Overall Survival in Patients Undergoing Palliation for Malignant Gastric Outlet Obstruction Using Enteral Stents or Endoscopic Ultrasound Guided Gastroenterostomy. Mahajan A, Sundaram S, Puri R, Shravan GH, Mane K, Kale A, Patkar S, Goel M, Shrikhande S, Chaudhari V, Patil P, Mehta S. J Gastroenterol Hepatol. 2025 Oct;40(10):2552-2559. doi: 10.1111/jgh.70066. Epub 2025 Aug 30. PMID: 40884246      Free PMC article.     	Duplicated
+15.	Duodenal obstruction secondary to metastatic breast cancer. O'Neill RS, Field A, Kim BSM, Ferguson JS, Ghaly S, Dear RF. J Cancer Res Ther. 2025 Apr 1;21(3):755-757. doi: 10.4103/jcrt.jcrt_2022_24. Epub 2025 Jul 5. PMID: 40616566     	Duplicated
+16.	Comparing palliative gastrectomy and gastrojejunostomy for advanced gastric cancer: impact on survival and postoperative outcomes. Lessing Y, Inbar-Weissman T, Cohen R, Messer N, Erlich-Feingold O, Kanani F, Lahat G, Orbach L. Minerva Surg. 2025 Dec;80(6):452-460. doi: 10.23736/S2724-5691.25.11028-9. PMID: 41622824     	Duplicated
+17.	Biomechanical Impact of Partitioning Position and Angle on Post-SPGJ Gastric Emptying. Fan Z, Li Q, Xu F, Zhang H, Ye X, Zheng Z, Zhang J. Ann N Y Acad Sci. 2025 Dec;1554(1):227-238. doi: 10.1111/nyas.70104. Epub 2025 Oct 22. PMID: 41123176     	Duplicated
+18.	Clinical outcomes and predictive factors for stent patency in malignant duodenojejunal obstruction: comparison of distal duodenum and proximal jejunum. Lee HS, So H, Lee Y, Cho SH, Huh G, Song TJ, Seo DW, Oh D. J Gastrointest Surg. 2025 Dec;29(12):102252. doi: 10.1016/j.gassur.2025.102252. Epub 2025 Oct 14. PMID: 41101379     	Duplicated
+19.	Feasibility and clinical utility of stone extraction balloon catheter-assisted endoscopic stenting for malignant distal duodenal and proximal jejunal obstruction (with video). Park JH, Kim YR, Hwang JC, Lee KM, Yoo BM, Kim JH, Shin EJ, Yang MJ. Surg Endosc. 2025 Aug;39(8):5413-5420. doi: 10.1007/s00464-025-11861-8. Epub 2025 Jul 7. PMID: 40624422     	Duplicated
+20.	Clinical Outcomes of Secondary Duodenal Self-Expandable Metallic Stenting for Duodenal Stent Dysfunction in Patients with Malignant Duodenal Obstruction: A Retrospective Multicenter Study. So H, Joo HD, Song TJ, Ko SW, Lee HS, Cho SH, Oh D, Han SY, Kim DU, Seo DW. Gut Liver. 2025 Nov 15;19(6):909-916. doi: 10.5009/gnl240014. Epub 2024 May 22. PMID: 38772730      Free PMC article.     	Duplicated
+21.	Robotic-assisted trans-mesocolic side-to-side duodenojejunostomy for palliative management of malignant distal duodenal obstruction. Yin H, Sharma D, Wang JJ, Ganjouei AA, Kouanda A, Hirose K, Nakakura E, Kirkwood K, Corvera C, Alseidi A, Adam MA. Chin Clin Oncol. 2025 Feb;14(1):5. doi: 10.21037/cco-24-87. PMID: 40081386     	Duplicated
+22.	A Rare Presentation of IgG4-Related Disease with Gastric Outlet Obstruction and Lymphadenopathy: A Case Report. Alsaifi M, Al Sawafi Y, Al Julandani N. Int J Surg Pathol. 2025 Jun;33(4):982-986. doi: 10.1177/10668969241291889. Epub 2024 Nov 25. PMID: 39584697     	Duplicated
+23.	Endoscopic Ultrasound Guided Gastro-Gastrostomy for Management of Pouch Outlet Obstruction Secondary to Vertical Banded Gastroplasty: Efficacy and Safety. Hoilat G, Celdir M, Gerke H. Obes Surg. 2025 Aug;35(8):3316-3320. doi: 10.1007/s11695-025-07957-8. Epub 2025 Jul 16. PMID: 40670891      Free PMC article.     	Duplicated
+24.	Gastric bezoar entering the duodenum causing intestinal obstruction: A case report. Wang H, Zhang Y, Zhong H, Zhang H, Ma Y. Medicine (Baltimore). 2025 Sep 5;104(36):e44149. doi: 10.1097/MD.0000000000044149. PMID: 40922313      Free PMC article.     	Duplicated
+25.	[Endoscopic ultrasound-guided gastro-enteric anastomosis for malignant gastric outlet obstruction: Initial experience in an endoscopic center in Lima-Peru]. Chirinos-Vega JA, Ponce de León Molina OE. Rev Gastroenterol Peru. 2025 Jul-Sep;45(3):300-306. PMID: 41230673      Spanish.     	Duplicated
+26.	Surgical Management of Groove Pancreatitis: Lessons Learnt and Long-Term Experience. Agarwal L, Rathore KS, Varshney VK, Soni S, Selvakumar B, Varshney P, Agarwal A, Verma V, Sureka B, Yadav T. Dig Dis Sci. 2025 Jul;70(7):2521-2533. doi: 10.1007/s10620-025-09025-8. Epub 2025 Apr 9. PMID: 40205281     	Duplicated
+27.	ANCA-Negative Eosinophilic Granulomatosis With Polyangiitis Presenting With Duodenal Stenosis: A Case Report. Chen J, Liu J, Luo M, Guo J. Am J Case Rep. 2025 Dec 27;26:e951493. doi: 10.12659/AJCR.951493. PMID: 41454498      Free PMC article.     	Duplicated
+28.	Long-term outcomes of laparoscopic duodenojejunostomy for superior mesenteric artery syndrome. Wills MV, Barajas-Gamboa JS, Mocanu V, Conner A, Brown J, Restrepo-Rodas G, Lee S, Navarrete S, Corcelles R, Allemang M, Rodriguez J, Strong A, Dang J, Kroh M. Surg Endosc. 2025 Aug;39(8):5235-5243. doi: 10.1007/s00464-025-11774-6. Epub 2025 Jun 27. PMID: 40576774      Free PMC article.     	Duplicated
+29.	Modified Devine exclusion for unresectable gastric cancer: a bridge from palliative to curative treatment. Fontainhas J, Gomes A, Nunes V. BMJ Case Rep. 2025 Apr 24;18(4):e265812. doi: 10.1136/bcr-2025-265812. PMID: 40280571     	Duplicated
+30.	Optimizing EUS-guided choledochoduodenostomy with lumen-apposing metal stents for primary drainage of malignant distal biliary obstruction (SCORPION-IIp): a prospective pilot study. Fritzsche JA, Fockens P, Besselink MG, Busch OR, Daams F, Wielenga MCB, Wilmink JW, Voermans RP, Van Wanrooij RLJ. Gastrointest Endosc. 2025 May;101(5):1009-1016. doi: 10.1016/j.gie.2024.10.012. Epub 2024 Oct 16. PMID: 39424003      Clinical Trial.     	Duplicated
+31.	Trisomy 21 Children With Duodenal Atresia or Anorectal Malformation: NSQIP-P Surgical Outcomes Study. Gely Y, Moreci R, Roberts H, Danos D, Zagory J. J Surg Res. 2025 Jun;310:194-202. doi: 10.1016/j.jss.2025.03.020. Epub 2025 Apr 26. PMID: 40288091     	Duplicated
+32.	Johanson-Blizzard syndrome with cystic dilation of the cochlea and hypoplastic modiolus: a case report. Mangali NP, Antony A, Kumar N. Pediatr Radiol. 2025 Jan;55(1):195-200. doi: 10.1007/s00247-024-06118-w. Epub 2024 Dec 7. PMID: 39644353     	Duplicated
+33.	Revisional single anastomosis duodeno-ileal bypass with sleeve gastrectomy after failed adjustable gastric band or sleeve gastrectomy: a meta-analysis of efficacy and safety. Esparham A, Anari Moghadam H, Khorgami Z. Surg Obes Relat Dis. 2026 Mar;22(3):359-368. doi: 10.1016/j.soard.2025.10.018. Epub 2025 Nov 8. PMID: 41372014      Review.     	Duplicated
+34.	Double jeopardy in early infancy: aperta lipomyelomeningocele with Chiari II malformation complicated by infantile hypertrophic pyloric stenosis. Kattamanchi D, Jayaraman K, Kamalakannan SK, Arun A. BMJ Case Rep. 2025 Nov 10;18(11):e268860. doi: 10.1136/bcr-2025-268860. PMID: 41218952     	Duplicated
+35.	Investigation of tube replacement cases of percutaneous transesophageal gastro-tubing in cancer patients. Nakama R, Sone M, Sugawara S, Itou C, Kimura S, Ozawa M, Oshima T, Murakami S, Kusumoto M. Jpn J Radiol. 2025 Aug;43(8):1380-1385. doi: 10.1007/s11604-025-01770-0. Epub 2025 Mar 29. PMID: 40156741      Free PMC article.     	Duplicated
+36.	Outcomes After Duodenoduodenostomy for Superior Mesenteric Artery Syndrome. Ang D, Hofmann A, Attili A, Sang W, Soltani T, Richards W, Ferber L, Taylor D. Am Surg. 2025 Apr;91(4):561-569. doi: 10.1177/00031348241300361. Epub 2024 Nov 20. PMID: 39568120     	Duplicated
+37.	Identifying predictive markers for survival in malignant biliary obstruction following percutaneous transhepatic biliary drainage. Chan K, Vigneswaran G, Modi S, Sew Hee C, Maclean D, Stedman B, Bryant T, Maher B. Clin Radiol. 2025 Mar;82:106772. doi: 10.1016/j.crad.2024.106772. Epub 2024 Dec 15. PMID: 39874925     	Duplicated
+38.	Factors influencing early surgical outcomes of intestinal atresia in a resource-limited tertiary center.
+Wassie MT, Girma SM, Gebru FT, Aklilu WK, Mammo TN. Pediatr Surg Int. 2025 Jul 5;41(1):202. doi: 10.1007/s00383-025-06100-z. PMID: 40616700     	Duplicated
+39.	Esophageal obstruction secondary to enteral nutrition via nasogastric tube in moderate traumatic brain injury: A case report and literature review. Jiang Q, Liu M, Liu Y, Fu P, Li S, Zha L. Medicine (Baltimore). 2025 Dec 19;104(51):e46755. doi: 10.1097/MD.0000000000046755. PMID: 41431083      Free PMC article.      Review.     	Duplicated
+40.	Improving retention of pediatric feeding tubes with a nasal bridle: a randomized controlled trial. Foster M, Armijo-Garcia V, Gelfond J, Meyer AD. Trials. 2025 May 14;26(1):159. doi: 10.1186/s13063-025-08867-x. PMID: 40369642      Free PMC article.      Clinical Trial.     	Duplicated
+41.	Delayed gastric conduit emptying after esophagectomy: attempt at a clinically relevant classification. Schneider MA, Viggiani D'Avalos L, Gerdes S, Vetter D, Gutschow CA. Dis Esophagus. 2025 Sep 1;38(5):doaf090. doi: 10.1093/dote/doaf090. PMID: 41124318 Free PMC article	Duplicated
+42.	Postoperative management of pediatric patients undergoing single-stage laryngotracheal reconstruction in the United States: A survey of ASPO members. Hazkani I, Bruss D, Rowland M, Valika T, Ida J, Thompson D, Lavin J. Am J Otolaryngol. 2025 Jan-Feb;46(1):104509. doi: 10.1016/j.amjoto.2024.104509. Epub 2024 Nov 12. PMID: 39567288     	Duplicated
+43.	Possible familial predisposition in superior mesenteric artery syndrome with surgical management: A case report. Maraqah M, Al Tamimi MF, Abu Aram S, Hmedat S, Abueisha M, Hmeedat Y. Medicine (Baltimore). 2025 May 23;104(21):e42613. doi: 10.1097/MD.0000000000042613. PMID: 40419881      Free PMC article.     	Duplicated
+44.	Oncological outcomes of palliative minimally invasive distal pancreatectomy for unexpected metastatic pancreatic ductal adenocarcinoma: A single-center experience. Park Y, Hwang DW, Lee JH, Song KB, Jun E, Lee W, Sung MK, Kim SC. Surgery. 2025 Jun;182:109331. doi: 10.1016/j.surg.2025.109331. Epub 2025 Mar 25. PMID: 40138876	Duplicated
+
+ 
+(3) Search Terms: “Patients + Comparator + Outcome”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Pyloric stricture	5,651
+	2	Pyloric obstruction	6,330
+	3	Duodenal stricture	2,254
+	4	Duodenal obstruction	8,588
+	5	Gastric outlet obstruction	9,226
+	6	Malignant pyloric stricture	694
+	7	Malignant pyloric obstruction	870
+	8	Malignant duodenal stricture	668
+	9	Malignant duodenal obstruction	2,170
+	10	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8 OR #9 	18,511
+Comparator	11	Surgery	6,313,457
+	12	Plastic stent	5,046
+	13	Balloon dilation	17,802
+	14	Self-expandable metallic stent	2,758
+	15	Self-expandable metal stent	3,725
+	16	SEMS	3,296
+	17	Covered stent	10,638
+	18	WallFlex	89
+	19	WallFlex Soft	4
+	20	Hanarostent	26
+	21	Evolution	900,564
+	22	EGIS	668
+	23	Bonastent	12
+	24	#11 OR #12 OR #13 OR #14 OR #15 OR #16 OR #17 OR #18 OR #19 OR #20 OR #21 OR #22 OR #23	7,171,334
+Outcome	25	Stent patency	12,604
+	26	Obstruction relief	7,217
+	27	Obstruction resolution	10,366
+	28	Obstruction improvement	73,786
+	29	#25 OR #26 OR #27 OR #28	97,661
+Result	30	#10 AND #24 AND #29	1,480
+Date-Publication	31	2025/01/01~2025/12/31	99
+Filter	32	Humans	40
+
+ 
+ 
+ 
+Articles (40)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1.	Endoscopic ultrasonography-guided gastroenterostomy versus uncovered duodenal metal stenting for unresectable malignant gastric outlet obstruction (DRA-GOO): a multicentre randomised controlled trial. Teoh AYB, Lakhtakia S, Tarantino I, Perez-Miranda M, Kunda R, Maluf-Filho F, Dhir V, Basha J, Chan SM, Ligresti D, Ma MTW, de la Serna-Higuera C, Yip HC, Ng EKW, Chiu PWY, Itoi T. Lancet Gastroenterol Hepatol. 2025 Jun;10(6):e8-e16. doi: 10.1016/S2468-1253(25)00136-0. PMID: 40347959      Clinical Trial.     	Duplicated
+2.	Novel nutrition strategies in gastric and esophageal cancer. Boyle E, Elliott JA. Expert Rev Gastroenterol Hepatol. 2025 Jan-Feb;19(2):89-104. doi: 10.1080/17474124.2025.2457444. Epub 2025 Jan 30. PMID: 39864091      Review.     	Duplicated
+3.	Is endoscopic ultrasound-guided gastroenterostomy better than surgical gastrojejunostomy or duodenal stenting? Teoh AYB, Chan SM, Yip HC. Dig Endosc. 2025 Jan;37(1):77-84. doi: 10.1111/den.14929. Epub 2024 Oct 6. PMID: 39370536      Free PMC article.      Review.     	Duplicated
+4.	Advancing care in malignant gastric outlet obstruction: a contemporary review of management strategies. Wierzbicka A, Shah T. Curr Opin Gastroenterol. 2025 Nov 1;41(6):409-415. doi: 10.1097/MOG.0000000000001101. Epub 2025 Apr 23. PMID: 40304723      Review.     	Duplicated
+5.	Endoscopic ultrasound-guided gastroenterostomy for the treatment of gastric outlet obstruction secondary to acute pancreatitis. Wannhoff A, Canakis A, Sharaiha RZ, Fayyaz F, Schlag C, Sharma N, Elsayed I, Khashab MA, Baron TH, Caca K, Irani SS. Endoscopy. 2025 Mar;57(3):249-254. doi: 10.1055/a-2452-5307. Epub 2024 Nov 11. PMID: 39529322     	Duplicated
+6.	[Palliative Surgical Approaches for Malignant Upper Gastrointestinal Obstruction]. Maruyama S, Higuchi Y, Shoda K, Kawaguchi Y, Ichikawa D. Gan To Kagaku Ryoho. 2025 Oct;52(10):716-719.
+PMID: 41139964      Review.      Japanese.     	Duplicated
+7.	Long-Term Outcomes of EUS-Guided Gastroenterostomy: A Large, Single-Center Experience. Trieu JA, Kahlenberg S, Gilman AJ, Hathorn K, Baron TH. Clin Transl Gastroenterol. 2025 Jan 1;16(1):e00648. doi: 10.14309/ctg.0000000000000648. PMID: 39620984      Free PMC article.     	Duplicated
+8.	EUS-directed transduodenal ERCP in concomitant gastric outlet and biliary obstruction. Kesar V, Abel WF, Bapaye J, Wasserman RD, Rozenberg J, Garikipati S, Mönkemüller KE, Kesar V, Yeaton P. Gastrointest Endosc. 2025 Apr;101(4):885-889. doi: 10.1016/j.gie.2024.12.003. Epub 2024 Dec 9. PMID: 39662635     	Duplicated
+9.	Long-term outcomes of EUS-guided balloon-occluded gastrojejunostomy bypass for malignant gastric outlet obstruction (with video). Tsuchiya T, Itoi T, Ishii K, Tanaka R, Tonozuka R, Mukai S, Nagai K, Yamamoto K, Matsunami Y, Kojima H, Minami H, Asano K, Sofuni A. Gastrointest Endosc. 2025 Jan;101(1):195-199. doi: 10.1016/j.gie.2024.07.006. Epub 2024 Jul 23. PMID: 39053650     	Duplicated
+10.	A national perspective on palliative interventions for malignant gastric outlet obstruction. Ng AP, Hadaya JE, Sanaiha Y, Chervu NL, Girgis MD, Benharash P. J Gastrointest Surg. 2025 Feb;29(2):101884. doi: 10.1016/j.gassur.2024.101884. Epub 2024 Nov 14. PMID: 39547591     	Duplicated
+11.	Endoscopic Ultrasound-Guided Gastrojejunostomy as a Primary Treatment Modality for Malignant Gastric Outlet Obstruction: A Large Multicenter Experience. Sonthalia N, Chavan R, Singh P, Narayan J, Sud S, Shah CN, Zanwar S, Tewari A, Rajput S, Singla V, Roy A, Koul S, Goel A, Ghoshal UC, Goenka MK. J Gastroenterol Hepatol. 2025 Jun;40(6):1515-1524. doi: 10.1111/jgh.16959. Epub 2025 Apr 4. PMID: 40181785     	Duplicated
+12.	Safety and feasibility of laparoscopic stomach-partitioning gastrojejunostomy combined with neoadjuvant chemotherapy followed by minimally invasive gastrectomy for resectable gastric cancer with gastric outlet obstruction. Tanaka T, Suda K, Nakauchi M, Fujita M, Suzuki K, Umeki Y, Serizawa A, Akimoto S, Watanabe Y, Shibasaki S, Matsuoka H, Inaba K, Uyama I. Surg Endosc. 2025 Feb;39(2):837-849. doi: 10.1007/s00464-024-11427-0. Epub 2024 Dec 2. PMID: 39623174     	Duplicated
+13.	Clinical Success Impacts Overall Survival in Patients Undergoing Palliation for Malignant Gastric Outlet Obstruction Using Enteral Stents or Endoscopic Ultrasound Guided Gastroenterostomy. Mahajan A, Sundaram S, Puri R, Shravan GH, Mane K, Kale A, Patkar S, Goel M, Shrikhande S, Chaudhari V, Patil P, Mehta S. J Gastroenterol Hepatol. 2025 Oct;40(10):2552-2559. doi: 10.1111/jgh.70066. Epub 2025 Aug 30. PMID: 40884246      Free PMC article.     	Duplicated
+14.	Optimizing EUS-guided choledochoduodenostomy with lumen-apposing metal stents for primary drainage of malignant distal biliary obstruction (SCORPION-IIp): a prospective pilot study. Fritzsche JA, Fockens P, Besselink MG, Busch OR, Daams F, Wielenga MCB, Wilmink JW, Voermans RP, Van Wanrooij RLJ. Gastrointest Endosc. 2025 May;101(5):1009-1016. doi: 10.1016/j.gie.2024.10.012. Epub 2024 Oct 16. PMID: 39424003      Clinical Trial.     	Duplicated
+15.	Biomechanical Impact of Partitioning Position and Angle on Post-SPGJ Gastric Emptying. Fan Z, Li Q, Xu F, Zhang H, Ye X, Zheng Z, Zhang J. Ann N Y Acad Sci. 2025 Dec;1554(1):227-238. doi: 10.1111/nyas.70104. Epub 2025 Oct 22. PMID: 41123176     	Duplicated
+16.	Duodenal obstruction secondary to metastatic breast cancer. O'Neill RS, Field A, Kim BSM, Ferguson JS, Ghaly S, Dear RF. J Cancer Res Ther. 2025 Apr 1;21(3):755-757. doi: 10.4103/jcrt.jcrt_2022_24. Epub 2025 Jul 5. PMID: 40616566     	Duplicated
+17.	Comparing palliative gastrectomy and gastrojejunostomy for advanced gastric cancer: impact on survival and postoperative outcomes. Lessing Y, Inbar-Weissman T, Cohen R, Messer N, Erlich-Feingold O, Kanani F, Lahat G, Orbach L. Minerva Surg. 2025 Dec;80(6):452-460. doi: 10.23736/S2724-5691.25.11028-9. PMID: 41622824     	Duplicated
+18.	Clinical outcomes and predictive factors for stent patency in malignant duodenojejunal obstruction: comparison of distal duodenum and proximal jejunum. Lee HS, So H, Lee Y, Cho SH, Huh G, Song TJ, Seo DW, Oh D. J Gastrointest Surg. 2025 Dec;29(12):102252. doi: 10.1016/j.gassur.2025.102252. Epub 2025 Oct 14. PMID: 41101379     	Duplicated
+19.	Long-term outcomes of laparoscopic duodenojejunostomy for superior mesenteric artery syndrome. Wills MV, Barajas-Gamboa JS, Mocanu V, Conner A, Brown J, Restrepo-Rodas G, Lee S, Navarrete S, Corcelles R, Allemang M, Rodriguez J, Strong A, Dang J, Kroh M. Surg Endosc. 2025 Aug;39(8):5235-5243. doi: 10.1007/s00464-025-11774-6. Epub 2025 Jun 27. PMID: 40576774      Free PMC article.     	Duplicated
+20.	Feasibility and clinical utility of stone extraction balloon catheter-assisted endoscopic stenting for malignant distal duodenal and proximal jejunal obstruction (with video). Park JH, Kim YR, Hwang JC, Lee KM, Yoo BM, Kim JH, Shin EJ, Yang MJ. Surg Endosc. 2025 Aug;39(8):5413-5420. doi: 10.1007/s00464-025-11861-8. Epub 2025 Jul 7. PMID: 40624422     	Duplicated
+21.	Clinical Outcomes of Secondary Duodenal Self-Expandable Metallic Stenting for Duodenal Stent Dysfunction in Patients with Malignant Duodenal Obstruction: A Retrospective Multicenter Study. So H, Joo HD, Song TJ, Ko SW, Lee HS, Cho SH, Oh D, Han SY, Kim DU, Seo DW. Gut Liver. 2025 Nov 15;19(6):909-916. doi: 10.5009/gnl240014. Epub 2024 May 22. PMID: 38772730      Free PMC article.     	Duplicated
+22.	Robotic-assisted trans-mesocolic side-to-side duodenojejunostomy for palliative management of malignant distal duodenal obstruction. Yin H, Sharma D, Wang JJ, Ganjouei AA, Kouanda A, Hirose K, Nakakura E, Kirkwood K, Corvera C, Alseidi A, Adam MA. Chin Clin Oncol. 2025 Feb;14(1):5. doi: 10.21037/cco-24-87. PMID: 40081386     	Duplicated
+23.	A Rare Presentation of IgG4-Related Disease with Gastric Outlet Obstruction and Lymphadenopathy: A Case Report. Alsaifi M, Al Sawafi Y, Al Julandani N. Int J Surg Pathol. 2025 Jun;33(4):982-986. doi: 10.1177/10668969241291889. Epub 2024 Nov 25. PMID: 39584697     	Duplicated
+24.	Endoscopic Ultrasound Guided Gastro-Gastrostomy for Management of Pouch Outlet Obstruction Secondary to Vertical Banded Gastroplasty: Efficacy and Safety. Hoilat G, Celdir M, Gerke H. Obes Surg. 2025 Aug;35(8):3316-3320. doi: 10.1007/s11695-025-07957-8. Epub 2025 Jul 16. PMID: 40670891      Free PMC article.     	Duplicated
+25.	Trisomy 21 Children With Duodenal Atresia or Anorectal Malformation: NSQIP-P Surgical Outcomes Study. Gely Y, Moreci R, Roberts H, Danos D, Zagory J. J Surg Res. 2025 Jun;310:194-202. doi: 10.1016/j.jss.2025.03.020. Epub 2025 Apr 26. PMID: 40288091     	Duplicated
+26.	Gastric bezoar entering the duodenum causing intestinal obstruction: A case report. Wang H, Zhang Y, Zhong H, Zhang H, Ma Y. Medicine (Baltimore). 2025 Sep 5;104(36):e44149. doi: 10.1097/MD.0000000000044149. PMID: 40922313      Free PMC article.     	Duplicated
+27.	[Endoscopic ultrasound-guided gastro-enteric anastomosis for malignant gastric outlet obstruction: Initial experience in an endoscopic center in Lima-Peru]. Chirinos-Vega JA, Ponce de León Molina OE. Rev Gastroenterol Peru. 2025 Jul-Sep;45(3):300-306. PMID: 41230673      Spanish.     	Duplicated
+28.	Surgical Management of Groove Pancreatitis: Lessons Learnt and Long-Term Experience. Agarwal L, Rathore KS, Varshney VK, Soni S, Selvakumar B, Varshney P, Agarwal A, Verma V, Sureka B, Yadav T. Dig Dis Sci. 2025 Jul;70(7):2521-2533. doi: 10.1007/s10620-025-09025-8. Epub 2025 Apr 9. PMID: 40205281     	Duplicated
+29.	Modified Devine exclusion for unresectable gastric cancer: a bridge from palliative to curative treatment. Fontainhas J, Gomes A, Nunes V. BMJ Case Rep. 2025 Apr 24;18(4):e265812. doi: 10.1136/bcr-2025-265812. PMID: 40280571     	Duplicated
+30.	Outcomes After Duodenoduodenostomy for Superior Mesenteric Artery Syndrome. Ang D, Hofmann A, Attili A, Sang W, Soltani T, Richards W, Ferber L, Taylor D. Am Surg. 2025 Apr;91(4):561-569. doi: 10.1177/00031348241300361. Epub 2024 Nov 20. PMID: 39568120     	Duplicated
+31.	Double jeopardy in early infancy: aperta lipomyelomeningocele with Chiari II malformation complicated by infantile hypertrophic pyloric stenosis. Kattamanchi D, Jayaraman K, Kamalakannan SK, Arun A. BMJ Case Rep. 2025 Nov 10;18(11):e268860. doi: 10.1136/bcr-2025-268860. PMID: 41218952     	Duplicated
+32.	Possible familial predisposition in superior mesenteric artery syndrome with surgical management: A case report. Maraqah M, Al Tamimi MF, Abu Aram S, Hmedat S, Abueisha M, Hmeedat Y. Medicine (Baltimore). 2025 May 23;104(21):e42613. doi: 10.1097/MD.0000000000042613. PMID: 40419881 Free PMC article.     	Duplicated
+33.	Revisional single anastomosis duodeno-ileal bypass with sleeve gastrectomy after failed adjustable gastric band or sleeve gastrectomy: a meta-analysis of efficacy and safety. Esparham A, Anari Moghadam H, Khorgami Z. Surg Obes Relat Dis. 2026 Mar;22(3):359-368. doi: 10.1016/j.soard.2025.10.018. Epub 2025 Nov 8. PMID: 41372014 Review.     	Duplicated
+34.	Investigation of tube replacement cases of percutaneous transesophageal gastro-tubing in cancer patients. Nakama R, Sone M, Sugawara S, Itou C, Kimura S, Ozawa M, Oshima T, Murakami S, Kusumoto M. Jpn J Radiol. 2025 Aug;43(8):1380-1385. doi: 10.1007/s11604-025-01770-0. Epub 2025 Mar 29. PMID: 40156741 Free PMC article.     	Duplicated
+35.	Postoperative management of pediatric patients undergoing single-stage laryngotracheal reconstruction in the United States: A survey of ASPO members. Hazkani I, Bruss D, Rowland M, Valika T, Ida J, Thompson D, Lavin J. Am J Otolaryngol. 2025 Jan-Feb;46(1):104509. doi: 10.1016/j.amjoto.2024.104509. Epub 2024 Nov 12. PMID: 39567288     	Duplicated
+36.	Identifying predictive markers for survival in malignant biliary obstruction following percutaneous transhepatic biliary drainage. Chan K, Vigneswaran G, Modi S, Sew Hee C, Maclean D, Stedman B, Bryant T, Maher B. Clin Radiol. 2025 Mar;82:106772. doi: 10.1016/j.crad.2024.106772. Epub 2024 Dec 15. PMID: 39874925     	Duplicated
+37.	Factors influencing early surgical outcomes of intestinal atresia in a resource-limited tertiary center. Wassie MT, Girma SM, Gebru FT, Aklilu WK, Mammo TN. Pediatr Surg Int. 2025 Jul 5;41(1):202. doi: 10.1007/s00383-025-06100-z. PMID: 40616700     	Duplicated
+38.	Esophageal obstruction secondary to enteral nutrition via nasogastric tube in moderate traumatic brain injury: A case report and literature review. Jiang Q, Liu M, Liu Y, Fu P, Li S, Zha L. Medicine (Baltimore). 2025 Dec 19;104(51):e46755. doi: 10.1097/MD.0000000000046755. PMID: 41431083      Free PMC article.      Review.     	Duplicated
+39.	Delayed gastric conduit emptying after esophagectomy: attempt at a clinically relevant classification. Schneider MA, Viggiani D'Avalos L, Gerdes S, Vetter D, Gutschow CA. Dis Esophagus. 2025 Sep 1;38(5):doaf090. doi: 10.1093/dote/doaf090. PMID: 41124318 Free PMC article.     	Duplicated
+40.	Oncological outcomes of palliative minimally invasive distal pancreatectomy for unexpected metastatic pancreatic ductal adenocarcinoma: A single-center experience. Park Y, Hwang DW, Lee JH, Song KB, Jun E, Lee W, Sung MK, Kim SC. Surgery. 2025 Jun;182:109331. doi: 10.1016/j.surg.2025.109331. Epub 2025 Mar 25. PMID: 40138876	Duplicated
+
+ 
+(4) Search Terms: “Intervention” specializing in search scope
+•	ComVi Pyloric/Duodenal Stent [Flare-Type]
+Categories	No	Keywords	Results
+Intervention	1	Taewoong	228
+	2	ComVi	15
+	3	Pyloric 	27,512
+	4	Duodenal	134,048
+	5	Flare type	1,808
+Result	6	#1 AND #2 AND #3 AND #4 AND #5	0
+Date-Publication	7	2025/01/01~2025/12/31	0
+
+ 
+No relevant search results were found during the literature search.
+
+•	ComVi Pyloric/Duodenal Stent [Both Bare-Type]
+Categories	No	Keywords	Results
+Intervention	1	Taewoong	228
+	2	ComVi	15
+	3	Pyloric 	27,512
+	4	Duodenal	134,048
+	5	Both bare type	2,803
+Result	6	#1 AND #2 AND #3 AND #4 AND #5	0
+Date-Publication	7	2024/01/01~2024/12/31	0
+
+ 
+No relevant search results were found during the literature search. 

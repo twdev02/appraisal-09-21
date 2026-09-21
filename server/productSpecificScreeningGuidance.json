@@ -1,0 +1,208 @@
+{
+  "version": "draft-1.0",
+  "status": "Requires expert review before production use",
+  "routingKey": ["productGroup", "searchPurpose", "searchCombination"],
+  "globalPrinciples": [
+    "A decision is conditional on product group and screening purpose; never treat a PMID as having one universal decision.",
+    "Apply the existing official CER screening criteria before expert-derived patterns.",
+    "Use same-product examples as the primary retrieval pool.",
+    "Treat Duplicated and Already held as administrative statuses, not clinical relevance labels.",
+    "Do not exclude a review solely because it is a review; determine whether the purpose is clinical evidence or SOTA/comparator evidence.",
+    "For combined treatments, determine whether outcomes are independently attributable to the evaluated device.",
+    "Gemini must produce a new decision and conclusion after comparison; it must not copy one example mechanically."
+  ],
+  "datasetSummary": {
+    "uniquePmids": 615,
+    "multiProductPmids": 75,
+    "crossProductDecisionConflicts": 12
+  },
+  "productGroups": {
+    "Biliary": {
+      "uniquePmids": 189,
+      "selected": 18,
+      "notSelected": 170,
+      "primaryScope": [
+        "Biliary obstruction or stricture",
+        "Malignant biliary obstruction or stricture",
+        "Applicable covered or uncovered biliary SEMS"
+      ],
+      "priorityOutcomes": [
+        "technical success",
+        "clinical success",
+        "stent patency",
+        "recurrent biliary obstruction",
+        "reintervention",
+        "device- or procedure-related adverse events"
+      ],
+      "specialPatterns": [
+        {
+          "pattern": "RFA/eRFA or radiofrequency combined treatment",
+          "observed": "0 selected and 5 not selected within Biliary",
+          "direction": "Exclude unless applicable stent-specific outcomes are independently attributable and sufficient",
+          "hardRule": false
+        },
+        {
+          "pattern": "Protocol without completed results",
+          "observed": "0 selected and 5 not selected",
+          "direction": "Insufficient information",
+          "hardRule": false
+        }
+      ]
+    },
+    "Esophageal": {
+      "uniquePmids": 87,
+      "selected": 4,
+      "notSelected": 83,
+      "primaryScope": [
+        "Esophageal stricture or obstruction",
+        "Malignant dysphagia",
+        "Tracheoesophageal fistula",
+        "Applicable covered esophageal SEMS"
+      ],
+      "priorityOutcomes": [
+        "dysphagia relief",
+        "technical success",
+        "clinical success",
+        "migration",
+        "restenosis",
+        "adverse events"
+      ],
+      "specialPatterns": [
+        {
+          "pattern": "Airway or tracheal stent rather than esophageal stent",
+          "direction": "Different device or intervention; generally Exclude",
+          "hardRule": false
+        },
+        {
+          "pattern": "Antimigration intervention applied to esophageal FCSEMS",
+          "direction": "Can be Include when stent-specific migration and safety outcomes are reported",
+          "hardRule": false
+        }
+      ]
+    },
+    "PyloricDuodenal": {
+      "uniquePmids": 58,
+      "selected": 5,
+      "notSelected": 53,
+      "primaryScope": [
+        "Pyloric or duodenal stricture or obstruction",
+        "Gastric outlet obstruction",
+        "Applicable enteral or duodenal SEMS"
+      ],
+      "priorityOutcomes": [
+        "technical success",
+        "clinical success",
+        "oral intake improvement",
+        "stent patency",
+        "stent dysfunction",
+        "reintervention",
+        "adverse events"
+      ],
+      "specialPatterns": [
+        {
+          "pattern": "EUS-GE, gastrojejunostomy, or surgery",
+          "direction": "Include only when allowed as relevant comparator or SOTA evidence",
+          "hardRule": false
+        },
+        {
+          "pattern": "Biliary drainage or choledochoduodenostomy",
+          "direction": "Generally Exclude from pyloric/duodenal enteral-stent evidence",
+          "hardRule": false
+        }
+      ]
+    },
+    "Colonic": {
+      "uniquePmids": 146,
+      "selected": 10,
+      "notSelected": 133,
+      "primaryScope": [
+        "Colonic or colorectal obstruction or stricture",
+        "Malignant colonic obstruction",
+        "Applicable colonic SEMS for palliation or bridge to surgery"
+      ],
+      "priorityOutcomes": [
+        "technical success",
+        "clinical success",
+        "patency",
+        "migration",
+        "perforation",
+        "recurrence",
+        "reintervention",
+        "adverse events"
+      ],
+      "specialPatterns": [
+        {
+          "pattern": "Post-stenting surgical or oncological analysis",
+          "direction": "Include only when the stent strategy or device-related outcome remains a central evaluable component",
+          "hardRule": false
+        },
+        {
+          "pattern": "Stent patency prediction or comparative model",
+          "direction": "Can be Include when directly based on clinically relevant colonic SEMS outcomes",
+          "hardRule": false
+        }
+      ]
+    },
+    "Drainage": {
+      "uniquePmids": 214,
+      "selected": 11,
+      "notSelected": 203,
+      "primaryScope": [
+        "Pancreatic fluid collection or walled-off necrosis drainage",
+        "Gallbladder drainage when applicable",
+        "Biliary drainage when applicable",
+        "Applicable LAMS, BFMS, or drainage stent"
+      ],
+      "priorityOutcomes": [
+        "technical success",
+        "clinical success",
+        "resolution or drainage effectiveness",
+        "stent removal",
+        "migration",
+        "reintervention",
+        "adverse events"
+      ],
+      "specialPatterns": [
+        {
+          "pattern": "Alternative drainage route or surgery",
+          "direction": "Include only for a declared comparator or SOTA purpose",
+          "hardRule": false
+        },
+        {
+          "pattern": "General pancreatitis management, biomarker, or non-device treatment",
+          "direction": "Generally Exclude when no applicable drainage-device evidence is provided",
+          "hardRule": false
+        }
+      ]
+    }
+  },
+  "crossProductDecisionExamples": [
+    { "pmid": "38772730", "Biliary": "Exclude", "PyloricDuodenal": "Include" },
+    { "pmid": "39910426", "Biliary": "Exclude", "Colonic": "Include" },
+    { "pmid": "40024292", "Biliary": "Exclude", "Esophageal": "Include" },
+    { "pmid": "40082085", "Biliary": "Exclude", "Drainage": "Include" },
+    { "pmid": "40217234", "Biliary": "Exclude", "Colonic": "Include" },
+    { "pmid": "40322541", "Biliary": "Exclude", "Colonic": "Include" },
+    { "pmid": "40524285", "Biliary": "Exclude", "Colonic": "Include" },
+    { "pmid": "40602730", "Biliary": "Include", "Drainage": "Exclude" },
+    { "pmid": "40830837", "Biliary": "Exclude", "PyloricDuodenal": "Include" },
+    { "pmid": "41131471", "Biliary": "Exclude", "Colonic": "Include" },
+    { "pmid": "41132023", "Biliary": "Include", "Drainage": "Exclude" },
+    { "pmid": "41681107", "Biliary": "Exclude", "Colonic": "Include" }
+  ],
+  "retrievalPolicy": {
+    "primaryFilter": "same productGroup",
+    "secondaryRanking": [
+      "same searchPurpose",
+      "same searchCombination",
+      "same indication",
+      "same device type",
+      "same combined treatment",
+      "same study type",
+      "same outcomes"
+    ],
+    "balancedExamples": { "includeMaximum": 5, "excludeMaximum": 5 },
+    "crossProductFallback": "Use only when same-product evidence is insufficient and mark it as general guidance",
+    "validation": "Exclude the current PMID and every PMID in the holdout set"
+  }
+}

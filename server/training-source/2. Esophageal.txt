@@ -1,0 +1,498 @@
+5.1.1 Search Site: https://www.pubmed.gov
+(1) Search Terms: “Patient / Population / Problem + Intervention”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Esophageal stricture	15,267
+	2	Esophageal obstruction	7,733
+	3	Malignant esophageal stricture	4,923
+	4	Malignant esophageal obstruction	2,115
+	5	Benign esophageal stricture	1,475
+	6	Refractory benign esophageal stricture	200
+	7	Benign esophageal obstruction	333
+	8	Tracheoesophageal fistula	6,100
+	9	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8	26,460
+Intervention	10	Self-expandable metallic stent	2,752
+	11	Self-expandable metal stent	3,719
+	12	SEMS	3,288
+	13	Taewoong	230
+	14	Niti-S	78
+	15	Covered stent	10,624
+	16	#10 OR #11 OR #12 OR #13 OR #14 OR #15	15,106
+Result	17	#9 AND #16	798
+Date-Publication	18	2025/01/01~2025/12/31	35
+Filter	19	Humans	21
+ 
+Articles (21)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1	Self-expanding metallic stent placement for the palliation of malignant airway complications. Matsumoto H, Sakairi Y, Kaiho T, Inage T, Ito T, Tanaka K, Yoshino I, Suzuki H. Ann Palliat Med. 2025 Mar;14(2):146-154. doi: 10.21037/apm-24-155. PMID: 40211740	Not Selected
+Reason for Exclusion
+Irrelevant article: The study described the efficacy of tracheal stenting using a less invasive flexible bronchoscope for malignant tumors.
+2	Endoscopic suturing to prevent migration of esophageal fully covered self-expandable metal stents: a randomized controlled trial (with video). Singh S, Maan S, Hadi Y, Agrawal R, Adekolu AA, Cohen EM, Ali FS, Fang W, Markovich B, Krafft M, Thakkar S. Gastrointest Endosc. 2025 Oct;102(4):525-535.e4. doi: 10.1016/j.gie.2025.02.037. Epub 2025 Feb 28. PMID: 40024292 Clinical Trial.	Selected (1)
+Reason for Selection
+The study was included as it compared rates of migration and other adverse events after esophageal FC-SEMS placement with and without endoscopic suturing.
+3	Long-Term Efficacy of Repeated Endoscopic Incision Combined with Triamcinolone Injection in Patients with Recurrent Benign Esophageal Stricture. Chen H, Liu Y, Xu M, Guo R, Zhang J, Li M, Zhang X, Yin X, Li B, Sun T, Fan C, Pan Y, Ning S. Dig Dis Sci. 2025 Sep;70(9):3077-3088. doi: 10.1007/s10620-025-09101-z. Epub 2025 Jun 10. PMID: 40493150	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to investigate the long-term efficacy and safety of repeated EIs and TAA injections in patients with recurrent BES.
+4	Gastric conduit necrosis following esophagectomy: is conduit salvage feasible? Tankel J, Amin S, Katz A, Sakalla R, Dehghani M, Ali SAB, Najmeh S, Cools-Lartigue J, Spicer J, Mueller C, Ferri L. Dis Esophagus. 2025 Jul 3;38(4):doaf066. doi: 10.1093/dote/doaf066. PMID: 40819290	Not Selected
+Reason for Exclusion
+Irrelevant article: The study described the outcomes of managing conduit necrosis both surgically and endoscopically with a focus on conduit salvage.
+5	Esophageal perforation: Biliary self-expandable metal stent to the rescue! Patil S, Rawat V, Lad S, Ingle M. J Postgrad Med. 2025 Jul 1;71(3):143-145. doi: 10.4103/jpgm.jpgm_369_25. Epub 2025 Sep 18. PMID: 40965014	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report reported a case of a 22-month-old male child born with a tracheoesophageal fistula that was managed successfully with a biliary fully covered self-expandable metal stent.
+6	Endoscopic Sub-Stent Dissection for Removal of Long-Term Embedded Esophageal Self-Expanding Metallic Stents. Guo KY, Ma LY, Liu ZQ, Wang L, Xu PR, Tan T, Yan XF, Hu JW, Zhou PH, Hu H. J Gastroenterol Hepatol. 2025 Sep;40(9):2267-2274. doi: 10.1111/jgh.17041. Epub 2025 Jul 11. PMID: 40641384	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to report a new technique, endoscopic sub-stent dissection, and assessing its safety and efficacy.
+7	[Palliative Surgical Approaches for Malignant Upper Gastrointestinal Obstruction]. Maruyama S, Higuchi Y, Shoda K, Kawaguchi Y, Ichikawa D. Gan To Kagaku Ryoho. 2025 Oct;52(10):716-719. PMID: 41139964 Review. Japanese.	Not Selected
+Reason for Exclusion
+Irrelevant article: The article aimed to review the current role of palliative surgical treatments for malignant GI obstruction.
+8	Esophageal stent dysfunction: unclogging the Red Sea. Mendes RR, Figueiredo PC. Rev Esp Enferm Dig. 2025 Aug;117(8):475-476. doi: 10.17235/reed.2024.10554/2024. PMID: 38832591	Not Selected
+Reason for Exclusion
+Insufficient information: Letter
+9	Predictors of clinical failure after stenting for malignant esophageal stricture: a single-institution retrospective analysis. Kim WJ, Choi CW, Kim SJ, Ryu DG, Park SB, Jang JO, Lee CM, Jo HM, Synn SB, Choi EJ, Son BS, Hwang SH, Lee SH, Jung JH. Surg Endosc. 2025 Oct;39(10):6626-6635. doi: 10.1007/s00464-025-12032-5. Epub 2025 Aug 20. PMID: 40835762	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+10	Endoscopic stenting for benign upper gastrointestinal conditions: safety and efficacy profile of a fully covered double-bump antimigratory stent. Gallo C, Forti E, Pugliese F, Dioscoridi L, Cintolo M, Bonato G, Bravo M, Palermo A, Manthopoulou E, Mutignani M. Surg Endosc. 2025 Nov;39(11):7172-7180. doi: 10.1007/s00464-025-12069-6. Epub 2025 Aug 25. PMID: 40854996	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+11	A systematic review and meta-analysis of factors associated with esophageal stent migration and a comparison of antimigration techniques. Heutlinger O, Acharya N, Kharabaf S, Acharya N, Perez-Menendez S, Kirby K, Smith B, Nguyen NT. J Gastrointest Surg. 2025 Apr;29(4):101977. doi: 10.1016/j.gassur.2025.101977. Epub 2025 Jan 30. PMID: 39892745	Selected (2)
+Reason for Selection
+The study was included as it presented the largest comprehensive review of the risk factors associated with esophageal stent migration and the interventions leveraged to prevent stent migration.
+12	Repair of Type C Tracheo-esophageal Fistula/Esophageal Atresia With or Without Trans Anastomotic Tube: A Pilot Randomized Controlled Trial. Bade R, Peters NJ, Dogra S, Malik MA, Mahajan JK, Yaddanapudi S, Solanki S, Bawa M, Samujh R. J Pediatr Surg. 2025 Jan;60(1):161970. doi: 10.1016/j.jpedsurg.2024.161970. Epub 2024 Sep 28. PMID: 39368851 Clinical Trial.	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to elucidate the impact of trans anastomotic feeding tube (TAFT) on postoperative outcomes and the potential benefits of avoidance of TAFT.
+13	Safety of long-term esophageal stent placement and a predictive model for restenosis: A double-center retrospective study. Huang W, Zhang C, Liu W, Wei J, Zhuang Z, Huang S, Zheng Y. Surg Endosc. 2026 Mar;40(3):2364-2377. doi: 10.1007/s00464-025-12506-6. Epub 2025 Dec 29. PMID: 41466139	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+14	A functional stent with near-infrared light triggered localized photothermal-chemo synergistic therapy for malignant stenosis of esophageal cancer. Liu X, Li C, Zhao F, Guidoin R, Liu K, Wang F, Wang L. Colloids Surf B Biointerfaces. 2025 Jul;251:114634. doi: 10.1016/j.colsurfb.2025.114634. Epub 2025 Mar 12. PMID: 40101464	Not Selected
+Reason for Exclusion
+Irrelevant article: The study focused on a stent with synergistic photothermal and chemotherapy functions to achieve precise controllable drug release.
+15	A case of pneumopericardium due to metallic stent placement in the esophagus. Matsuoka K, Hasegawa T, Shoji T, Kinoshita H, Kawachiya T, Hara J, Teraoka H, Ohira M. Clin J Gastroenterol. 2025 Aug;18(4):552-556. doi: 10.1007/s12328-025-02130-1. Epub 2025 Apr 16. PMID: 40237888	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+16	An unconventional retrograde approach for self-expanding metallic stent delivery in esophagus cancer palliation. Conceição D, Simões C, Francisco F, Claro I. Rev Esp Enferm Dig. 2025 Nov;117(11):662-664. doi: 10.17235/reed.2024.10151/2023. PMID: 38205706	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+17	Risk factors of stent migration in esophageal cancer patients who underwent fully-covered self-expanding metal stents for malignant dysphagia or tracheoesophageal fistula. Chou IT, Yu FJ, Shih HY, Liu YW, Lee JY, Chou SH, Hsu JS, Chen WC, Wu IC. J Formos Med Assoc. 2025 May;124(5):432-438. doi: 10.1016/j.jfma.2024.05.014. Epub 2024 May 31. PMID: 38824057	Not Selected
+Reason for Exclusion
+This article is already held by Taewoong Medical.
+18	Efficacy and safety of a novel multisegmented fully covered self-expanding metal stent for malignant esophageal obstruction: a prospective pilot study with historical control. Noh JH, Gong EJ, Kim DH, Na HK, Ahn JY, Lee JH, Jung KW, Choi KD, Song HJ, Lee GH, Jung HY. Surg Endosc. 2025 Feb;39(2):942-951. doi: 10.1007/s00464-024-11446-x. Epub 2024 Dec 9. PMID: 39653861	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+19	Degradable biomimetic stent with hydrogel and directional TGF-loaded nano-fiber membrane for the treatment of esophageal fistula. Zhang Y, Xiao J, Fang T, Wei L, Cui W, Zhu Y. Biomaterials. 2026 May;328:123836. doi: 10.1016/j.biomaterials.2025.123836. Epub 2025 Nov 4. PMID: 41197201	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to report a novel biodegradable, biomimetic stent composed of polydioxanone with a hydrogel coating and oriented, TGF-β1-loaded nanofiber membrane.
+20	Endoscopic treatment of an esophageal perforation in eosinophilic esophagitis by insertion of a self-expanding metal stent. López Moreno MB, Jiménez Beltrán V, Godoy López MA, García-Cano J. Rev Esp Enferm Dig. 2025 Nov;117(11):698-699. doi: 10.17235/reed.2024.10412/2024. PMID: 38685899	Not Selected
+Reason for Exclusion
+Insufficient information: Letter
+21	Endoscopic Ultrasound-Guided Biliary Drainage (EUS-BD) for malignant biliary obstruction after failed endoscopic retrograde cholangiography (ERC) in patients with surgically altered anatomy. Thuemer S, Meyer F, Fueldner F, Will U. Z Gastroenterol. 2025 Oct;63(10):1025-1036. doi: 10.1055/a-2644-0656. Epub 2025 Oct 8. PMID: 41061738 English.	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to assess the effectiveness and safety of EUS-BD in patients with jaundice due to malignant biliary obstruction and post-surgically altered anatomy of the upper GI tract who failed prior ERC.
+ 
+(2) Search Terms: “Patient / Population / Problem + Outcome”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Esophageal stricture	15,267
+	2	Esophageal obstruction	7,733
+	3	Malignant esophageal stricture	4,923
+	4	Malignant esophageal obstruction	2,115
+	5	Benign esophageal stricture	1,475
+	6	Refractory benign esophageal stricture	200
+	7	Benign esophageal obstruction	333
+	8	Tracheoesophageal fistula	6,100
+	9	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8	26,460
+Outcome	10	Stent patency	12,584
+	11	Dysphagia improvement	16,112
+	12	Fistula closure	11,191
+	13	Removal	857,948
+	14	#10 OR #11 OR #12 OR #13	895,374
+Result	15	#9 AND #14	3,118
+Date-Publication	16	2025/01/01~2025/12/31	151
+Filter	17	Humans	70
+ 
+ 
+Articles (70)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1	Gastroesophageal Reflux in Infants and Children: Diagnosis and Treatment. Antono B, Dotson A. Am Fam Physician. 2025 Jan;111(1):62-72. PMID: 39823617 Review.	Not Selected
+Reason for Exclusion
+Irrelevant article: The review focused on the gastroesophageal reflux in infants and children.
+2	Novel nutrition strategies in gastric and esophageal cancer. Boyle E, Elliott JA. Expert Rev Gastroenterol Hepatol. 2025 Jan-Feb;19(2):89-104. doi: 10.1080/17474124.2025.2457444. Epub 2025 Jan 30. PMID: 39864091 Review.	Not Selected
+Reason for Exclusion
+Irrelevant article: The review aimed to provide a detailed overview of nutritional challenges in gastric and esophageal cancer.
+3	Long-Term Aerodigestive Morbidities After Esophageal Atresia/Tracheoesophageal Fistula Repair. Ebbott D, Maddahi Y, Fall F, Pace D, Reese V, Berman L, Boelig M. J Pediatr Surg. 2025 Aug;60(8):162384. doi: 10.1016/j.jpedsurg.2025.162384. Epub 2025 May 27. PMID: 40441419	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to evaluate the long-term aerodigestive morbidities of EA/TEF survivors through propensity-matched analysis.
+4	Diagnosis and Management of Long-term Gastrointestinal Complications in Pediatric Esophageal Atresia/Tracheoesophageal Fistula. O'Shea D, Quinn E, Middlesworth W, Khlevner J. Curr Gastroenterol Rep. 2025 Feb 25;27(1):16. doi: 10.1007/s11894-025-00968-6. PMID: 39998690 Review.	Not Selected
+Reason for Exclusion
+Irrelevant article: The review highlighted the importance of early diagnosis, multidisciplinary surveillance, and individualized treatment strategies to effectively manage GI complications and improve long-term outcomes for affected children.
+5	Esophageal Intelligence: Implementing Artificial Intelligence Into the Diagnostics of Esophageal Motility and Impedance pH Monitoring. Farah A, Abboud W, Savarino EV, Mari A. Neurogastroenterol Motil. 2025 Sep;37(9):e70038. doi: 10.1111/nmo.70038. Epub 2025 Mar 27. PMID: 40145475 Review.	Not Selected
+Reason for Exclusion
+Irrelevant article: The manuscript aimed to explore the integration of AI in EMD diagnostics, showcasing its ability to enhance diagnostic accuracy, optimize workflows, and standardize interpretation across centers.
+6	[Upper Gastrointestinal Foreign Body Removal]. Kim HU. Korean J Gastroenterol. 2025 Jul 25;85(3):299-308. doi: 10.4166/kjg.2025.017. PMID: 40709421 Review. Korean.	Not Selected
+Reason for Exclusion
+Irrelevant article: The review described upper gastrointestinal foreign body disorders in general from the perspectives of diagnosis and treatment.
+7	Esophageal Induced Acute Airway Obstruction. Herrin R, Rockett A, Chiodo M, Neth MR. J Emerg Med. 2025 Nov;78:336-339. doi: 10.1016/j.jemermed.2025.03.027. Epub 2025 Mar 26. PMID: 41027288	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report focused on a rare presentation of achalasia.
+8	Oesophageal impaction of button batteries in children: a tertiary centre experience. Letrillart J, Talbotec C, Payen E, Abi-Nader E, Lambe C, Campeotto F, Ronconi M, Ruemmele F, Simon F, Thierry B, Luscan R, Pigneur B. Arch Dis Child. 2025 Nov 19;110(12):997-1002. doi: 10.1136/archdischild-2025-328576. PMID: 40579046	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to share our experience in managing children with oesophageal button battery impaction and assess the occurrence of short-term and long-term complications.
+9	Improvement in Quality of Life and Dysphagia After Palliative External Beam Radiotherapy for Malignant Esophageal Stenosis of Esophageal Cancer. Sakanaka K, Fujii K, Kokubo M, Ogura M, Itasaka S, Sakamoto T, Araki N, Takagi T, Kosaka Y, Okumura S, Yamauchi C, Inoo H, Abe H, Ishikawa H, Mizowaki T; Kyoto Radiation Oncology Study Group. JCO Oncol Pract. 2025 Sep;21(9):1306-1315. doi: 10.1200/OP.24.00429. Epub 2025 Mar 13. PMID: 40080769	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to demonstrate the changes in physician-evaluated dysphagia and patient-reported outcomes (PROs) after palliative external beam radiotherapy (EBRT) in patients with incurable esophageal cancer presenting with dysphagia.
+10	Histologic Response Is Associated With Improved Esophageal Distensibility and Symptom Burden in Pediatric Eosinophilic Esophagitis. Kennedy KV, Burger C, Pan Z, Umeweni CN, Alston M, Benitez AJ, Furuta GT, Mahon M, Ruffner MA, Quinn L, Muir AB, Menard-Katcher C. Gastroenterology. 2026 Feb;170(2):287-297. doi: 10.1053/j.gastro.2025.07.042. Epub 2025 Aug 15. PMID: 40819800	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to evaluate the relationship between esophageal distensibility, histology, and fibrostenotic complications in a cohort of children with EoE.
+11	Endoscopic Sub-Stent Dissection for Removal of Long-Term Embedded Esophageal Self-Expanding Metallic Stents. Guo KY, Ma LY, Liu ZQ, Wang L, Xu PR, Tan T, Yan XF, Hu JW, Zhou PH, Hu H. J Gastroenterol Hepatol. 2025 Sep;40(9):2267-2274. doi: 10.1111/jgh.17041. Epub 2025 Jul 11. PMID: 40641384	Duplicated
+12	Executive Summary of the American Radium Society Appropriate Use Criteria for the Use of Esophageal Stents in Patients With Esophageal Cancer: Systematic Review and Guidelines. Russo S, Anker CJ, Codipilly DC, Abood G, Akselrod D, Hallemeier CL, Jethwa KR, Jin Z, Kim E, Kennedy T, Lee P, Miller ED, Newman NB, Selfridge JE, Sharma N, Small W Jr, Tchelebi L, Williams VM, Simone CB 2nd. Am J Clin Oncol. 2025 Dec 1;48(12):579-599. doi: 10.1097/COC.0000000000001222. Epub 2025 Jun 25. PMID: 40557604	Selected (3)
+Reason for Selection
+The review was included as it investigated the balance between risks and benefits of stents for patients with malignant dysphagia in a range of clinical scenarios.
+13	Efficacy and safety of antireflux mucosectomy versus radiofrequency ablation of the lower esophageal sphincter for the treatment of GERD: a systematic review and meta-analysis. Angeramo CA, Lendoire M, Herbella FAM, Schlottmann F. Gastrointest Endosc. 2025 Jul;102(1):14-25.e1. doi: 10.1016/j.gie.2024.12.026. Epub 2024 Dec 21. PMID: 39716536	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to compare outcomes between endoscopic antireflux mucosectomy (ARMS) and endoscopic radiofrequency ablation of the lower esophageal sphincter (Stretta procedure) for the treatment of GERD.
+14	A Killer in Disguise: Button Battery Ingestions in Acute Care. Akman C, Karcioglu O, Ozturk GA, Ucar AB. Curr Pharm Des. 2025;31(42):3347-3353. doi: 10.2174/0113816128361865250411045020. PMID: 40289972 Review.	Not Selected
+Reason for Exclusion
+Irrelevant article: The review aimed to cover and summarize all aspects of ingestion of button batteries to provide information to clinicians and healthcare personnel.
+15	Button battery exposure in children: a systematic review and meta-analysis. Tran C, Nunez C, Eslick GD, Barker R, Elliott EJ. Inj Prev. 2025 Jul 21;31(4):265-271. doi: 10.1136/ip-2024-045339. PMID: 39366737	Not Selected
+Reason for Exclusion
+Irrelevant article: The review aimed to summarise current evidence following button battery exposures in children and provided pooled prevalence estimates for key clinical characteristics, complications and risk estimates for predictors.
+16	Endoscopic suturing to prevent migration of esophageal fully covered self-expandable metal stents: a randomized controlled trial (with video). Singh S, Maan S, Hadi Y, Agrawal R, Adekolu AA, Cohen EM, Ali FS, Fang W, Markovich B, Krafft M, Thakkar S. Gastrointest Endosc. 2025 Oct;102(4):525-535.e4. doi: 10.1016/j.gie.2025.02.037. Epub 2025 Feb 28. PMID: 40024292 Clinical Trial.	Duplicated
+17	Management of oesophageal strictures in inherited epidermolysis bullosa: a clinical practice guideline. El Hachem M, Caldaro T, Lara-Corrales I, Pope E, Jones R, Bageta ML, Heaton J, Martinez AE, Ferreira da Rocha AC, Bodemer C, Russo C, Tagkalidis P, Brains LM, McGuirk SP, Diamantopoulos A, Feinstein JA, Zambruno G, Mayre-Chilton K, De Angelis P. Br J Dermatol. 2025 Aug 18;193(3):394-404. doi: 10.1093/bjd/ljaf191. PMID: 40393138 Review.	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+18	Peroral endoscopic myotomy as an emergent treatment in hospitalized patients with esophageal motility disorders. Fayyaz F, Roshanshad R, Jagannath P, Almardini M, Bejjani M, Wehbe M, Hernández Mondragón OV, Robles M, Schlachterman A, Le J, Chang K, Dang F, Hwang JH, Li AA, Sadeghi Majd E, Eleftheriadis N, Bechara R, Parvizian M, Yoo IK, Pioche M, Moll F, Kim RE, Canakis A, Othman M, Jawaid S, Khalaf MA, Estremera-Arevalo F, Albéniz Arbizu E, Inoue H, Shiwaku H, Lajin M, Chung CS, Seewald S, Pawa R, Pawa S, Khashab M. Gastrointest Endosc. 2026 Jan;103(1):87-94.e1. doi: 10.1016/j.gie.2025.04.021. Epub 2025 Apr 18. PMID: 40254099	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to evaluate the effectiveness and safety of peroral endoscopic myotomy (POEM).
+19	Corrosive substance ingestion in children: clinical features, management and outcomes in a tertiary care setting. Irlayıcı FI, Elmas A, Akcam M. Eur J Pediatr. 2025 Aug 13;184(9):549. doi: 10.1007/s00431-025-06402-3. PMID: 40802074	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to evaluate the clinical presentation, endoscopic findings, clinical course, and treatment outcomes of pediatric patients admitted to our hospital after corrosive ingestion.
+20	Foreign Body Ingestion: Radiologic Evaluation, Findings, and Management. Lee SM, Baek SE, Lee CW, Kim YC, Kim MJ. Korean J Radiol. 2025 Jul;26(7):638-649. doi: 10.3348/kjr.2025.0118. PMID: 40590076 Review.	Not Selected
+Reason for Exclusion
+Irrelevant article: The review highlighted the radiological findings, management strategies for various foreign bodies, and the distinguishing features of their mimickers.
+21	Severe Refractory Post-Radiation Strictures: Lessons Learned from Long-term Follow-up after Combined Antegrade Retrograde Dilation. Eisa M, Shine A, Omer E, Heckroth M, Eiswerth M, Nguyen V, Rogers B, Tennant P, McClave SA. Curr Gastroenterol Rep. 2025 May 7;27(1):31. doi: 10.1007/s11894-025-00981-9. PMID: 40332683 Review.	Not Selected
+Reason for Exclusion
+Irrelevant article: The review focused on the combined antegrade retrograde dilation (CARD).
+22	Minimally Invasive Left Colonic Interposition For Corrosive Esophageal Stricture: Technique and Outcomes. Tien TPD, Loc NVV, Trung LV, Vuong NL. Surg Laparosc Endosc Percutan Tech. 2025 Dec 1;35(6):e1404. doi: 10.1097/SLE.0000000000001404. PMID: 40899331	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to investigate the safety and effectiveness of colonic interposition for upper aerodigestive tract strictures.
+23	Clinical characteristics and esophageal motility in patients with gastric cardia submucosal tumors and associated changes after endoscopic resection. Lin KF, Chen CC, Chen CC, Han ML, Wang HP, Wu MS, Tseng PH. Surg Endosc. 2025 Mar;39(3):1961-1971. doi: 10.1007/s00464-025-11562-2. Epub 2025 Jan 27. PMID: 39870828	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to investigate the clinical characteristics and esophageal motility of patients with gastric cardia submucosal tumors (SMTs) and the associated changes after endoscopic resection based on high-resolution impedance manometry (HRIM).
+24	Extensive myeloid sarcoma presenting with esophageal compression and dysphagia as the initial manifestation. Li H, Dai L, Wang X, Yu Y. Medicine (Baltimore). 2025 Dec 5;104(49):e46337. doi: 10.1097/MD.0000000000046337. PMID: 41366933	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report described a case of primary MS causing dysphagia through extensive thoracic and abdominal infiltration.
+25	A case report of lymphoma presenting initially with tracheoesophageal fistula and literature review. Lu X, Ma L, Ma L, Chen Y, Luo Y, Liu S, Cao W. Medicine (Baltimore). 2025 Dec 12;104(50):e46568. doi: 10.1097/MD.0000000000046568. PMID: 41398835 Review.	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report described a female patient with advanced-age, large B-cell lymphoma involving both the lungs and esophagus, complicated by a TEF.
+26	The impact of surgeon specialty and technique on outcomes after esophageal dilation: a systematic review. Wilkins SG, Omiunu A, Haynes CV, Simmons K, Hayashi C, Malik D, Elzamzami A, Brackett A, Verma A, Kohli N. Esophagus. 2025 Oct;22(4):506-519. doi: 10.1007/s10388-025-01138-3. Epub 2025 Jul 1. PMID: 40591198	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+27	Oesophageal Lichen Planus: Case Series and Review of the Literature. Manzanares N, Molina-Alvarez A, Iglesias M, Naves JE, Pujol RM, Segura S. Acta Derm Venereol. 2025 Aug 11;105:adv43358. doi: 10.2340/actadv.v105.43358. PMID: 40787740 Review.	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to review the clinical characteristics and diagnostic-therapeutic strategies for OLP.
+28	Endoscopic Submucosal Dissection for Recurrent Esophageal Squamous Cell Carcinoma Post-Radiation. Inokuchi Y, Furusawa K, Hayashi K, Maeda S. Dig Dis Sci. 2025 Feb;70(2):774-785. doi: 10.1007/s10620-024-08789-9. Epub 2024 Dec 18. PMID: 39694992	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to explore the viability of ESD for ESCC in areas previously exposed to radiation, identify elements hindering successful ESD, assess prognosis, and elucidate considerations for follow-up.
+29	Clinical and Immunological Impact of JAK Inhibition in Concurrent Down Syndrome and STAT1 Gain of Function. Blanco-Lobo P, Gilabert-Prieto P, de Felipe B, Moreno-Fuentes D, Guisado Hernández P, Ortiz-Ramírez A, Mensa-Vilaró A, Aróstegui JI, Palmou N, Velasco Gonzalez V, Deyà Martinez Á, Ramakers J, Ivorra-Cortés J, Roca C, Cordero E, Guillen I, Valerdiz Menéndez N, Lucena JM, Gaboli M, Olbrich P, Neth O. J Clin Immunol. 2025 Nov 25;45(1):167. doi: 10.1007/s10875-025-01957-0. PMID: 41288843	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to investigate whether the coexistence of DS and a STAT1 GOF mutation in a patient synergistically enhances interferon (IFN) signaling and exacerbates inflammatory responses, posing additional management challenges.
+30	Emergency Airway Management in a Patient With Tracheoesophageal Fistula and Prior Laryngectomy. Maik J, Kwon O, Greenberg M, Bandagi A, Chuang M. J Emerg Med. 2025 Oct;77:38-41. doi: 10.1016/j.jemermed.2025.07.019. Epub 2025 Jul 11. PMID: 40848541	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report presented a case of airway management in a patient status post laryngectomy and insertion of a TEP.
+31	Endoscopic stenting for benign upper gastrointestinal conditions: safety and efficacy profile of a fully covered double-bump antimigratory stent. Gallo C, Forti E, Pugliese F, Dioscoridi L, Cintolo M, Bonato G, Bravo M, Palermo A, Manthopoulou E, Mutignani M. Surg Endosc. 2025 Nov;39(11):7172-7180. doi: 10.1007/s00464-025-12069-6. Epub 2025 Aug 25. PMID: 40854996	Duplicated
+32	Evaluation of Swallowing Function in Patients With H-type Tracheoesophageal Fistula. Yalabık MF, Arslan SS, Boybeyi Ö, Demir N, Soyer T. J Pediatr Surg. 2025 Feb;60(2):162065. doi: 10.1016/j.jpedsurg.2024.162065. Epub 2024 Nov 16. PMID: 39615149	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+33	Successful triple therapy for advanced synchronous multiple primary esophageal carcinoma with metal stenting, photodynamic and comprehensive systemic therapies-shining light on hope: a case report and literature review. Zou D, Yan Y, Li Y, Ma H, Bai Y, Wang X, Wang B, Wang Y, Ma J, Chen H. Front Immunol. 2025 Apr 1;16:1580616. doi: 10.3389/fimmu.2025.1580616. eCollection 2025. PMID: 40292276 Review.	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report described an SMPEC that underwent PDT simultaneously with intestinal metal stent implantation.
+34	Efficacy and safety of a novel multisegmented fully covered self-expanding metal stent for malignant esophageal obstruction: a prospective pilot study with historical control. Noh JH, Gong EJ, Kim DH, Na HK, Ahn JY, Lee JH, Jung KW, Choi KD, Song HJ, Lee GH, Jung HY. Surg Endosc. 2025 Feb;39(2):942-951. doi: 10.1007/s00464-024-11446-x. Epub 2024 Dec 9. PMID: 39653861	Duplicated
+35	Does Increasing Size of Bougienage Improve Response to Esophageal Dilation? Shine A, Eisa M, Omer E, Heckroth M, Eiswerth M, Rogers B, Tennant P, Nguyen V, Maung AA, Kong M, McClave SA. Curr Gastroenterol Rep. 2025 Jun 11;27(1):39. doi: 10.1007/s11894-025-00982-8. PMID: 40498154 Clinical Trial.	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+36	Underwater Endoscopic Injection Sclerotherapy for Gastroesophageal Varices. Qin SQ, Liu YX, Wang ZD, Dai S, Zhou J, Hu KW, Li QK, Yin GJ. J Vis Exp. 2025 Aug 1;(222). doi: 10.3791/67826. PMID: 40824828	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report described a 57-year-old male patient with gastroesophageal type 1 varices treated with underwater endoscopic injection sclerotherapy.
+37	Outcomes of near-infrared fluorescence guided colonic interposition for corrosive esophageal stricture. Saikrishna E, Varshney VK, Soni S, Selvakumar B, Varshney P, Agarwal L, Katta B, Agarwal A, Birda CL, Choudhury B. Surgery. 2025 Sep;185:109504. doi: 10.1016/j.surg.2025.109504. Epub 2025 Jun 19. PMID: 40540785	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to present the outcomes of colonic interposition using a modified right colonic graft and the utility of indocyanine green-guided fluorescence imaging.
+38	Transjugular Splenocaval Shunt Creation for the Treatment of Portal Vein Cavernous Transformation with Recurrent Variceal Hemorrhage. Tie J, Liu L, Yuan X, Niu J, Xu J, Shi Y. J Vasc Interv Radiol. 2025 Aug;36(8):1330-1335. doi: 10.1016/j.jvir.2025.05.002. Epub 2025 May 11. PMID: 40360012	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to describe transjugular splenocaval shunt (TSCS) technique and evaluate its feasibility, safety, and effectiveness in patients with cavernous transformation of the portal vein (CTPV) and complete thrombosis of the superior mesenteric vein (SMV).
+39	Successful endoscopic removal of an impacted esophageal sponge in an elderly woman with dementia. Ojiro K, Kubosawa Y, Ichikawa M, Katayama T, Nakamura K, Kishikawa H, Nakamoto N, Nishida J. Clin J Gastroenterol. 2025 Oct;18(5):808-811. doi: 10.1007/s12328-025-02178-z. Epub 2025 Jul 14. PMID: 40658175	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report described a case of accidental sponge ingestion with esophageal impaction.
+40	A comparison of three kinds of balloon dilatations for patients with benign esophageal strictures. Liu P, Ren J, Han X, Guo C, Bi Y. Sci Rep. 2025 Mar 29;15(1):10843. doi: 10.1038/s41598-025-95627-1. PMID: 40155746	Selected (4)
+Reason for Selection
+The study was included as it compared the 3 types of dilatations: small balloon dilatation, DCB, and large balloon dilatation, for the treatment of BES.
+41	Button Battery Ingestion in a Neonate: Risk, Management, and Implications. Sindi S, Al-Harbi S. Am J Case Rep. 2025 Feb 6;26:e944479. doi: 10.12659/AJCR.944479. PMID: 39910792	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report detailed the diagnosis and management of a 21-day-old neonate who presented with a button battery lodged in the esophagus.
+42	Platelet-Rich Plasma, an Innovative and Noninvasive Technique for Closure of Tracheoesophageal Fistula After Laryngectomy, Report of 2 Cases. Damien M, Leclercq C, Steffens Y, Dequanter D, Rodriguez A. Ear Nose Throat J. 2025 Mar;104(1_suppl):158S-161S. doi: 10.1177/01455613221124729. Epub 2022 Sep 8. PMID: 36073838	Not Selected
+Reason for Exclusion
+Irrelevant article: The study described an innovative and noninvasive technique, PRP injection, for the closure of persistent tracheoesophageal fistula after total laryngectomy.
+43	Esophageal magnetic anastomosis for long gap congenital esophageal atresia: A case report. Wang H, Yuan T, Zhang J, Gao F, Liu L. Medicine (Baltimore). 2025 Apr 4;104(14):e42041. doi: 10.1097/MD.0000000000042041. PMID: 40193640	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report described an infant with LGEA who underwent esophageal magnetic anastomosis to achieve esophageal recanalization for feeding.
+44	Clinical and nutritional correlates associated with weight changes in achalasia patients and the impact of laparoscopic Heller myotomy. Aurino L, Pesce M, Rurgo S, Puoti MG, Polese B, Capuano M, Palomba G, Aprea G, Seguella L, Esposito G, Palenca I, Efficie E, Sarnelli G. Dig Liver Dis. 2025 Jan;57(1):225-230. doi: 10.1016/j.dld.2024.07.027. Epub 2024 Aug 14. PMID: 39147673	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed at evaluating predictors of weight loss in achalasia patients and at verifying the impact of treatment on nutritional status.
+45	Clinical Utility of Indocyanine Green Fluorescence in Neonatal Surgery: A Single-Center Study and Systematic Review. Castrillo A, Molino JA, Lopez-Fernandez S, Martos M, López M, Guillén G. Eur J Pediatr Surg. 2025 Dec;35(6):448-459. doi: 10.1055/a-2631-5779. Epub 2025 Jun 10. PMID: 40494565	Not Selected
+Reason for Exclusion
+Irrelevant article: The study focused on the use of indocyanine green (ICG) fluorescence in neonatal procedures.
+46	Resection and repair of postoperative diaphragmatic hernia with strangulated bowel obstruction after esophageal cancer via thoracic cavity: A case report. Li Z, Zong L, Li N, Zhang Z, Hu R, Xu B, Wang D, Ning L, Liang Q. Medicine (Baltimore). 2025 Aug 15;104(33):e43894. doi: 10.1097/MD.0000000000043894. PMID: 40826765	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to investigate the common etiological factors and optimal surgical strategies for post-esophagectomy diaphragmatic hernia, and share our therapeutic experience to provide optimal treatment for patients.
+47	Changes in peristalsis following per oral endoscopic myotomy in common esophageal motility disorders. Vyas S, Ward MA, Buckmaster B, Aladegbami B, Wang C, Ogola GO, Leeds SG. Surg Endosc. 2025 Oct;39(10):6915-6923. doi: 10.1007/s00464-025-12096-3. Epub 2025 Aug 28. PMID: 40877628	Not Selected
+Reason for Exclusion
+Irrelevant article: The study focused on examination of the changes before and after POEM in the treatment of all 3 achalasia types as well as esophagogastric junction outflow obstruction and jackhammer esophagus.
+48	Efficacy and safety of photodynamic therapy sequential dose-reduction concurrent chemoradiotherapy in locally advanced obstructive esophageal carcinoma: A propensity score matching analysis. Zhang M, Sun Z, Qiu G, Wei H, Fang B, Wang Y, Zhang X, Li J. Photodiagnosis Photodyn Ther. 2025 Apr;52:104509. doi: 10.1016/j.pdpdt.2025.104509. Epub 2025 Jan 31. PMID: 39894322	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to assess effectiveness and safety of photodynamic therapy sequential Dose-Reduction concurrent chemoradiotherapy (CCRT).
+49	Validation of Padova Classification of Post-Fundoplication Outflow Obstruction on High-Resolution Manometry in an International Multi-Center Study. Forattini F, Le KHN, Provenzano L, Santangelo M, Capovilla G, Vittori A, Pittacolo M, Moletta L, Nicoletti L, Valmasoni M, Yadlapati R, Salvador R. Neurogastroenterol Motil. 2025 Dec;37(12):e70196. doi: 10.1111/nmo.70196. Epub 2025 Nov 3. PMID: 41184989	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to compare clinical and HRM parameters between patients with manometric PFOO and those with a functioning, effective fundoplication (FELF), and to evaluate treatment outcomes in PFOO patients.
+50	Timeliness of management of button battery impactions in children in the province of Ontario: a multi-center analysis. Wolter NE, Siu JM, Davidson J, Bhatt A, Ostrow O, Rourke R, Hong X, Maclean J, Pugi J, Pulkki KH, Philteos JG, Graham ME, Seemann NM. CJEM. 2025 Nov;27(11):872-881. doi: 10.1007/s43678-025-01010-4. Epub 2025 Sep 17. PMID: 40960685	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to describe the care pathways of children presenting with esophageal button battery impactions.
+51	Per-oral endoscopic myotomy (POEM) results in improvement in an endoscopic score for achalasia (the CARS Score). Ellison AC, Becherano G, Sampson-Ansah M, Reddy-Patel N, Cipher DJ, Nguyen AD, Reddy CA, Souza RF, Spechler SJ, Podgaetz E, Konda VJA. Surg Endosc. 2026 Mar;40(3):2095-2102. doi: 10.1007/s00464-025-12476-9. Epub 2025 Dec 11. PMID: 41381893	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to find whether the CARS score improves after treatment of achalasia or EGJ outflow obstruction (EGJOO) with peroral endoscopic myotomy (POEM).
+52	Single staged repair of an anastomotic tracheal fistula following Mckeown esophagectomy via cervical incision: a case report. Zheng H, Guo C, Zhang Y, Gu H, Zhao Y, Xiang R, Dai W, Wei X, Xie T, Li Q, Wang X. J Cardiothorac Surg. 2025 Apr 22;20(1):217. doi: 10.1186/s13019-025-03430-w. PMID: 40264177	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+53	Food impactions in the esophagus: incidence, causes, and treatment. Hentschel F, Haller IE, Wruck JE, Seckinger B, Mollenhauer G, Bornscheuer T, Lüth S. Z Gastroenterol. 2025 Dec;63(12):1239-1245. doi: 10.1055/a-2703-6336. Epub 2025 Oct 8. PMID: 41061753	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to examine whether the nature of food impactions and way they are treated had changed in the last two decades, whether pushing can still be considered a safe procedure, and whether the existing guidelines need to be changed.
+54	A nomogram to predict long-term survival after resection for esophageal cancer: An observational study in northeast China. Wang R, Liu X, Cai H, Li B, Li Y. Surgery. 2025 Feb;178:108968. doi: 10.1016/j.surg.2024.108968. Epub 2024 Dec 16. PMID: 39689614	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to create a prognostic nomogram by combining clinicopathologic variables that are linked to the overall survival following the surgical removal of esophageal squamous cell carcinoma.
+55	High-Resolution Manometry With Solid Provocative Test in Patients With Mid-Thoracic and Epiphrenic Esophageal Diverticula. Baravian L, Melchior C, Hambli S, Branche J, Gérard R, Wuestenberghs F, Piessen G, Gourcerol G, Wils P. Neurogastroenterol Motil. 2025 May;37(5):e70002. doi: 10.1111/nmo.70002. Epub 2025 Feb 17. PMID: 39962753	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to describe motility disorders using HRM in patients with ED and assess the added value of provocative testing in these patients.
+56	Application of Intragastric Single-Incision Laparoscopy Surgery in the Management of Gastroesophageal Junction Gastrointestinal Stromal Tumors. Zheng JB, Chen N, Lin Y, Liu J, Lian L, Wang H. J Vis Exp. 2025 Jun 17;(220). doi: 10.3791/67663. PMID: 40622924	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report presented a 43-year-old male patient with an endophytic GEJ GIST, successfully treated using I-SILS.
+57	Additional Diagnostic Yield of Ambulatory 24-h High Resolution Manometry With Impedance in Patients With Non-Cardiac Chest Pain or Non-Obstructive Dysphagia. Keller J, Boedler M, Jasper D, Andresen V, Rosien U, Rösch T, Layer P. Neurogastroenterol Motil. 2025 Sep;37(9):e70048. doi: 10.1111/nmo.70048. Epub 2025 Apr 14. PMID: 40228103	Not Selected
+Reason for Exclusion
+Irrelevant article: The study compared different HRM methods to assess the diagnostic performance of 24-h HRM in detecting esophageal motility abnormalities in patients with NCCP or NOD.
+58	Endoscopic treatment of an esophageal perforation in eosinophilic esophagitis by insertion of a self-expanding metal stent. López Moreno MB, Jiménez Beltrán V, Godoy López MA, García-Cano J. Rev Esp Enferm Dig. 2025 Nov;117(11):698-699. doi: 10.17235/reed.2024.10412/2024. PMID: 38685899	Duplicated
+59	Small Balloon Dilation Versus Bougie Dilation Versus Large Balloon Dilation for the Treatment of Benign Esophageal Strictures in Adult Patients. Liu P, Guo C, Wu G, Ren J, Han X, Bi Y. Acad Radiol. 2025 Aug;32(8):4573-4582. doi: 10.1016/j.acra.2025.03.055. Epub 2025 Apr 15. PMID: 40240276	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+60	[Multimodal imaging techniques including image-enhanced endoscopy for minimally invasive treatment of a complex tracheoesophageal and chest wall fistula: a case report]. Shi DC, Zhang YF, Shi XG, Lyu C, Ma Y, Yang YG, Shen XP, Xia DL, Kang YH, Wang XQ, Wang Q, Zhang W, Dong YC, Bai C, Huang HD. Zhonghua Jie He He Hu Xi Za Zhi. 2025 May 12;48(5):493-497. doi: 10.3760/cma.j.cn112147-20241202-00709. PMID: 40300877 Chinese.	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+61	Evaluating Intraoperative Impedance Planimetry Findings Using a 16 cm Catheter in Patients Undergoing Peroral Endoscopic Myotomy (POEM). Nguyen AD, Sampson-Ansah M, Bhatt A, Becherano G, Cipher DJ, Mendoza R, Reddy CA, Ellison A, Spechler SJ, Podgaetz E, Konda VJA. Neurogastroenterol Motil. 2026 Jan;38(1):e70209. doi: 10.1111/nmo.70209. Epub 2025 Nov 18. PMID: 41251231	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to characterize the utility of the 16 cm catheter during POEM with respect to intraoperative tailoring of the myotomy length and intermediate outcomes after POEM.
+62	Topical mitomycin C application versus intralesional corticosteroid injection in the management of caustic esophageal strictures in pediatrics: A randomized controlled trial. Zaki RAM, El-Asmar KM, Amra HS, Elshafei EA, Bersy MA, Allam AM. J Pediatr Surg. 2026 Mar;61(3):162884. doi: 10.1016/j.jpedsurg.2025.162884. Epub 2025 Dec 26. PMID: 41456734 Clinical Trial.	Not Selected
+Reason for Exclusion
+Irrelevant article: The study evaluated topical Mitomycin C and intralesional corticosteroid injection as adjuvant therapies to improve treatment outcomes in pediatric patients.
+63	[Application of right-opening single flap valvuloplasty based on tubular stomach in gastrointestinal reconstruction after laparoscopic proximal gastrectomy]. Yu C, Ji WP, Jiang DJ, Chen XL, Liu S, Chen WZ, Ruan XJ, Qian J, Lu H, Yan JY. Zhonghua Wei Chang Wai Ke Za Zhi. 2025 Aug 25;28(8):922-926. doi: 10.3760/cma.j.cn441530-20241030-00357. PMID: 40850839 Chinese.	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to explore the application value of right-opening single flap valvuloplasty based on tubular stomach in gastrointestinal reconstruction after laparoscopic proximal gastrectomy.
+64	Robotic Esophagogastric Resection for EGJ GIST and Intrathoracic Esophagogastric Anastomoses with Luminal Apposing Metal Stent. Crafa F, Vanella S, Amendola A. Ann Surg Oncol. 2026 Jan;33(1):309-310. doi: 10.1245/s10434-025-18433-z. Epub 2025 Sep 23. PMID: 40987986	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report aimed to assess the preliminary results of the use of the LAMS in surgical gastrointestinal anastomoses.
+65	Comparative study between the effect of Nissen fundoplication and Toupet fundoplication on postoperative manometry findings. A randomized control trial study. Gadalla EAY, El Serafy ME, El Din Abd El Monaem AH, El Sayed EA, Abdalla AKM. Surg Endosc. 2025 Nov;39(11):7281-7291. doi: 10.1007/s00464-025-12112-6. Epub 2025 Aug 26. PMID: 40858943 Clinical Trial.	Not Selected
+Reason for Exclusion
+Irrelevant article: The study was conducted to evaluate the outcomes of laparoscopic Nissen versus Toupet fundoplication in patients with medically refractory GERD.
+66	Case Report of an Unexpected Cause of Noisy Breathing: Breast Pump Membrane as an Esophageal Foreign Body in an Infant. Ginty O, Pundaky G, Lam J, Qiabi M, Mullowney T, McKillop S, Ross I, Strychowsky J. Breastfeed Med. 2025 Aug;20(8):593-597. doi: 10.1089/bfm.2025.0083. Epub 2025 May 26. PMID: 40415633	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report presented the first delayed diagnosis and treatment of aspirated breast pump membrane causing airway and esophageal complications secondary to prolonged FBA.
+67	An endoscopic strategy for oesophageal food bolus impactions: a multicentre retrospective study of 750 patients over a decade. Dhillon H, Lu I, Te P, Koh E, Sin J, Heerasing N, Dowling D, Robertson M. Intern Med J. 2025 Oct;55(10):1632-1638. doi: 10.1111/imj.70185. Epub 2025 Aug 26. PMID: 40856143	Not Selected
+Reason for Exclusion
+Irrelevant article: The study aimed to evaluate the outcomes of procedural efficiency and cost implications of different endoscopic strategies for oesophageal food bolus impactions.
+68	A Novel AAAS Gene Mutation in Allgrove Syndrome: Case Report and Genetic Insights from a Chinese Xinjiang Girl. Shawutali N, Qianman B, He J, Nuerhayixia J, Akemu Y, Qin SL, Li SX. Ann Clin Lab Sci. 2025 Jul;55(4):618-624. PMID: 40962451	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report aimed to broaden the understanding of AS's pathogenesis and clinical presentations within the Chinese population by identifying a novel mutation in the AAAS gene through genetic analysis.
+69	Significance of the use of a laryngotracheal flap to reconstruct defects and manage pharyngoesophageal stenosis after the resection of hypopharyngeal carcinoma with cervical oesophagus involvement: a retrospective study. Qiyong Q, Qinying W, Shuihong Z, Minli Z. BMC Surg. 2025 Oct 3;25(1):447. doi: 10.1186/s12893-025-03179-y. PMID: 41044540	Not Selected
+Reason for Exclusion
+Insufficient information: Valid information relevant to performance and/or safety is limited.
+70	[Successful Chemotherapy with Mechanical Ventilation Support in a Patient with Esophageal Neuroendocrine Carcinoma-A Case Report]. Akimoto N, Sato T, Tamura Y, Yago A, Watanabe H, Kasahara K, Segami K, Sato S, Maezawa Y, Aoyama T, Yukawa N, Saito A. Gan To Kagaku Ryoho. 2025 Apr;52(4):357-359. PMID: 40360419 Japanese.	Not Selected
+Reason for Exclusion
+Irrelevant article: The case report described successful chemotherapy with mechanical ventilation support in a patient with Esophageal neuroendocrine carcinoma.
+
+ 
+(3) Search Terms: “Patient / Population / Problem + Comparator + Outcome”
+Categories	No	Keywords	Results
+Patient / Population / Problem	1	Esophageal stricture	15,273
+	2	Esophageal obstruction	7,739
+	3	Malignant esophageal stricture	4,924
+	4	Malignant esophageal obstruction	2,118
+	5	Benign esophageal stricture	1,475
+	6	Refractory benign esophageal stricture	200
+	7	Benign esophageal obstruction	333
+	8	Tracheoesophageal fistula	6,104
+	9	#1 OR #2 OR #3 OR #4 OR #5 OR #6 OR #7 OR #8	26,475
+Comparator	10	Surgery	6,315,257
+	11	Plastic stent	5,047
+	12	Balloon dilation	17,803
+	13	Self-expandable metallic stent	2,759
+	14	Self-expandable metal stent	3,727
+	15	SEMS	3,297
+	16	Covered stent	10,646
+	17	WallFlex	89
+	18	Ultraflex	255
+	19	Evolution	900,972
+	20	Hanarostent	26
+	21	Aixstent	0
+	22	EGIS	668
+	23	Bonastent	12
+	24	Micro-Tech	142
+	25	#10 OR #11 OR #12 OR #13 OR #14 OR #15 OR #16 OR #17 OR #18 OR #19 OR #20 OR #21 OR #22 OR #23 OR #24	7,173,646
+Outcome	26	Stent patency	12,612
+	27	Dysphagia improvement	16,153
+	28	Fistula closure	11,208
+	29	Removal	858,949
+	30	#26 OR #27 OR #28 OR #29	896,456
+Result	31	#9 AND #25 AND #30	2,604
+Date-Publication	32	2025/01/01~2025/12/31	110
+Filter	33	Humans	58
+ 
+  
+Articles (58)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1	Novel nutrition strategies in gastric and esophageal cancer. Boyle E, Elliott JA. Expert Rev Gastroenterol Hepatol. 2025 Jan-Feb;19(2):89-104. doi: 10.1080/17474124.2025.2457444. Epub 2025 Jan 30. PMID: 39864091 Review.	Duplicated
+2	Long-Term Aerodigestive Morbidities After Esophageal Atresia/Tracheoesophageal Fistula Repair. Ebbott D, Maddahi Y, Fall F, Pace D, Reese V, Berman L, Boelig M. J Pediatr Surg. 2025 Aug;60(8):162384. doi: 10.1016/j.jpedsurg.2025.162384. Epub 2025 May 27. PMID: 40441419	Duplicated
+3	Diagnosis and Management of Long-term Gastrointestinal Complications in Pediatric Esophageal Atresia/Tracheoesophageal Fistula. O'Shea D, Quinn E, Middlesworth W, Khlevner J. Curr Gastroenterol Rep. 2025 Feb 25;27(1):16. doi: 10.1007/s11894-025-00968-6. PMID: 39998690 Review.	Duplicated
+4	Esophageal Intelligence: Implementing Artificial Intelligence Into the Diagnostics of Esophageal Motility and Impedance pH Monitoring. Farah A, Abboud W, Savarino EV, Mari A. Neurogastroenterol Motil. 2025 Sep;37(9):e70038. doi: 10.1111/nmo.70038. Epub 2025 Mar 27. PMID: 40145475 Review.	Duplicated
+5	[Upper Gastrointestinal Foreign Body Removal]. Kim HU. Korean J Gastroenterol. 2025 Jul 25;85(3):299-308. doi: 10.4166/kjg.2025.017. PMID: 40709421 Review. Korean.	Duplicated
+6	Esophageal Induced Acute Airway Obstruction. Herrin R, Rockett A, Chiodo M, Neth MR. J Emerg Med. 2025 Nov;78:336-339. doi: 10.1016/j.jemermed.2025.03.027. Epub 2025 Mar 26. PMID: 41027288	Duplicated
+7	Oesophageal impaction of button batteries in children: a tertiary centre experience. Letrillart J, Talbotec C, Payen E, Abi-Nader E, Lambe C, Campeotto F, Ronconi M, Ruemmele F, Simon F, Thierry B, Luscan R, Pigneur B. Arch Dis Child. 2025 Nov 19;110(12):997-1002. doi: 10.1136/archdischild-2025-328576. PMID: 40579046	Duplicated
+8	Endoscopic suturing to prevent migration of esophageal fully covered self-expandable metal stents: a randomized controlled trial (with video). Singh S, Maan S, Hadi Y, Agrawal R, Adekolu AA, Cohen EM, Ali FS, Fang W, Markovich B, Krafft M, Thakkar S. Gastrointest Endosc. 2025 Oct;102(4):525-535.e4. doi: 10.1016/j.gie.2025.02.037. Epub 2025 Feb 28. PMID: 40024292 Clinical Trial.	Duplicated
+9	The impact of surgeon specialty and technique on outcomes after esophageal dilation: a systematic review. Wilkins SG, Omiunu A, Haynes CV, Simmons K, Hayashi C, Malik D, Elzamzami A, Brackett A, Verma A, Kohli N. Esophagus. 2025 Oct;22(4):506-519. doi: 10.1007/s10388-025-01138-3. Epub 2025 Jul 1. PMID: 40591198	Duplicated
+10	Histologic Response Is Associated With Improved Esophageal Distensibility and Symptom Burden in Pediatric Eosinophilic Esophagitis. Kennedy KV, Burger C, Pan Z, Umeweni CN, Alston M, Benitez AJ, Furuta GT, Mahon M, Ruffner MA, Quinn L, Muir AB, Menard-Katcher C. Gastroenterology. 2026 Feb;170(2):287-297. doi: 10.1053/j.gastro.2025.07.042. Epub 2025 Aug 15. PMID: 40819800	Duplicated
+11	Executive Summary of the American Radium Society Appropriate Use Criteria for the Use of Esophageal Stents in Patients With Esophageal Cancer: Systematic Review and Guidelines. Russo S, Anker CJ, Codipilly DC, Abood G, Akselrod D, Hallemeier CL, Jethwa KR, Jin Z, Kim E, Kennedy T, Lee P, Miller ED, Newman NB, Selfridge JE, Sharma N, Small W Jr, Tchelebi L, Williams VM, Simone CB 2nd. Am J Clin Oncol. 2025 Dec 1;48(12):579-599. doi: 10.1097/COC.0000000000001222. Epub 2025 Jun 25. PMID: 40557604	Duplicated
+12	Endoscopic Sub-Stent Dissection for Removal of Long-Term Embedded Esophageal Self-Expanding Metallic Stents. Guo KY, Ma LY, Liu ZQ, Wang L, Xu PR, Tan T, Yan XF, Hu JW, Zhou PH, Hu H. J Gastroenterol Hepatol. 2025 Sep;40(9):2267-2274. doi: 10.1111/jgh.17041. Epub 2025 Jul 11. PMID: 40641384	Duplicated
+13	Efficacy and safety of antireflux mucosectomy versus radiofrequency ablation of the lower esophageal sphincter for the treatment of GERD: a systematic review and meta-analysis. Angeramo CA, Lendoire M, Herbella FAM, Schlottmann F. Gastrointest Endosc. 2025 Jul;102(1):14-25.e1. doi: 10.1016/j.gie.2024.12.026. Epub 2024 Dec 21. PMID: 39716536	Duplicated
+14	Corrosive substance ingestion in children: clinical features, management and outcomes in a tertiary care setting. Irlayıcı FI, Elmas A, Akcam M. Eur J Pediatr. 2025 Aug 13;184(9):549. doi: 10.1007/s00431-025-06402-3. PMID: 40802074	Duplicated
+15	Peroral endoscopic myotomy as an emergent treatment in hospitalized patients with esophageal motility disorders. Fayyaz F, Roshanshad R, Jagannath P, Almardini M, Bejjani M, Wehbe M, Hernández Mondragón OV, Robles M, Schlachterman A, Le J, Chang K, Dang F, Hwang JH, Li AA, Sadeghi Majd E, Eleftheriadis N, Bechara R, Parvizian M, Yoo IK, Pioche M, Moll F, Kim RE, Canakis A, Othman M, Jawaid S, Khalaf MA, Estremera-Arevalo F, Albéniz Arbizu E, Inoue H, Shiwaku H, Lajin M, Chung CS, Seewald S, Pawa R, Pawa S, Khashab M. Gastrointest Endosc. 2026 Jan;103(1):87-94.e1. doi: 10.1016/j.gie.2025.04.021. Epub 2025 Apr 18. PMID: 40254099	Duplicated
+16	Minimally Invasive Left Colonic Interposition For Corrosive Esophageal Stricture: Technique and Outcomes. Tien TPD, Loc NVV, Trung LV, Vuong NL. Surg Laparosc Endosc Percutan Tech. 2025 Dec 1;35(6):e1404. doi: 10.1097/SLE.0000000000001404. PMID: 40899331	Duplicated
+17	A comparison of three kinds of balloon dilatations for patients with benign esophageal strictures. Liu P, Ren J, Han X, Guo C, Bi Y. Sci Rep. 2025 Mar 29;15(1):10843. doi: 10.1038/s41598-025-95627-1. PMID: 40155746	Duplicated
+18	Clinical characteristics and esophageal motility in patients with gastric cardia submucosal tumors and associated changes after endoscopic resection. Lin KF, Chen CC, Chen CC, Han ML, Wang HP, Wu MS, Tseng PH. Surg Endosc. 2025 Mar;39(3):1961-1971. doi: 10.1007/s00464-025-11562-2. Epub 2025 Jan 27. PMID: 39870828	Duplicated
+19	A case report of lymphoma presenting initially with tracheoesophageal fistula and literature review. Lu X, Ma L, Ma L, Chen Y, Luo Y, Liu S, Cao W. Medicine (Baltimore). 2025 Dec 12;104(50):e46568. doi: 10.1097/MD.0000000000046568. PMID: 41398835 Review.	Duplicated
+20	Oesophageal Lichen Planus: Case Series and Review of the Literature. Manzanares N, Molina-Alvarez A, Iglesias M, Naves JE, Pujol RM, Segura S. Acta Derm Venereol. 2025 Aug 11;105:adv43358. doi: 10.2340/actadv.v105.43358. PMID: 40787740 Review.	Duplicated
+21	Endoscopic stenting for benign upper gastrointestinal conditions: safety and efficacy profile of a fully covered double-bump antimigratory stent. Gallo C, Forti E, Pugliese F, Dioscoridi L, Cintolo M, Bonato G, Bravo M, Palermo A, Manthopoulou E, Mutignani M. Surg Endosc. 2025 Nov;39(11):7172-7180. doi: 10.1007/s00464-025-12069-6. Epub 2025 Aug 25. PMID: 40854996	Duplicated
+22	Endoscopic Submucosal Dissection for Recurrent Esophageal Squamous Cell Carcinoma Post-Radiation. Inokuchi Y, Furusawa K, Hayashi K, Maeda S. Dig Dis Sci. 2025 Feb;70(2):774-785. doi: 10.1007/s10620-024-08789-9. Epub 2024 Dec 18. PMID: 39694992	Duplicated
+23	Small Balloon Dilation Versus Bougie Dilation Versus Large Balloon Dilation for the Treatment of Benign Esophageal Strictures in Adult Patients. Liu P, Guo C, Wu G, Ren J, Han X, Bi Y. Acad Radiol. 2025 Aug;32(8):4573-4582. doi: 10.1016/j.acra.2025.03.055. Epub 2025 Apr 15. PMID: 40240276	Duplicated
+24	Emergency Airway Management in a Patient With Tracheoesophageal Fistula and Prior Laryngectomy. Maik J, Kwon O, Greenberg M, Bandagi A, Chuang M. J Emerg Med. 2025 Oct;77:38-41. doi: 10.1016/j.jemermed.2025.07.019. Epub 2025 Jul 11. PMID: 40848541	Duplicated
+25	Evaluation of Swallowing Function in Patients With H-type Tracheoesophageal Fistula. Yalabık MF, Arslan SS, Boybeyi Ö, Demir N, Soyer T. J Pediatr Surg. 2025 Feb;60(2):162065. doi: 10.1016/j.jpedsurg.2024.162065. Epub 2024 Nov 16. PMID: 39615149	Duplicated
+26	Efficacy and safety of a novel multisegmented fully covered self-expanding metal stent for malignant esophageal obstruction: a prospective pilot study with historical control. Noh JH, Gong EJ, Kim DH, Na HK, Ahn JY, Lee JH, Jung KW, Choi KD, Song HJ, Lee GH, Jung HY. Surg Endosc. 2025 Feb;39(2):942-951. doi: 10.1007/s00464-024-11446-x. Epub 2024 Dec 9. PMID: 39653861	Duplicated
+27	Underwater Endoscopic Injection Sclerotherapy for Gastroesophageal Varices. Qin SQ, Liu YX, Wang ZD, Dai S, Zhou J, Hu KW, Li QK, Yin GJ. J Vis Exp. 2025 Aug 1;(222). doi: 10.3791/67826. PMID: 40824828	Duplicated
+28	Endoscopic treatment of an esophageal perforation in eosinophilic esophagitis by insertion of a self-expanding metal stent. López Moreno MB, Jiménez Beltrán V, Godoy López MA, García-Cano J. Rev Esp Enferm Dig. 2025 Nov;117(11):698-699. doi: 10.17235/reed.2024.10412/2024. PMID: 38685899	Duplicated
+29	Clinical Utility of Indocyanine Green Fluorescence in Neonatal Surgery: A Single-Center Study and Systematic Review. Castrillo A, Molino JA, Lopez-Fernandez S, Martos M, López M, Guillén G. Eur J Pediatr Surg. 2025 Dec;35(6):448-459. doi: 10.1055/a-2631-5779. Epub 2025 Jun 10. PMID: 40494565	Duplicated
+30	Esophageal magnetic anastomosis for long gap congenital esophageal atresia: A case report. Wang H, Yuan T, Zhang J, Gao F, Liu L. Medicine (Baltimore). 2025 Apr 4;104(14):e42041. doi: 10.1097/MD.0000000000042041. PMID: 40193640	Duplicated
+31	Outcomes of near-infrared fluorescence guided colonic interposition for corrosive esophageal stricture. Saikrishna E, Varshney VK, Soni S, Selvakumar B, Varshney P, Agarwal L, Katta B, Agarwal A, Birda CL, Choudhury B. Surgery. 2025 Sep;185:109504. doi: 10.1016/j.surg.2025.109504. Epub 2025 Jun 19. PMID: 40540785	Duplicated
+32	Platelet-Rich Plasma, an Innovative and Noninvasive Technique for Closure of Tracheoesophageal Fistula After Laryngectomy, Report of 2 Cases. Damien M, Leclercq C, Steffens Y, Dequanter D, Rodriguez A. Ear Nose Throat J. 2025 Mar;104(1_suppl):158S-161S. doi: 10.1177/01455613221124729. Epub 2022 Sep 8. PMID: 36073838	Duplicated
+33	Clinical and nutritional correlates associated with weight changes in achalasia patients and the impact of laparoscopic Heller myotomy. Aurino L, Pesce M, Rurgo S, Puoti MG, Polese B, Capuano M, Palomba G, Aprea G, Seguella L, Esposito G, Palenca I, Efficie E, Sarnelli G. Dig Liver Dis. 2025 Jan;57(1):225-230. doi: 10.1016/j.dld.2024.07.027. Epub 2024 Aug 14. PMID: 39147673	Duplicated
+34	Transjugular Splenocaval Shunt Creation for the Treatment of Portal Vein Cavernous Transformation with Recurrent Variceal Hemorrhage. Tie J, Liu L, Yuan X, Niu J, Xu J, Shi Y. J Vasc Interv Radiol. 2025 Aug;36(8):1330-1335. doi: 10.1016/j.jvir.2025.05.002. Epub 2025 May 11. PMID: 40360012	Duplicated
+35	Robotic Esophagogastric Resection for EGJ GIST and Intrathoracic Esophagogastric Anastomoses with Luminal Apposing Metal Stent. Crafa F, Vanella S, Amendola A. Ann Surg Oncol. 2026 Jan;33(1):309-310. doi: 10.1245/s10434-025-18433-z. Epub 2025 Sep 23. PMID: 40987986	Duplicated
+36	Successful endoscopic removal of an impacted esophageal sponge in an elderly woman with dementia. Ojiro K, Kubosawa Y, Ichikawa M, Katayama T, Nakamura K, Kishikawa H, Nakamoto N, Nishida J. Clin J Gastroenterol. 2025 Oct;18(5):808-811. doi: 10.1007/s12328-025-02178-z. Epub 2025 Jul 14. PMID: 40658175	Duplicated
+37	Button Battery Ingestion in a Neonate: Risk, Management, and Implications. Sindi S, Al-Harbi S. Am J Case Rep. 2025 Feb 6;26:e944479. doi: 10.12659/AJCR.944479. PMID: 39910792	Duplicated
+38	Changes in peristalsis following per oral endoscopic myotomy in common esophageal motility disorders. Vyas S, Ward MA, Buckmaster B, Aladegbami B, Wang C, Ogola GO, Leeds SG. Surg Endosc. 2025 Oct;39(10):6915-6923. doi: 10.1007/s00464-025-12096-3. Epub 2025 Aug 28. PMID: 40877628	Duplicated
+39	Efficacy and safety of photodynamic therapy sequential dose-reduction concurrent chemoradiotherapy in locally advanced obstructive esophageal carcinoma: A propensity score matching analysis. Zhang M, Sun Z, Qiu G, Wei H, Fang B, Wang Y, Zhang X, Li J. Photodiagnosis Photodyn Ther. 2025 Apr;52:104509. doi: 10.1016/j.pdpdt.2025.104509. Epub 2025 Jan 31. PMID: 39894322	Duplicated
+40	Resection and repair of postoperative diaphragmatic hernia with strangulated bowel obstruction after esophageal cancer via thoracic cavity: A case report. Li Z, Zong L, Li N, Zhang Z, Hu R, Xu B, Wang D, Ning L, Liang Q. Medicine (Baltimore). 2025 Aug 15;104(33):e43894. doi: 10.1097/MD.0000000000043894. PMID: 40826765	Duplicated
+41	Validation of Padova Classification of Post-Fundoplication Outflow Obstruction on High-Resolution Manometry in an International Multi-Center Study. Forattini F, Le KHN, Provenzano L, Santangelo M, Capovilla G, Vittori A, Pittacolo M, Moletta L, Nicoletti L, Valmasoni M, Yadlapati R, Salvador R. Neurogastroenterol Motil. 2025 Dec;37(12):e70196. doi: 10.1111/nmo.70196. Epub 2025 Nov 3. PMID: 41184989	Duplicated
+42	Timeliness of management of button battery impactions in children in the province of Ontario: a multi-center analysis. Wolter NE, Siu JM, Davidson J, Bhatt A, Ostrow O, Rourke R, Hong X, Maclean J, Pugi J, Pulkki KH, Philteos JG, Graham ME, Seemann NM. CJEM. 2025 Nov;27(11):872-881. doi: 10.1007/s43678-025-01010-4. Epub 2025 Sep 17. PMID: 40960685	Duplicated
+43	Single staged repair of an anastomotic tracheal fistula following Mckeown esophagectomy via cervical incision: a case report. Zheng H, Guo C, Zhang Y, Gu H, Zhao Y, Xiang R, Dai W, Wei X, Xie T, Li Q, Wang X. J Cardiothorac Surg. 2025 Apr 22;20(1):217. doi: 10.1186/s13019-025-03430-w. PMID: 40264177	Duplicated
+44	Food impactions in the esophagus: incidence, causes, and treatment. Hentschel F, Haller IE, Wruck JE, Seckinger B, Mollenhauer G, Bornscheuer T, Lüth S. Z Gastroenterol. 2025 Dec;63(12):1239-1245. doi: 10.1055/a-2703-6336. Epub 2025 Oct 8. PMID: 41061753	Duplicated
+45	A nomogram to predict long-term survival after resection for esophageal cancer: An observational study in northeast China. Wang R, Liu X, Cai H, Li B, Li Y. Surgery. 2025 Feb;178:108968. doi: 10.1016/j.surg.2024.108968. Epub 2024 Dec 16. PMID: 39689614	Duplicated
+46	High-Resolution Manometry With Solid Provocative Test in Patients With Mid-Thoracic and Epiphrenic Esophageal Diverticula. Baravian L, Melchior C, Hambli S, Branche J, Gérard R, Wuestenberghs F, Piessen G, Gourcerol G, Wils P. Neurogastroenterol Motil. 2025 May;37(5):e70002. doi: 10.1111/nmo.70002. Epub 2025 Feb 17. PMID: 39962753	Duplicated
+47	Application of Intragastric Single-Incision Laparoscopy Surgery in the Management of Gastroesophageal Junction Gastrointestinal Stromal Tumors. Zheng JB, Chen N, Lin Y, Liu J, Lian L, Wang H. J Vis Exp. 2025 Jun 17;(220). doi: 10.3791/67663. PMID: 40622924	Duplicated
+48	Per-oral endoscopic myotomy (POEM) results in improvement in an endoscopic score for achalasia (the CARS Score). Ellison AC, Becherano G, Sampson-Ansah M, Reddy-Patel N, Cipher DJ, Nguyen AD, Reddy CA, Souza RF, Spechler SJ, Podgaetz E, Konda VJA. Surg Endosc. 2026 Mar;40(3):2095-2102. doi: 10.1007/s00464-025-12476-9. Epub 2025 Dec 11. PMID: 41381893	Duplicated
+49	[Multimodal imaging techniques including image-enhanced endoscopy for minimally invasive treatment of a complex tracheoesophageal and chest wall fistula: a case report]. Shi DC, Zhang YF, Shi XG, Lyu C, Ma Y, Yang YG, Shen XP, Xia DL, Kang YH, Wang XQ, Wang Q, Zhang W, Dong YC, Bai C, Huang HD. Zhonghua Jie He He Hu Xi Za Zhi. 2025 May 12;48(5):493-497. doi: 10.3760/cma.j.cn112147-20241202-00709. PMID: 40300877 Chinese.	Duplicated
+50	Evaluating Intraoperative Impedance Planimetry Findings Using a 16 cm Catheter in Patients Undergoing Peroral Endoscopic Myotomy (POEM). Nguyen AD, Sampson-Ansah M, Bhatt A, Becherano G, Cipher DJ, Mendoza R, Reddy A, Ellison A, Spechler SJ, Podgaetz E, Konda VJA. Neurogastroenterol Motil. 2026 Jan;38(1):e70209. doi: 10.1111/nmo.70209. Epub 2025 Nov 18. PMID: 41251231	Duplicated
+51	[Application of right-opening single flap valvuloplasty based on tubular stomach in gastrointestinal reconstruction after laparoscopic proximal gastrectomy]. Yu C, Ji WP, Jiang DJ, Chen XL, Liu S, Chen WZ, Ruan XJ, Qian J, Lu H, Yan JY. Zhonghua Wei Chang Wai Ke Za Zhi. 2025 Aug 25;28(8):922-926. doi: 10.3760/cma.j.cn441530-20241030-00357. PMID: 40850839 Chinese.	Duplicated
+52	Significance of the use of a laryngotracheal flap to reconstruct defects and manage pharyngoesophageal stenosis after the resection of hypopharyngeal carcinoma with cervical oesophagus involvement: a retrospective study. Qiyong Q, Qinying W, Shuihong Z, Minli Z. BMC Surg. 2025 Oct 3;25(1):447. doi: 10.1186/s12893-025-03179-y. PMID: 41044540	Duplicated
+53	Comparative study between the effect of Nissen fundoplication and Toupet fundoplication on postoperative manometry findings. A randomized control trial study. Gadalla EAY, El Serafy ME, El Din Abd El Monaem AH, El Sayed EA, Abdalla AKM. Surg Endosc. 2025 Nov;39(11):7281-7291. doi: 10.1007/s00464-025-12112-6. Epub 2025 Aug 26. PMID: 40858943 Clinical Trial.	Duplicated
+54	Topical mitomycin C application versus intralesional corticosteroid injection in the management of caustic esophageal strictures in pediatrics: A randomized controlled trial. Zaki RAM, El-Asmar KM, Amra HS, Elshafei EA, Bersy MA, Allam AM. J Pediatr Surg. 2026 Mar;61(3):162884. doi: 10.1016/j.jpedsurg.2025.162884. Epub 2025 Dec 26. PMID: 41456734 Clinical Trial.	Duplicated
+55	Case Report of an Unexpected Cause of Noisy Breathing: Breast Pump Membrane as an Esophageal Foreign Body in an Infant. Ginty O, Pundaky G, Lam J, Qiabi M, Mullowney T, McKillop S, Ross I, Strychowsky J. Breastfeed Med. 2025 Aug;20(8):593-597. doi: 10.1089/bfm.2025.0083. Epub 2025 May 26. PMID: 40415633	Duplicated
+56	A Novel AAAS Gene Mutation in Allgrove Syndrome: Case Report and Genetic Insights from a Chinese Xinjiang Girl. Shawutali N, Qianman B, He J, Nuerhayixia J, Akemu Y, Qin SL, Li SX. Ann Clin Lab Sci. 2025 Jul;55(4):618-624. PMID: 40962451	Duplicated
+57	An endoscopic strategy for oesophageal food bolus impactions: a multicentre retrospective study of 750 patients over a decade. Dhillon H, Lu I, Te P, Koh E, Sin J, Heerasing N, Dowling D, Robertson M. Intern Med J. 2025 Oct;55(10):1632-1638. doi: 10.1111/imj.70185. Epub 2025 Aug 26. PMID: 40856143	Duplicated
+58	[TIPS dysfunction: what has to be done?]. Dzhurakulov SR, Vechorko VI, Khokonov MA, Severtsev AN, Glebov KG, Chernyaev MV, Fakhriev JA, Kryuchkov GI. Angiol Sosud Khir. 2025 Sep 30;31(3):154-159. doi: 10.33029/1027-6661-2025-31-3-154-159. PMID: 41805491 Russian.	Not Selected
+Reason for Exclusion
+Irrelevant article: The study presents two clinical cases describing various endovascular techniques for correcting dysfunction of previously established portocaval shunts, aimed at reducing the portosystemic gradient.
+ 
+(4) Search Terms: “Intervention” specializing in search scope
+•	Niti-S Esophageal Covered Stent [Full Covered-Type]
+c	No	Keywords	Results
+Intervention	1	Niti-S	78
+	2	Esophageal	208,740
+	3	Full covered type	1,609
+Result	4	#1 AND #2 AND #3	0
+Date-Publication	5	2025/01/01~2025/12/31	0
+ 
+No relevant search results were found during the literature search.
+
+•	Niti-S Esophageal Covered Stent [Cervical]
+Categories	No	Keywords	Results
+Intervention	1	Niti-S	78
+	2	Esophageal	208,740
+	3	Cervical	799,326
+Result	4	#1 AND #2 AND #3	4
+Date-Publication	5	2025/01/01~2025/12/31	0
+ 
+No relevant search results were found during the literature search.
+ 
+•	Niti-S Esophageal Covered Stent [Both Bare-Type]
+Categories	No	Keywords	Results
+Intervention	1	Niti-S	78
+	2	Esophageal	208,740
+	3	Both bare type	2,808
+Result	4	#1 AND #2 AND #3	0
+Date-Publication	5	2025/01/01~2025/12/31	0
+ 
+No relevant search results were found during the literature search.
+
+•	Niti-S Esophageal Covered Stent [Conio]
+Categories	No	Keywords	Results
+Intervention	1	Niti-S	78
+	2	Esophageal	208,740
+	3	Conio	314
+Result	4	#1 AND #2 AND #3	2
+Date-Publication	5	2025/01/01~2025/12/31	0
+ 
+No relevant search results were found during the literature search.
+ 
+•	Niti-S Esophageal Covered Stent [Anti Reflux-Type]
+Categories	No	Keywords	Results
+Intervention	1	Niti-S	78
+	2	Esophageal	208,740
+	3	Anti reflux	7,169
+Result	4	#1 AND #2 AND #3	4
+Date-Publication	5	2025/01/01~2025/12/31	0
+ 
+No relevant search results were found during the literature search.
+
+•	Niti-S Esophageal Covered Stent [Double Anti Reflux-Type]
+Categories	No	Keywords	Results
+Intervention	1	Niti-S	78
+	2	Esophageal	208,740
+	3	Double anti reflux	517
+Result	4	#1 AND #2 AND #3	2
+Date-Publication	5	2025/01/01~2025/12/31	0
+ 
+No relevant search results were found during the literature search.
+ 
+•	Niti-S Esophageal Covered Stent [Double-Type]
+Categories	No	Keywords	Results
+Intervention	1	Niti-S	78
+	2	Esophageal	208,740
+	3	Double type	95,129
+Result	4	#1 AND #2 AND #3	1
+Date-Publication	5	2025/01/01~2025/12/31	0
+ 
+No relevant search results were found during the literature search.
+
+•	Niti-S Esophageal Covered Stent [Beta-2]
+Categories	No	Keywords	Results
+Intervention	1	Niti-S	78
+	2	Esophageal	208,740
+	3	Beta-2	56,739
+Result	4	#1 AND #2 AND #3	1
+Date-Publication	5	2025/01/01~2025/12/31	1
+ 
+
+Articles (1)
+Based on the selection criteria, the articles are selected when they satisfy the criteria.
+1	Endoscopic stenting for benign upper gastrointestinal conditions: safety and efficacy profile of a fully covered double-bump antimigratory stent. Gallo C, Forti E, Pugliese F, Dioscoridi L, Cintolo M, Bonato G, Bravo M, Palermo A, Manthopoulou E, Mutignani M. Surg Endosc. 2025 Nov;39(11):7172-7180. doi: 10.1007/s00464-025-12069-6. Epub 2025 Aug 25. PMID: 40854996	Duplicated
+ 
