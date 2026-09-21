@@ -34,6 +34,28 @@ test('HTTP upload returns a job and polling preserves pipeline errors', async ()
     const missing = await fetch(`${base}/api/analyze-pdf/jobs/unknown`);
     assert.equal(missing.status, 404);
     await missing.text();
+
+    // A proxy may strip Prefer. The multipart field must still select jobs.
+    for (let index = 0; index < 3; index++) {
+      const batchForm = new FormData();
+      batchForm.set('paperText', 'Test document');
+      batchForm.set('markdownText', '# Results\nTest evidence');
+      batchForm.set('analysisMode', 'async');
+      const accepted = await fetch(`${base}/api/analyze-pdf`, {
+        method: 'POST', body: batchForm, signal: AbortSignal.timeout(5000),
+      });
+      assert.equal(accepted.status, 202);
+      assert.ok((await accepted.json() as { jobId: string }).jobId);
+    }
+
+    // Legacy requests must not commit a whitespace-only HTTP 200 before JSON.
+    const legacyForm = new FormData();
+    legacyForm.set('paperText', 'Test document');
+    const legacy = await fetch(`${base}/api/analyze-pdf`, {
+      method: 'POST', body: legacyForm, signal: AbortSignal.timeout(5000),
+    });
+    assert.equal(legacy.status, 500);
+    assert.match((await legacy.json() as { error: string }).error, /GEMINI_API_KEY is not configured/);
   } finally {
     server.closeAllConnections();
     await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve()));

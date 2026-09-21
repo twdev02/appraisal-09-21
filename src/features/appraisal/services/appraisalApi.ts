@@ -1,7 +1,7 @@
 import type { FullAppraisalData } from '../../../types';
 
-class AnalysisRequestError extends Error {
-  constructor(message: string, readonly transient = false) { super(message); }
+export class AnalysisRequestError extends Error {
+  constructor(message: string, readonly transient = false, readonly backendUnavailable = false) { super(message); }
 }
 
 async function requestAnalysis(url: string, init: RequestInit = {}) {
@@ -9,13 +9,13 @@ async function requestAnalysis(url: string, init: RequestInit = {}) {
   try {
     response = await fetch(url, { ...init, cache: 'no-store', signal: AbortSignal.timeout(60_000) });
   } catch {
-    throw new AnalysisRequestError('Analysis backend connection was interrupted. Check the server connection and retry.', true);
+    throw new AnalysisRequestError('Analysis backend connection was interrupted. Check the server connection and retry.', true, true);
   }
   let text: string;
   try {
     text = await response.text();
   } catch {
-    throw new AnalysisRequestError('The analysis response was interrupted. Please retry.', true);
+    throw new AnalysisRequestError('The analysis response was interrupted. Please retry.', true, true);
   }
   let body: any;
   try { body = JSON.parse(text); } catch { /* Diagnose proxy/SPA responses below. */ }
@@ -23,11 +23,14 @@ async function requestAnalysis(url: string, init: RequestInit = {}) {
   // Preserve pipeline errors, including provider quota/authentication errors.
   if (body?.error) throw new AnalysisRequestError(String(body.error));
   if ([502, 503, 504].includes(response.status)) {
-    throw new AnalysisRequestError(`Analysis gateway is unavailable (HTTP ${response.status}). Please retry shortly.`, true);
+    throw new AnalysisRequestError(`Analysis gateway is unavailable (HTTP ${response.status}). Please retry shortly.`, true, true);
   }
   if (!body || typeof body !== 'object') {
     throw new AnalysisRequestError(
-      `The analysis API returned an unexpected response (HTTP ${response.status}). Ensure the full backend is running with npm run dev or npm start; a static preview cannot analyze PDFs.`
+      text.trim()
+        ? `The analysis API returned an unexpected response (HTTP ${response.status}). Check the backend deployment and API routing; a static preview cannot analyze PDFs.`
+        : `The analysis API returned an empty response (HTTP ${response.status}). Restart or update the backend; no analysis result was received.`,
+      false, true
     );
   }
   if (!response.ok) throw new AnalysisRequestError(`Analysis request failed (HTTP ${response.status}).`);
@@ -35,6 +38,8 @@ async function requestAnalysis(url: string, init: RequestInit = {}) {
 }
 
 export async function callAnalyzePdfApi(formData: FormData): Promise<FullAppraisalData> {
+  // Carry the mode in the upload too: intermediaries may remove Prefer headers.
+  formData.set('analysisMode', 'async');
   // Upload once; repeating a POST after losing its response could duplicate work.
   let { status, body } = await requestAnalysis('/api/analyze-pdf', {
     method: 'POST',

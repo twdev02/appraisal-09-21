@@ -32,7 +32,7 @@ export function registerAnalyzePdfRoute(app: Express): void {
     },
     (req, res) => {
       // Preserve the synchronous API for older clients.
-      if (req.get('Prefer') !== 'respond-async') return handleAnalyzePdf(req, res);
+      if (req.body.analysisMode !== 'async' && req.get('Prefer') !== 'respond-async') return handleAnalyzePdf(req, res);
       const jobId = jobs.start(req);
       res.setHeader('Cache-Control', 'no-store');
       if (!jobId) return res.status(503).json({ success: false, error: 'The analysis server is busy. Please retry shortly.' });

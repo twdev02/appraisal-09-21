@@ -28,7 +28,7 @@ import {
 } from './data/appraisalStandards';
 import { exportBatchAppraisalDocx } from './utils/docxExport';
 import { runSelfValidation } from './utils/selfValidation';
-import { callAnalyzePdfApi } from './features/appraisal/services/appraisalApi';
+import { callAnalyzePdfApi, AnalysisRequestError } from './features/appraisal/services/appraisalApi';
 
 
 const isPdfUpload = (file: File) =>
@@ -726,6 +726,10 @@ export default function App() {
           `Failed to analyze ${currentArticle.pdfFileName}: ` +
             `${error.message}`
         );
+        if (error instanceof AnalysisRequestError && error.backendUnavailable) {
+          setAnalysisError(`Analysis paused because the backend is unavailable. Remaining articles have not been submitted. Restore the connection, retry this article, then use Start Analysis for the remaining queue. ${error.message}`);
+          break;
+        }
       }
     }
 
