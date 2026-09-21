@@ -804,30 +804,20 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   // 4. Contribution Criteria State (Max 10)
   const contExt = parsedAi?.contributionExtracts || {};
 
-  // Follow-up priority hierarchy: 1. Direct follow-up duration -> 2. Overall/patient survival -> 3. Not reported.
-  // Stent patency/time-to-RBO are intentionally excluded here because they belong under
-  // Relevance 'Duration of application or use'.
+  // This criterion asks whether follow-up was long enough to observe treatment
+  // effects and complications, so only a direct follow-up/observation duration
+  // qualifies. Overall/patient survival is not accepted as a substitute here —
+  // knowing when patients died does not establish that complications had time
+  // to be observed. (Overall survival is still used as a proxy separately under
+  // Relevance 'Duration of follow-up'.) Stent patency/time-to-RBO are intentionally
+  // excluded here because they belong under Relevance 'Duration of application or use'.
   const followUpText = (articleMetadata.followUpPeriod && articleMetadata.followUpPeriod !== 'Not reported')
     ? articleMetadata.followUpPeriod
     : (currentStudyText.match(/(?:median|mean|mean\s*±\s*SD|range)?\s*(?:follow-up|follow\s*up|observation\s*period)\s*(?:duration\s*)?(?:of|was|:)?\s*([^\.\n;]+(?:months?|weeks?|days?|years?)[^\.\n;]*)/i)?.[0] || '');
 
-  const survivalPatterns = [
-    /(?:median|mean)(?:\s*±\s*SD)?\s+(?:(?:overall|patient)\s+)?survival(?:\s+(?:time|period))?\s*(?:of|was|:|=)?\s*[^\.\n;]{0,80}?\d+(?:\.\d+)?\s*(?:days?|weeks?|months?|years?|d|wk|wks|mo|mos|yr|yrs)\b[^\.\n;]*/i,
-    /\b(?:overall\s+survival|patient\s+survival|survival\s+time)\b[^\n]{0,160}?\b(?:days?|weeks?|months?|years?|d|wk|wks|mo|mos|yr|yrs)\b[^\n]{0,220}/i,
-    /\bmedian\s+patient\s+survival\s*,?\s*(?:days?|weeks?|months?|years?|d|wk|wks|mo|mos|yr|yrs)\s*\d+(?:\.\d+)?[^\.\n;]*/i,
-  ];
-  let survivalText = '';
-  for (const pattern of survivalPatterns) {
-    const match = currentStudyText.match(pattern);
-    if (match?.[0]) {
-      survivalText = match[0].trim();
-      break;
-    }
-  }
-
   let fuQuote = 'Not reported';
   let fuLocation = 'Not reported';
-  let fuComment = 'Neither direct follow-up duration nor current-study overall/patient survival duration was reported.';
+  let fuComment = 'Direct follow-up duration was not reported for this criterion.';
   let fuSelection = 'No (1)';
   let fuScore = 1;
   let fuStatus = 'Not reported';
@@ -839,7 +829,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
     fuSelection = 'Yes (2)';
     fuScore = 2;
     fuStatus = 'Reported';
-  } else if (['follow_up', 'overall_survival'].includes(String(contExt.followUpMetricType || '')) && contExt.followUpQuote && contExt.followUpQuote !== 'Not reported') {
+  } else if (String(contExt.followUpMetricType || '') === 'follow_up' && contExt.followUpQuote && contExt.followUpQuote !== 'Not reported') {
     fuQuote = contExt.followUpQuote;
     fuLocation = contExt.followUpLocation || 'Results / Methods';
     fuComment = contExt.followUpComment || 'Longitudinal outcome observation period documented.';
@@ -850,13 +840,6 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
     fuQuote = `Follow-up duration: "${followUpText.trim()}"`;
     fuLocation = 'Methods / Results';
     fuComment = 'Follow-up period is documented and sufficient to assess longitudinal clinical effect and potential complications.';
-    fuSelection = 'Yes (2)';
-    fuScore = 2;
-    fuStatus = 'Reported';
-  } else if (survivalText && survivalText.trim().length > 0) {
-    fuQuote = `Follow-up period not reported. Overall survival was used as the available longitudinal metric: "${survivalText.trim()}"`;
-    fuLocation = 'Results';
-    fuComment = 'Follow-up period was not reported. Overall survival duration was utilized as the alternative longitudinal time metric.';
     fuSelection = 'Yes (2)';
     fuScore = 2;
     fuStatus = 'Reported';
