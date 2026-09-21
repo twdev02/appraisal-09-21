@@ -1,6 +1,8 @@
 {
   "name": "Clinical Literature Appraisal Extractor",
-  "description": "Medical device clinical literature screening and appraisal workspace adhering to IMDRF MDCE WG/N56FINAL:2019 and MEDDEV 2.7.1 Rev.4 standards.",
+  "description": "Medical device clinical literature appraisal and PDF-to-Markdown preprocessing workspace adhering to IMDRF MDCE WG/N56FINAL:2019 and MEDDEV 2.7.1 Rev.4 standards.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

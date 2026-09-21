@@ -653,7 +653,7 @@ export const Step2Inventory: React.FC<Step2InventoryProps> = ({
                                           Needs confirmation
                                         </span>
                                       )}
-                                      {(device.dueMatchStatus === 'review_required' || device.dueMatchStatus === 'Multiple DUE match – Review required' || device.dueMatchStatus === 'Configuration conflict – Review required') && (
+                                      {(device.dueMatchStatus === 'Review required' || device.dueMatchStatus === 'Multiple DUE match – Review required' || device.dueMatchStatus === 'Configuration conflict – Review required') && (
                                         <span className="text-xs bg-amber-100 text-amber-900 border border-amber-300 font-semibold px-1.5 py-0.5 rounded">
                                           Review Required
                                         </span>
@@ -664,11 +664,11 @@ export const Step2Inventory: React.FC<Step2InventoryProps> = ({
                                     </div>
                                   </div>
 
-                                  {(device.matchedDueName || device.matchedDueProductName) && (
+                                  {device.matchedDueName && (
                                     <div className="text-xs bg-white p-1.5 rounded border border-slate-200 text-slate-700 flex items-center gap-1.5">
                                       <span className="font-semibold text-slate-900">Matched DUE:</span>
                                       <span className="text-slate-800 font-medium truncate">
-                                        {device.matchedDueName || device.matchedDueProductName}
+                                        {device.matchedDueName}
                                       </span>
                                     </div>
                                   )}

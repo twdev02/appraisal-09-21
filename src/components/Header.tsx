@@ -8,12 +8,10 @@ import {
   ChevronDown,
   Check,
   ShieldAlert,
-  Search,
-  BookOpenCheck,
 } from 'lucide-react';
 import { ThemeId, THEME_OPTIONS } from '../theme';
 
-export type TopSection = 'screening' | 'appraisal';
+export type TopSection = 'appraisal';
 
 interface HeaderProps {
   activeSection: TopSection;
@@ -52,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   const steps = [
-    { number: 1, title: 'Evaluation Setup & Upload Article', icon: FileSpreadsheet, desc: 'DUE, Similar Devices & PDF' },
+    { number: 1, title: 'Evaluation Setup & Upload Article', icon: FileSpreadsheet, desc: 'DUE, Similar Devices & PDF/MD' },
     { number: 2, title: 'Research Group Inventory', icon: Layers, desc: 'Groups, Devices & Dimensions' },
     { number: 3, title: 'Article Appraisal', icon: Award, desc: 'Suitability & Relevance' },
     { number: 4, title: 'Safety Event Extraction', icon: ShieldAlert, desc: 'Complications & Adverse Events' },
@@ -101,7 +99,7 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
           <p className={`text-xs ${isDarkHeader ? 'text-slate-300' : 'text-zinc-500'}`}>
-            Systematic Literature Screening &amp; Evidence-Based Clinical Appraisal Workspace
+            Evidence-Based Clinical Appraisal Workspace
           </p>
         </div>
 
@@ -160,7 +158,7 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
 
-          {activeSection === 'appraisal' && onNewEvaluation && (
+          {onNewEvaluation && (
             <button
               type="button"
               onClick={onNewEvaluation}
@@ -175,7 +173,7 @@ export const Header: React.FC<HeaderProps> = ({
           )}
 
           {/* Validation Rule Suite Button */}
-          {activeSection === 'appraisal' && (
+          {
             <button
               type="button"
               onClick={onOpenTestModal}
@@ -188,57 +186,12 @@ export const Header: React.FC<HeaderProps> = ({
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
               <span>Rule Verification Suite (12/12)</span>
             </button>
-          )}
+          }
         </div>
       </div>
 
-      {/* Top-Level Two Sections Switcher */}
-      <div
-        className={`border-t transition-colors ${
-          isDarkHeader ? 'bg-black/30 border-white/10' : 'bg-slate-100 border-zinc-200'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 py-1.5">
-            <button
-              type="button"
-              onClick={() => onSectionChange('screening')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeSection === 'screening'
-                  ? isDarkHeader
-                    ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md ring-2 ring-sky-400/30'
-                    : 'bg-blue-600 text-white shadow-md'
-                  : isDarkHeader
-                  ? 'text-slate-300 hover:text-white hover:bg-white/10'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70'
-              }`}
-            >
-              <Search className="w-3.5 h-3.5" />
-              <span>1. Literature Screening (문헌 스크리닝)</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => onSectionChange('appraisal')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeSection === 'appraisal'
-                  ? isDarkHeader
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md ring-2 ring-emerald-400/30'
-                    : 'bg-emerald-600 text-white shadow-md'
-                  : isDarkHeader
-                  ? 'text-slate-300 hover:text-white hover:bg-white/10'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70'
-              }`}
-            >
-              <BookOpenCheck className="w-3.5 h-3.5" />
-              <span>2. Literature Appraisal (문헌 평가 &amp; 추출)</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* 4-Step Stepper Navigation (Only shown when activeSection === 'appraisal') */}
-      {activeSection === 'appraisal' && (
+      {/* 4-Step Stepper Navigation */}
+      {
         <div
           className={`border-t transition-colors ${
             isDarkHeader ? 'bg-black/20 border-white/10' : 'bg-zinc-50/70 border-zinc-200'
@@ -311,7 +264,7 @@ export const Header: React.FC<HeaderProps> = ({
             </nav>
           </div>
         </div>
-      )}
+      }
     </header>
   );
 };

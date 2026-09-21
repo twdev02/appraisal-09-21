@@ -44,7 +44,10 @@ interface Step1SetupProps {
   selfValidation?: SelfValidationState;
   onFileUpload: (files: File[]) => void;
   onRetryArticle?: (articleId: string) => void;
+  onArticleMarkdown: (articleId: string, file?: File) => Promise<void>;
+  onAnalyzePending: () => void;
   onProceed: () => void;
+  pairingNotice?: string | null;
 }
 
 export const Step1Setup: React.FC<Step1SetupProps> = ({
@@ -65,7 +68,10 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
   selfValidation,
   onFileUpload,
   onRetryArticle,
+  onArticleMarkdown,
+  onAnalyzePending,
   onProceed,
+  pairingNotice,
 }) => {
   // Normalize DUE items
   const currentDueList: DueItem[] =
@@ -365,9 +371,12 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
+    if (isAnalyzing) return;
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const filesArray = Array.from(e.dataTransfer.files).filter(
-        (file: File) => file.type === 'application/pdf' || file.name.endsWith('.pdf')
+        (file: File) =>
+          file.type === 'application/pdf' ||
+          /\.pdf$/i.test(file.name)
       );
       if (filesArray.length > 0) {
         onFileUpload(filesArray);
@@ -376,9 +385,15 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isAnalyzing) return;
     if (e.target.files && e.target.files.length > 0) {
-      const filesArray = Array.from(e.target.files);
+      const filesArray = Array.from(e.target.files).filter(
+        (file: File) =>
+          file.type === 'application/pdf' ||
+          /\.pdf$/i.test(file.name)
+      );
       onFileUpload(filesArray);
+      e.target.value = '';
     }
   };
 
@@ -926,9 +941,9 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
         </div>
       </div>
 
-      {/* 2. Clinical Publication PDF Upload Section */}
+      {/* 2. Clinical Publication PDF + Markdown Upload Section */}
       <div className="bg-white rounded-xl border border-slate-200/90 shadow-xs overflow-hidden">
-        <div className="bg-slate-50/90 px-6 py-4 border-b border-slate-200">
+        <div className="bg-slate-50/90 px-6 py-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-semibold text-sm shadow-2xs">
               <UploadCloud className="w-4 h-4" />
@@ -938,10 +953,11 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
                 Clinical Publication PDF Upload
               </h3>
               <p className="text-xs text-slate-500">
-                Upload a single clinical publication PDF. The extractor will analyze and parse verbatim evidence.
+                Add PDFs, optionally attach Markdown on each article card, then start analysis.
               </p>
             </div>
           </div>
+
         </div>
 
         <div className="p-6 space-y-4">
@@ -949,6 +965,7 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
             ref={fileInputRef}
             type="file"
             accept="application/pdf,.pdf"
+            disabled={isAnalyzing}
             multiple
             onChange={handleFileChange}
             className="hidden"
@@ -989,7 +1006,7 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
                     <span>{pdfFileName}</span>
                   </p>
                   <p className="text-xs text-emerald-700 mt-0.5">
-                    PDF analysis ready. Click or drop additional files to add more articles.
+                    PDF registered. Attach optional MD below, then start analysis.
                   </p>
                 </div>
               </div>
@@ -1000,10 +1017,10 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-slate-900">
-                    Drag and drop one or multiple clinical article PDFs here
+                    Drag and drop PDF files here
                   </p>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    or click to browse your local files (supports multi-file batch upload)
+                    Markdown can be attached separately to each article. Without MD, analysis uses PDF only.
                   </p>
                 </div>
                 <button
@@ -1014,15 +1031,26 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
                   }}
                   className="mt-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer shadow-2xs"
                 >
-                  Select PDFs
+                  Select PDF Files
                 </button>
               </>
             )}
           </div>
 
+          {pairingNotice && (
+            <div className="rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-xs leading-relaxed text-sky-900">
+              {pairingNotice}
+            </div>
+          )}
+
           {/* Uploaded Articles Queue List */}
           {articles.length > 0 && (
             <div className="mt-4 space-y-2 pt-3 border-t border-slate-200">
+              <button type="button" onClick={onAnalyzePending}
+                disabled={isAnalyzing || !hasValidDue || !articles.some(a => a.status === 'pending' || a.markdownNeedsAnalysis)}
+                className="px-4 py-2 rounded-lg bg-slate-900 text-white disabled:opacity-40 disabled:cursor-not-allowed">
+                {isAnalyzing ? 'Analyzing...' : 'Start Analysis'}
+              </button>
               <div className="flex items-center justify-between">
                 <h4 className="text-xs font-bold text-slate-800">
                   Uploaded Articles Queue ({articles.length})
@@ -1035,7 +1063,7 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
                 {articles.map((art, idx) => (
                   <div
                     key={art.id}
-                    className={`p-3 rounded-lg border flex items-center justify-between text-xs transition-colors ${
+                    className={`p-3 rounded-lg border flex flex-col sm:flex-row gap-3 sm:items-center justify-between text-xs transition-colors ${
                       activeArticleIndex === idx
                         ? 'bg-slate-900 text-white border-slate-900'
                         : 'bg-slate-50/80 hover:bg-slate-100 border-slate-200 text-slate-900'
@@ -1045,7 +1073,33 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
                       <FileText className={`w-4 h-4 ${activeArticleIndex === idx ? 'text-white' : 'text-slate-600'}`} />
                       <div>
                         <span className="font-semibold">{art.pdfFileName}</span>
+                        <div className={`mt-0.5 text-[11px] ${
+                          activeArticleIndex === idx ? 'text-slate-300' : 'text-slate-500'
+                        }`}>
+                          {art.markdownFileName ? (
+                            <span className="break-all">MD attached: {art.markdownFileName}</span>
+                          ) : (
+                            <span>MD not provided · PDF-only analysis</span>
+                          )}
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2 mt-2">
+                          <label className={`inline-flex px-2.5 py-1 rounded border ${isAnalyzing ? 'opacity-40' : 'cursor-pointer'}`}>
+                            {art.markdownFile ? 'Replace MD' : 'Attach MD (optional)'}
+                            <input type="file" accept=".md,.markdown,text/markdown" className="sr-only"
+                              aria-label={`Attach Markdown to ${art.pdfFileName}`} disabled={isAnalyzing}
+                              onChange={async e => {
+                                const file = e.currentTarget.files?.[0];
+                                e.currentTarget.value = '';
+                                if (file) await onArticleMarkdown(art.id, file);
+                              }} />
+                          </label>
+                          {art.markdownFile && <button type="button" disabled={isAnalyzing}
+                            onClick={() => void onArticleMarkdown(art.id)}
+                            className="px-2.5 py-1 rounded border disabled:opacity-40">Remove MD</button>}
+                        </div>
+                        {art.markdownNeedsAnalysis && <p className="mt-1 text-amber-500">MD changed. Reanalyze to update results.</p>}
                         <div className="flex items-center gap-2 mt-0.5 text-[11px]">
+                          {art.status === 'pending' && <span>Waiting for analysis</span>}
                           {art.status === 'completed' && (
                             <span className={activeArticleIndex === idx ? 'text-emerald-300' : 'text-emerald-700 font-medium'}>
                               Analysis Completed
@@ -1071,16 +1125,17 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
                     </div>
 
                     <div className="flex items-center gap-2">
-                      {art.status === 'failed' && onRetryArticle && (
+                      {(art.status === 'failed' || art.markdownNeedsAnalysis) && onRetryArticle && (
                         <button
                           type="button"
+                          disabled={isAnalyzing || !hasValidDue}
                           onClick={(e) => {
                             e.stopPropagation();
                             onRetryArticle(art.id);
                           }}
                           className="px-2.5 py-1 bg-rose-600 text-white rounded font-medium hover:bg-rose-700 cursor-pointer shadow-2xs"
                         >
-                          Retry
+                          {art.status === 'failed' ? 'Retry' : 'Reanalyze'}
                         </button>
                       )}
                       <button
@@ -1139,7 +1194,7 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
                 <button
                   type="button"
                   disabled={isAnalyzing}
-                  onClick={() => onFileUpload(lastSelectedFile)}
+                  onClick={() => onFileUpload([lastSelectedFile])}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-900 text-white rounded text-xs font-medium hover:bg-rose-800 disabled:opacity-50 transition-colors shrink-0 self-start sm:self-auto cursor-pointer"
                 >
                   <RotateCcw className={`w-3.5 h-3.5 ${isAnalyzing ? 'animate-spin' : ''}`} />
@@ -1155,11 +1210,11 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
       <div className="flex items-center justify-between pt-4 border-t border-slate-200">
         <div className="text-xs text-slate-500">
           {!hasValidDue && !hasPdf ? (
-            <span>Please enter DUE Product Name &amp; Indication(s), and upload a clinical PDF.</span>
+            <span>Please enter DUE Product Name &amp; Indication(s), and upload a clinical PDF (MD optional).</span>
           ) : !hasValidDue ? (
             <span>Please complete DUE Product Name &amp; Indication(s).</span>
           ) : !hasPdf ? (
-            <span>Please upload a clinical article PDF.</span>
+            <span>Please upload a clinical article PDF (MD optional).</span>
           ) : (
             <span className="text-emerald-700 font-semibold flex items-center gap-1">
               <CheckCircle2 className="w-3.5 h-3.5" />
@@ -1181,4 +1236,3 @@ export const Step1Setup: React.FC<Step1SetupProps> = ({
     </div>
   );
 };
-

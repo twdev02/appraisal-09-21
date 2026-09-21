@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { SelfValidationBadge } from './SelfValidationBadge';
 import { issuesForTarget } from '../utils/selfValidation';
+import { isSafetySummaryOnlyLabel } from '../utils/nlpRules';
 import {
   compareEventToFmea,
   fetchFmeaRegistry,
@@ -226,7 +227,12 @@ export const Step4Safety: React.FC<Step4SafetyProps> = ({
 
   const displayedEvents = safety.events
     .filter(hasPositiveEventCount)
-    .filter((event) => !isMortalityOutcome(event));
+    .filter((event) => !isMortalityOutcome(event))
+    // Keep aggregate totals such as "Patients with complications",
+    // "Overall complications" and Early/Late totals in the analysis state for
+    // completeness/self-validation, but do not present them as actual Step 4
+    // complication rows. Only leaf/clinically meaningful events are displayed.
+    .filter((event) => !isSafetySummaryOnlyLabel(event.eventName));
 
   const handleDeleteEvent = (id: string) => {
     const updatedEvents = safety.events.filter((ev) => ev.id !== id);
@@ -635,8 +641,11 @@ export const Step4Safety: React.FC<Step4SafetyProps> = ({
     return (
       /^(?:(?:overall|total|all)\s+)?(?:adverse\s+events?|complications?|safety\s+events?)$/.test(label) ||
       /^(?:persistent|recurrent)\s+(?:obstructive\s+)?symptoms?$/.test(label) ||
-      /^(?:persistent|recurrent)\s+(?:biliary\s+)?obstruction(?:\s+symptoms?)?$/.test(label) ||
-      /^(?:recurrent\s+biliary\s+obstruction|reobstruction|rbo)(?:\s+rate)?$/.test(label) ||
+      // Recurrent biliary obstruction (RBO) is NOT automatically an aggregate.
+      // If the paper reports only RBO itself, treat it as a standalone complication
+      // and allow FMEA cross-check. It becomes a parent/aggregate only when explicit
+      // linked causes/components are present (handled above by isAggregate,
+      // hasLinkedChildEvents, or breakdowns).
       /^(?:stent|device)\s+(?:dysfunction|malfunction|failure)s?$/.test(label) ||
       /^(?:reintervention|re intervention)s?(?:\s+rate)?$/.test(label) ||
       /^(?:recurrence|recurrences)(?:\s+rate)?$/.test(label)

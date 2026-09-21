@@ -556,6 +556,14 @@ export interface SafetyEventState {
   summary: OverallSafetySummary;
   hasExplicitNoEventsReported: boolean;
   hasSafetyNotReported: boolean;
+  markdownEvidence?: {
+    available: boolean;
+    trustedSafetyTableCount: number;
+    ignoredUncertainSafetyTableCount: number;
+    ignoredComparisonTableCount: number;
+    validatedEventRows: number;
+    reinterventionRows: number;
+  };
 }
 
 // ==========================================
@@ -578,12 +586,35 @@ export interface OverallAppraisalState {
   overallResult: 'Accepted' | 'REJECTED';
 }
 
+
+export interface DemographicEvidenceValidationItem {
+  status: 'validated' | 'supplemented' | 'md_only' | 'conflict' | 'pdf_only' | 'not_available';
+  pdfValue: string;
+  markdownValue: string;
+  selectedValue: string;
+  evidenceQuote: string;
+  evidenceLocation: string;
+  note: string;
+}
+
+export interface EvidenceValidationState {
+  markdownAvailable: boolean;
+  trustedMarkdownTables: number;
+  uncertainMarkdownTables: number;
+  patientCount: DemographicEvidenceValidationItem;
+  gender: DemographicEvidenceValidationItem;
+  followUp: DemographicEvidenceValidationItem;
+  statisticalMethod?: DemographicEvidenceValidationItem;
+  clinicalOutcome?: DemographicEvidenceValidationItem;
+}
+
 export interface FullAppraisalData {
   due?: DueSetup;
   dueList: DueItem[];
   similarDevices: SimilarDevice[];
   articleMetadata: ArticleMetadata;
   rawPaperText?: string;
+  evidenceValidation?: EvidenceValidationState;
   pdfFileName?: string;
   researchGroups: ResearchGroup[];
   suitability: SuitabilityAppraisalState;
@@ -611,6 +642,9 @@ export interface Article {
   pdfFileName: string;
   status: AnalysisStatus;
   errorMessage?: string;
+  markdownFile?: File;
+  markdownFileName?: string;
+  markdownNeedsAnalysis?: boolean;
   data: FullAppraisalData;
   methodological: MethodologicalAppraisalState;
   contribution: ContributionAppraisalState;

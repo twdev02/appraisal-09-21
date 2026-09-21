@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Header, TopSection } from './components/Header';
-import { LiteratureScreening } from './components/screening/LiteratureScreening';
 import { Step1Setup } from './components/Step1Setup';
 import { Step2Inventory } from './components/Step2Inventory';
 import { Step3Appraisal } from './components/Step3Appraisal';
@@ -19,7 +18,6 @@ import {
   MethodologicalAppraisalState,
   ContributionAppraisalState,
   SafetyEventState,
-  FullAppraisalData,
   Article,
 } from './types';
 import {
@@ -30,9 +28,17 @@ import {
 } from './data/appraisalStandards';
 import { exportBatchAppraisalDocx } from './utils/docxExport';
 import { runSelfValidation } from './utils/selfValidation';
+import { callAnalyzePdfApi } from './features/appraisal/services/appraisalApi';
+
+
+const isPdfUpload = (file: File) =>
+  file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
+
+const isMarkdownUpload = (file: File) =>
+  /\.(md|markdown)$/i.test(file.name);
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState<TopSection>('screening');
+  const [activeSection, setActiveSection] = useState<TopSection>('appraisal');
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isTestModalOpen, setIsTestModalOpen] = useState<boolean>(false);
 
@@ -139,6 +145,7 @@ export default function App() {
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
   const [failedField, setFailedField] = useState<string | null>(null);
+  const [pairingNotice, setPairingNotice] = useState<string | null>(null);
 
   const [researchGroups, setResearchGroups] = useState<ResearchGroup[]>([]);
 
@@ -399,6 +406,7 @@ export default function App() {
     setIsAnalyzing(false);
     setAnalysisError(null);
     setFailedField(null);
+    setPairingNotice(null);
     setResearchGroups([]);
 
     setSuitability({
@@ -445,153 +453,66 @@ export default function App() {
     });
   };
 
-  const callAnalyzePdfApi = async (
-    formData: FormData
-  ): Promise<FullAppraisalData> => {
-    let response: Response;
+  const prepareMarkdownForAppraisal = async (
+    article: Article
+  ): Promise<{ markdownText: string; warning?: string }> => {
+    if (!article.markdownFile) {
+      return { markdownText: '' };
+    }
 
     try {
-      response = await fetch('/api/analyze-pdf', {
-        method: 'POST',
-        body: formData,
-      });
-    } catch (networkError: any) {
-      // A browser-level TypeError here means no HTTP response was received at all
-      // (server restart, preview tunnel interruption, or a long request being cut).
-      // Distinguish it from a normal Gemini/API 4xx/5xx response so the user knows
-      // that Retry is safe and the PDF itself is not necessarily invalid.
-      let backendReachable = false;
-      try {
-        const health = await fetch('/api/health', { cache: 'no-store' });
-        backendReachable = health.ok;
-      } catch {
-        backendReachable = false;
+      const markdownText = (await article.markdownFile.text()).trim();
+      if (!markdownText) {
+        return {
+          markdownText: '',
+          warning: `Matched Markdown file is empty: ${article.markdownFile.name}`,
+        };
       }
-
-      if (backendReachable) {
-        throw new Error(
-          'Analysis connection was interrupted before the result returned. The backend is available; click Retry to analyze this article again.'
-        );
-      }
-
-      throw new Error(
-        'Analysis backend connection was lost. Wait a few seconds for the preview server to reconnect, then click Retry.'
+      return { markdownText };
+    } catch (error: any) {
+      const warning =
+        error?.message ||
+        `Could not read matched Markdown file: ${article.markdownFile.name}`;
+      console.warn(
+        `[Appraisal] Uploaded Markdown skipped for ${article.pdfFileName}:`,
+        warning
       );
+      return { markdownText: '', warning };
     }
-
-    const contentType = response.headers.get('content-type') || '';
-    const isJsonResponse = contentType
-      .toLowerCase()
-      .includes('application/json');
-
-    let responseBodyText = '';
-
-    try {
-      responseBodyText = await response.text();
-    } catch {
-      responseBodyText = '';
-    }
-
-    const normalizedResponse = responseBodyText.trim().toLowerCase();
-
-    const isHtmlResponse =
-      normalizedResponse.startsWith('<!doctype') ||
-      normalizedResponse.startsWith('<html') ||
-      responseBodyText.includes('<body') ||
-      responseBodyText.includes('<!DOCTYPE');
-
-    if (!response.ok || !isJsonResponse || isHtmlResponse) {
-      if (
-        isHtmlResponse ||
-        normalizedResponse.startsWith('<!doctype')
-      ) {
-        throw new Error(
-          `PDF analysis request took longer than expected or gateway timeout occurred. Please click Retry to analyze this article again.`
-        );
-      }
-
-      if (isJsonResponse && responseBodyText) {
-        let parsedError: any;
-
-        try {
-          parsedError = JSON.parse(responseBodyText);
-        } catch {
-          parsedError = null;
-        }
-
-        if (parsedError?.error) {
-          throw new Error(parsedError.error);
-        }
-      }
-
-      throw new Error(
-        `Server error (HTTP ${response.status}): ` +
-          `${responseBodyText.slice(0, 500) || response.statusText}`
-      );
-    }
-
-    let responseJson: any;
-
-    try {
-      responseJson = JSON.parse(responseBodyText);
-    } catch (jsonError: any) {
-      if (
-        normalizedResponse.startsWith('<!doctype') ||
-        responseBodyText.includes('<html')
-      ) {
-        throw new Error(
-          `PDF analysis request took longer than expected or gateway timeout occurred. Please click Retry to analyze this article again.`
-        );
-      }
-
-      throw new Error(
-        `Invalid JSON response from server ` +
-          `(HTTP ${response.status}): ${jsonError.message}`
-      );
-    }
-
-    if (
-      !responseJson ||
-      !responseJson.success ||
-      !responseJson.data
-    ) {
-      throw new Error(
-        responseJson?.error ||
-          'Failed to extract clinical data from PDF.'
-      );
-    }
-
-    return responseJson.data;
   };
 
   const handleFileUpload = async (
     filesInput: File | File[]
   ) => {
-    const fileList = Array.isArray(filesInput)
+    if (isAnalyzing) return;
+    const uploadedFiles = Array.isArray(filesInput)
       ? filesInput
       : [filesInput];
 
-    if (fileList.length === 0) {
+    if (uploadedFiles.length === 0) {
       return;
     }
 
-    setIsAnalyzing(true);
+    const pairs = uploadedFiles.filter(isPdfUpload).map(pdf => ({ pdf }));
+    if (!pairs.length) return;
+    setPairingNotice('PDFs registered. Attach optional MD on each card, then click Start Analysis.');
+
     setAnalysisError(null);
 
-    const newArticles: Article[] = fileList.map(
-      (file, index) => ({
+    const newArticles: Article[] = pairs.map(
+({ pdf }, index) => ({
         id:
           `art-${Date.now()}-${index}-` +
           Math.random().toString(36).substring(2, 7),
-        file,
-        pdfFileName: file.name,
+        file: pdf,
+        pdfFileName: pdf.name,
         status: 'pending',
         data: {
           due,
           dueList,
           similarDevices,
           articleMetadata: { ...articleMetadata },
-          pdfFileName: file.name,
+          pdfFileName: pdf.name,
           researchGroups: [],
           suitability: { ...suitability },
           relevance: { ...relevance },
@@ -614,6 +535,40 @@ export default function App() {
       updatedArticles[startIndex].id;
 
     syncArticleToState(updatedArticles[startIndex]);
+
+    // Queue first so each PDF can receive optional Markdown before analysis.
+  };
+
+  const handleArticleMarkdown = async (articleId: string, file?: File) => {
+    if (isAnalyzing) return;
+    try {
+      if (file && (!isMarkdownUpload(file) || !(await file.text()).trim())) {
+        throw new Error('Select a non-empty .md or .markdown file.');
+      }
+      setArticles(previous => previous.map(article => article.id === articleId
+        ? { ...article, markdownFile: file, markdownFileName: file?.name,
+            markdownNeedsAnalysis: article.status === 'completed' || article.markdownNeedsAnalysis }
+        : article));
+      setPairingNotice(file
+        ? `Attached ${file.name}. Analyze the article to apply this Markdown.`
+        : 'Markdown removed. Analyze the article again to use PDF only.');
+    } catch (error: any) {
+      setPairingNotice(error?.message || 'Could not read Markdown file.');
+    }
+  };
+
+  const handleAnalyzePending = async () => {
+    if (isAnalyzing) return;
+    if (!dueList.some(item => item.productName.trim() && item.indications.length)) return;
+    const updatedArticles = articles.filter(article => article.status === 'pending' || article.markdownNeedsAnalysis);
+    if (!updatedArticles.length) return;
+    const startIndex = 0;
+    const firstIndex = articles.findIndex(article => article.id === updatedArticles[0].id);
+    setActiveArticleIndex(firstIndex);
+    activeArticleIdRef.current = updatedArticles[0].id;
+    syncArticleToState(updatedArticles[0]);
+    setIsAnalyzing(true);
+    setAnalysisError(null);
 
     for (
       let articleIndex = startIndex;
@@ -644,9 +599,23 @@ export default function App() {
       );
 
       try {
+        const markdownPreparation =
+          await prepareMarkdownForAppraisal(currentArticle);
         const formData = new FormData();
 
         formData.append('file', currentArticle.file);
+        if (markdownPreparation.markdownText) {
+          formData.append(
+            'markdownText',
+            markdownPreparation.markdownText
+          );
+          if (currentArticle.markdownFileName) {
+            formData.append(
+              'markdownFileName',
+              currentArticle.markdownFileName
+            );
+          }
+        }
         formData.append(
           'fileName',
           currentArticle.file.name
@@ -677,6 +646,7 @@ export default function App() {
 
         const completedArticle: Article = {
           ...currentArticle,
+          markdownNeedsAnalysis: false,
           status: 'completed',
           errorMessage: undefined,
           data: {
@@ -716,6 +686,12 @@ export default function App() {
           extracted.researchGroups.length > 0
         ) {
           setCurrentStep(2);
+        }
+
+        if (markdownPreparation.warning) {
+          console.warn(
+            `[Appraisal] ${currentArticle.pdfFileName}: ${markdownPreparation.warning}`
+          );
         }
       } catch (error: any) {
         if (
@@ -759,6 +735,7 @@ export default function App() {
   const handleRetryArticle = async (
     articleId: string
   ) => {
+    if (isAnalyzing) return;
     const articleIndex = articles.findIndex(
       (article) => article.id === articleId
     );
@@ -789,9 +766,16 @@ export default function App() {
     setAnalysisError(null);
 
     try {
+      const markdownPreparation = await prepareMarkdownForAppraisal(currentArticle);
       const formData = new FormData();
 
       formData.append('file', currentArticle.file);
+      if (markdownPreparation.markdownText) {
+        formData.append('markdownText', markdownPreparation.markdownText);
+        if (currentArticle.markdownFileName) {
+          formData.append('markdownFileName', currentArticle.markdownFileName);
+        }
+      }
       formData.append(
         'fileName',
         currentArticle.file.name
@@ -814,6 +798,7 @@ export default function App() {
 
       const completedArticle: Article = {
         ...currentArticle,
+        markdownNeedsAnalysis: false,
         status: 'completed',
         errorMessage: undefined,
         data: {
@@ -923,7 +908,7 @@ export default function App() {
   };
 
   const completedArticles = articles.filter(
-    (article) => article.status === 'completed'
+    (article) => article.status === 'completed' && !article.markdownNeedsAnalysis
   );
 
   const selfValidation = useMemo(() => {
@@ -982,10 +967,6 @@ export default function App() {
           'px-4 sm:px-6 lg:px-8 pt-6 pb-12'
         }
       >
-        {activeSection === 'screening' && (
-          <LiteratureScreening />
-        )}
-
         {activeSection === 'appraisal' && (
           <>
             {currentStep === 1 && (
@@ -1009,7 +990,10 @@ export default function App() {
                 selfValidation={selfValidation}
                 onFileUpload={handleFileUpload}
                 onRetryArticle={handleRetryArticle}
+                onArticleMarkdown={handleArticleMarkdown}
+                onAnalyzePending={handleAnalyzePending}
                 onProceed={() => setCurrentStep(2)}
+                pairingNotice={pairingNotice}
               />
             )}
 
@@ -1128,6 +1112,15 @@ export default function App() {
                   )}
                 </div>
               )}
+
+            {currentStep > 1 && articles[activeArticleIndex]?.markdownNeedsAnalysis && (
+              <div role="status" className="mb-4 rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
+                Markdown changed. These results use the previous attachment.
+                <button type="button" onClick={() => setCurrentStep(1)} className="ml-2 underline">
+                  Return to Step 1 to reanalyze
+                </button>
+              </div>
+            )}
 
             {currentStep === 2 && (
               <Step2Inventory

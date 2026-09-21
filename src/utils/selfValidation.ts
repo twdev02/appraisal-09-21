@@ -4,6 +4,7 @@ import type {
   SelfValidationState,
   ValidationStatus,
 } from '../types';
+import { isSafetySummaryOnlyLabel } from './nlpRules';
 
 const missing = (value: unknown) => {
   const text = String(value ?? '').trim().toLowerCase();
@@ -263,11 +264,12 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
 
   // STEP 4 — hierarchy, current-study evidence, numerical consistency, mortality relatedness.
   const events = data.safety?.events || [];
-  const byName = new Map(events.map((e) => [String(e.eventName || '').toLowerCase().trim(), e]));
+  const normalizeEventName = (value: unknown) => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const byName = new Map(events.map((e) => [normalizeEventName(e.eventName), e]));
   events.forEach((event) => {
     const target = `step4.event.${event.id}`;
     if (event.parentEvent) {
-      const parentExists = byName.has(String(event.parentEvent).toLowerCase().trim());
+      const parentExists = byName.has(normalizeEventName(event.parentEvent));
       if (!parentExists) {
         addIssue(issues, 'fail', 4, target, 'A parent event is assigned but that parent is not present in the extracted current-study event list.', 'hierarchy');
       }
@@ -284,6 +286,29 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
     const n = numeric(event.numerator ?? event.numEvents);
     const N = numeric(event.denominator ?? event.totalPatients);
     const reportedPct = numeric(event.reportedPercentage || event.reportedRate);
+
+    // Summary-only rows remain in the analysis state so they can validate the
+    // extracted leaf events, even though Step 4 does not display them as
+    // complications. Only compare an event-count total (e.g. "Overall
+    // complications, n") with explicitly linked child rows; patient-summary
+    // rows such as "Patients with complications" are not additive.
+    if (isSafetySummaryOnlyLabel(event.eventName) && n !== null && event.numeratorType === 'events') {
+      const childEvents = events.filter((candidate) =>
+        !isSafetySummaryOnlyLabel(candidate.eventName) &&
+        (
+          (candidate.parentEventId && candidate.parentEventId === event.id) ||
+          (candidate.parentEvent && normalizeEventName(candidate.parentEvent) === normalizeEventName(event.eventName))
+        )
+      );
+      const childCounts = childEvents.map((child) => numeric(child.numerator ?? child.numEvents));
+      if (childEvents.length > 0 && childCounts.every((value) => value !== null)) {
+        const childTotal = childCounts.reduce((sum, value) => sum + (value || 0), 0);
+        if (Math.abs(childTotal - n) > 0.001) {
+          addIssue(issues, 'review', 4, target, `Reported summary total (${n}) does not match the sum of its explicitly linked component events (${childTotal}).`, 'summary');
+        }
+      }
+    }
+
     if (n !== null && N !== null && N > 0 && reportedPct !== null && event.multipleEventsPerPatient !== 'Yes') {
       const calculated = (n / N) * 100;
       if (Math.abs(calculated - reportedPct) > 1.1) {
