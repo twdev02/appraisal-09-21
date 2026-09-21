@@ -50,15 +50,32 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
     primaryResearchGroup,
   } = ctx;
   const suitabilityComments = parsedAi?.suitabilityComments || {};
-  const allDevices = researchGroups.flatMap((g: any) => g.devices);
-  const topDueDevice = allDevices.find((d: any) => d.deviceRelationship.aiRecommended === 'DUE') || allDevices[0];
+  const allDevices = researchGroups.flatMap((g: any) =>
+    (g.devices || []).map((d: any) => ({ ...d, __groupDeviceCount: (g.devices || []).length }))
+  );
+  // When a group pools multiple distinct devices together (devicePatientNumber
+  // "Not separately reported"), the paper's clinical outcomes cannot be attributed
+  // to any single device — including the DUE. Such a device cannot count toward
+  // "Device under evaluation" / "Similar device" credit even though it was used.
+  const isDeviceOutcomeExtractable = (d: any) => {
+    if ((d.__groupDeviceCount || 1) <= 1) return true;
+    const pn = String(d.devicePatientNumber || '').trim();
+    return Boolean(pn) && pn.toLowerCase() !== 'not separately reported';
+  };
+
+  const dueDevices = allDevices.filter((d: any) => d.deviceRelationship.aiRecommended === 'DUE');
+  const extractableDueDevices = dueDevices.filter(isDeviceOutcomeExtractable);
+  const pooledOnlyDueDevices = dueDevices.filter((d: any) => !isDeviceOutcomeExtractable(d));
+  const simDevices = allDevices.filter((d: any) => d.deviceRelationship.aiRecommended === 'Similar Device');
+  const extractableSimDevices = simDevices.filter(isDeviceOutcomeExtractable);
+
+  const topDueDevice = extractableDueDevices[0] || dueDevices[0] || allDevices[0];
   const topSameIndDevice = allDevices.find((d: any) => d.indicationRelationship.aiRecommended === 'Same indication') || allDevices[0];
 
-  const anyDueDevice = allDevices.some((d: any) => d.deviceRelationship.aiRecommended === 'DUE');
-  const anySimDevice = allDevices.some((d: any) => d.deviceRelationship.aiRecommended === 'Similar Device');
+  const anyDueDevice = extractableDueDevices.length > 0;
+  const anySimDevice = extractableSimDevices.length > 0;
   const matchedDueNames = Array.from(new Set(
-    allDevices
-      .filter((d: any) => d.deviceRelationship.aiRecommended === 'DUE')
+    extractableDueDevices
       .flatMap((d: any) => {
         const direct = d.matchedDueName ? [d.matchedDueName] : [];
         return direct;
@@ -251,7 +268,9 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const missingDimensionNames = reportChecklist.filter((d: any) => !d.reported).map((d: any) => d.item);
   const reportEvidenceItem = reportChecklist.find((d: any) => d.reported && isMeaningfulReportedText(d.evidenceQuote));
 
-  const deviceComment = topDueDevice?.deviceRelationship?.rationale
+  const deviceComment = pooledOnlyDueDevices.length > 0 && extractableDueDevices.length === 0
+    ? `Device under evaluation (${pooledOnlyDueDevices.map((d: any) => d.deviceProductName).join(', ')}) was used in this study, but its clinical outcomes are pooled together with other stent brands in the same cohort without a device-level breakdown (devicePatientNumber: Not separately reported), so DUE-specific results cannot be isolated. Scored as "Other devices and medical alternatives".`
+    : topDueDevice?.deviceRelationship?.rationale
     ? topDueDevice.deviceRelationship.rationale
     : `Evaluated device(s): ${allDevices.map((d: any) => `${d.deviceProductName} (${d.manufacturer})`).join(', ')}`;
 
@@ -266,7 +285,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
       aiRecommendedScore: deviceScore,
       userFinalSelection: deviceSelection,
       userFinalScore: deviceScore,
-      matchedDueProductName: matchedDueDisplay || topDueDevice?.matchedDueName || (anyDueDevice ? due.productName : undefined),
+      matchedDueProductName: anyDueDevice ? (matchedDueDisplay || topDueDevice?.matchedDueName || due.productName) : undefined,
       evidence: {
         quote: topDueDevice?.evidence?.quote || suitabilityComments.appropriateDeviceQuote || 'Device description in paper',
         location: topDueDevice?.evidence?.location || suitabilityComments.appropriateDeviceLocation || 'Methods',
@@ -281,7 +300,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
       userFinalSelection: appSelection,
       userFinalScore: appScore,
       matchedDueIndication: topSameIndDevice?.indicationRelationship?.matchedDueIndication || (anySameIndication ? due.indications[0] : undefined),
-      matchedDueProductName: matchedDueDisplay || topDueDevice?.matchedDueName || (anyDueDevice ? due.productName : undefined),
+      matchedDueProductName: anyDueDevice ? (matchedDueDisplay || topDueDevice?.matchedDueName || due.productName) : undefined,
       evidence: {
         quote: topSameIndDevice?.evidence?.quote || suitabilityComments.appropriateApplicationQuote || 'Indication and procedure description in text',
         location: topSameIndDevice?.evidence?.location || suitabilityComments.appropriateApplicationLocation || 'Abstract & Methods',
