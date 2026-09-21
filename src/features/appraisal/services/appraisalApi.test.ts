@@ -11,6 +11,7 @@ test('polling survives gateway interruption without submitting analysis twice', 
   ];
   const calls: { url: string; method?: string }[] = [];
   t.mock.method(globalThis, 'fetch', async (url: string, init: RequestInit) => {
+    if (url === '/api/health') return new Response(JSON.stringify({ status: 'ok' }));
     if (init.method === 'POST') assert.equal((init.body as FormData).get('analysisMode'), 'async');
     calls.push({ url, method: init.method });
     return replies.shift()!;
@@ -23,6 +24,7 @@ test('polling survives gateway interruption without submitting analysis twice', 
 });
 
 test('empty HTTP 200 and network failures signal that the batch must pause', async (t) => {
+  t.mock.method(globalThis, 'setTimeout', (callback: () => void) => { queueMicrotask(callback); return 0; });
   t.mock.method(globalThis, 'fetch', async () => new Response('   '));
   await assert.rejects(callAnalyzePdfApi(new FormData()), (error: unknown) =>
     error instanceof AnalysisRequestError && error.backendUnavailable && /empty response/.test(error.message));
@@ -37,10 +39,40 @@ test('static HTML is diagnosed as an API response problem, not a timeout', async
 });
 
 test('provider errors remain visible and are not automatically resubmitted', async (t) => {
-  const fetch = t.mock.method(globalThis, 'fetch', async () => new Response(
-    JSON.stringify({ error: 'Daily quota exhausted' }), { status: 429 }
-  ));
+  const fetch = t.mock.method(globalThis, 'fetch', async (url: string) => url === '/api/health'
+    ? new Response(JSON.stringify({ status: 'ok' }))
+    : new Response(JSON.stringify({ error: 'Daily quota exhausted' }), { status: 429 }));
   await assert.rejects(callAnalyzePdfApi(new FormData()), (error: unknown) =>
     error instanceof AnalysisRequestError && !error.backendUnavailable && /Daily quota exhausted/.test(error.message));
-  assert.equal(fetch.mock.callCount(), 1);
+  assert.equal(fetch.mock.callCount(), 2);
+});
+
+test('a second evaluation waits for backend recovery before uploading once', async (t) => {
+  let healthCalls = 0;
+  let uploads = 0;
+  t.mock.method(globalThis, 'setTimeout', (callback: () => void) => { queueMicrotask(callback); return 0; });
+  t.mock.method(globalThis, 'fetch', async (url: string) => {
+    if (url === '/api/health') {
+      healthCalls++;
+      if (healthCalls === 2) throw new TypeError('Preview reconnecting');
+      return new Response(JSON.stringify({ status: 'ok' }));
+    }
+    uploads++;
+    return new Response(JSON.stringify({ success: true, data: { pdfFileName: `paper-${uploads}.pdf` } }));
+  });
+  assert.equal((await callAnalyzePdfApi(new FormData())).pdfFileName, 'paper-1.pdf');
+  assert.equal((await callAnalyzePdfApi(new FormData())).pdfFileName, 'paper-2.pdf');
+  assert.equal(uploads, 2);
+  assert.equal(healthCalls, 3);
+});
+
+test('upload timeouts are identified and never automatically reuploaded', async (t) => {
+  let uploads = 0;
+  t.mock.method(globalThis, 'fetch', async (url: string) => {
+    if (url === '/api/health') return new Response(JSON.stringify({ status: 'ok' }));
+    uploads++;
+    throw new DOMException('Timeout', 'TimeoutError');
+  });
+  await assert.rejects(callAnalyzePdfApi(new FormData()), /PDF upload \/ job submission timed out after 60 seconds/);
+  assert.equal(uploads, 1);
 });

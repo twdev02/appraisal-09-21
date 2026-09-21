@@ -4,18 +4,26 @@ export class AnalysisRequestError extends Error {
   constructor(message: string, readonly transient = false, readonly backendUnavailable = false) { super(message); }
 }
 
-async function requestAnalysis(url: string, init: RequestInit = {}) {
+async function requestAnalysis(url: string, init: RequestInit = {}, timeoutMs = 60_000) {
+  const phase = url === '/api/health' ? 'Backend readiness check' : init.method === 'POST' ? 'PDF upload / job submission' : 'Analysis result polling';
+  const signal = AbortSignal.timeout(timeoutMs);
+  const connectionError = (error: unknown) => {
+    const timedOut = signal.aborted || (error instanceof Error && ['TimeoutError', 'AbortError'].includes(error.name));
+    return new AnalysisRequestError(timedOut
+      ? `${phase} timed out after ${timeoutMs / 1000} seconds. This does not confirm that the backend stopped. Check the preview server and retry.`
+      : `${phase}: the connection was interrupted before a complete response arrived. Check the preview server connection and retry.`, true, true);
+  };
   let response: Response;
   try {
-    response = await fetch(url, { ...init, cache: 'no-store', signal: AbortSignal.timeout(60_000) });
-  } catch {
-    throw new AnalysisRequestError('Analysis backend connection was interrupted. Check the server connection and retry.', true, true);
+    response = await fetch(url, { ...init, cache: 'no-store', signal });
+  } catch (error) {
+    throw connectionError(error);
   }
   let text: string;
   try {
     text = await response.text();
-  } catch {
-    throw new AnalysisRequestError('The analysis response was interrupted. Please retry.', true, true);
+  } catch (error) {
+    throw connectionError(error);
   }
   let body: any;
   try { body = JSON.parse(text); } catch { /* Diagnose proxy/SPA responses below. */ }
@@ -38,6 +46,20 @@ async function requestAnalysis(url: string, init: RequestInit = {}) {
 }
 
 export async function callAnalyzePdfApi(formData: FormData): Promise<FullAppraisalData> {
+  // New Evaluation resets only browser state. A preview backend may still be
+  // restarting; retry this read-only probe before sending another document.
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const health = await requestAnalysis('/api/health', {}, 10_000);
+      if (health.body.status !== 'ok') {
+        throw new AnalysisRequestError('The backend readiness check returned an unexpected response. Check the preview server.', false, true);
+      }
+      break;
+    } catch (error) {
+      if (!(error instanceof AnalysisRequestError) || !error.transient || attempt >= 2) throw error;
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    }
+  }
   // Carry the mode in the upload too: intermediaries may remove Prefer headers.
   formData.set('analysisMode', 'async');
   // Upload once; repeating a POST after losing its response could duplicate work.
