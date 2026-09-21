@@ -1,3 +1,4 @@
+import { extractReinterventionNarrative } from './reinterventionNarrative';
 import {
   parseStructuredSafetyTableFromText,
   verifySafetyTableCompleteness,
@@ -877,127 +878,13 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
   // Narrative Results fallback for papers that state re-intervention in prose rather
   // than a dedicated table row. Preserve every primary arm, not only the first DUE arm.
   const currentStudyReinterventionText = (() => {
-    const resultsMatch = normalizedSafetyText.match(/(?:^|\n)\s*(?:\d+\.?\s*)?results\s*(?:\n|$)([\s\S]*?)(?=(?:\n\s*(?:\d+\.?\s*)?(?:discussion|conclusion|conclusions|references)\b)|$)/i);
+    const resultsMatches = Array.from(normalizedSafetyText.matchAll(/(?:^|\n)\s*(?:\d+\.?\s*)?results\s*(?:\n|$)([\s\S]*?)(?=(?:\n\s*(?:\d+\.?\s*)?(?:discussion|conclusion|conclusions|references)\b)|$)/gi));
+    const resultsMatch = resultsMatches.at(-1);
     if (resultsMatch?.[1]) return resultsMatch[1];
     return normalizedSafetyText.split(/(?:^|\n)\s*(?:\d+\.?\s*)?(?:discussion|references)\b/i)[0] || normalizedSafetyText;
   })();
-  const normalizeReintKey = (value: unknown) => String(value ?? '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .replace(/\b(?:group|cohort|arm)\b/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-  const reintGroupAliases = researchGroups.map((group: any) => {
-    const aliases = new Set<string>();
-    const addAlias = (value: unknown) => {
-      const raw = String(value ?? '').trim();
-      if (!raw || /not reported/i.test(raw)) return;
-      aliases.add(raw);
-      const stripped = raw.replace(/\b(?:group|cohort|arm)\b/gi, ' ').replace(/\s+/g, ' ').trim();
-      if (stripped.length >= 2) aliases.add(stripped);
-      const compactTokens = raw.match(/\b[A-Za-z][A-Za-z0-9+/-]{1,14}\b/g) || [];
-      const genericStopTokens = new Set([
-        'group', 'cohort', 'arm', 'patients', 'patient', 'stent', 'device',
-        'sems', 'lams', 'ercp', 'eus', 'cbd', 'covered', 'uncovered',
-        'biliary', 'metal', 'self', 'expandable', 'study'
-      ]);
-      compactTokens.forEach((token: string) => {
-        const lower = token.toLowerCase();
-        const uppercaseCount = (token.match(/[A-Z]/g) || []).length;
-        const looksLikeAbbreviation = uppercaseCount >= 2 || /^[A-Z0-9+/-]{2,10}$/.test(token);
-        if (looksLikeAbbreviation && !genericStopTokens.has(lower)) aliases.add(token);
-      });
-    };
-    addAlias(group.groupName);
-    (group.devices || []).forEach((device: any) => addAlias(device.deviceProductName));
-    return Array.from(aliases).sort((a, b) => b.length - a.length);
-  });
-  const aliasPositionInText = (text: string, groupIndex: number): number => {
-    const lower = text.toLowerCase();
-    let best = -1;
-    for (const alias of reintGroupAliases[groupIndex] || []) {
-      const needle = alias.toLowerCase();
-      const pos = lower.indexOf(needle);
-      if (pos >= 0 && (best < 0 || pos < best)) best = pos;
-    }
-    return best;
-  };
-  const resultBlocks = currentStudyReinterventionText
-    .split(/\n\s*\n|(?=\b(?:Comparison|Stent patency|Long-term outcomes|Patient survival|Adverse events)\b)/i)
-    .map((block) => block.trim())
-    .filter(Boolean);
-
-  for (const block of resultBlocks) {
-    if (!/re-?intervention|repeat\s+ERCP|requiring\s+ERCP|repeat\s+stent/i.test(block)) continue;
-
-    const respectively = /(?:occurred\s+in\s+)?(\d+)\s*(?:\(\s*(\d+(?:\.\d+)?)\s*%\s*\))?\s+and\s+(\d+)\s*(?:\(\s*(\d+(?:\.\d+)?)\s*%\s*\))?\s+patients?\s+(?:of|in)\s+the\s+([^,;.]+?)\s+and\s+([^,;.]+?)\s+groups?,\s*respectively/i.exec(block);
-    if (respectively) {
-      researchGroups.forEach((group: any, groupIndex: number) => {
-        const groupKey = normalizeReintKey(group.groupName);
-        const leftKey = normalizeReintKey(respectively[5]);
-        const rightKey = normalizeReintKey(respectively[6]);
-        let numerator = '';
-        let pct = '';
-        if (groupKey && (leftKey.includes(groupKey) || groupKey.includes(leftKey))) {
-          numerator = respectively[1]; pct = respectively[2] ? `${respectively[2]}%` : '';
-        } else if (groupKey && (rightKey.includes(groupKey) || groupKey.includes(rightKey))) {
-          numerator = respectively[3]; pct = respectively[4] ? `${respectively[4]}%` : '';
-        }
-        if (!numerator) return;
-        const denominator = group.groupPatientNumber || 'Not reported';
-        pushReinterventionMetric(groupIndex, {
-          timing: 'Overall / not time-categorized',
-          numerator,
-          denominator,
-          percentage: pct || (!isMissingExtractedValue(denominator) ? `${((Number(numerator) / Number(String(denominator).match(/\d+/)?.[0] || 0)) * 100).toFixed(1)}%` : 'Not reported'),
-          percentageSource: pct ? 'Reported' as const : 'Calculated' as const,
-          evidenceQuote: block.replace(/\s+/g, ' ').trim(),
-          evidenceLocation: 'Results narrative - Re-intervention',
-          status: 'Reported' as const,
-        });
-      });
-    }
-
-    // Source-backed nearest-count fallback. This captures any additional arm when
-    // a group-specific count is reported elsewhere in the same re-intervention paragraph.
-    researchGroups.forEach((group: any, groupIndex: number) => {
-      if (tableReinterventionMetricsByGroup[groupIndex]?.length) return;
-
-      const blockSentences = block
-        .replace(/\bvs\.\s+/gi, 'vs ')
-        .replace(/\n+/g, '. ')
-        .split(/(?<=[.!?])\s+(?=[A-Z0-9])/)
-        .map((sentence) => sentence.trim())
-        .filter(Boolean);
-      const sentenceCandidates = blockSentences
-        .filter((sentence) => aliasPositionInText(sentence, groupIndex) >= 0 && /\d+\s*(?:\([^)]*\))?\s+patients?\b/i.test(sentence))
-        .sort((a, b) => {
-          const rank = (sentence: string) => /re-?intervention|requiring\s+ERCP|stent\s+occlusion/i.test(sentence) ? 2 : 1;
-          return rank(b) - rank(a);
-        });
-      const countScope = sentenceCandidates[0] || block;
-      const groupPos = aliasPositionInText(countScope, groupIndex);
-      if (groupPos < 0) return;
-      const patientMatches = Array.from(countScope.matchAll(/(\d+)\s*(?:\(\s*(\d+(?:\.\d+)?)\s*%\s*\))?\s+patients?\b/gi)) as RegExpMatchArray[];
-      if (patientMatches.length === 0) return;
-      const closest = patientMatches
-        .map((match) => ({ numerator: match[1], pct: match[2], pos: match.index || 0 }))
-        .sort((a, b) => Math.abs(a.pos - groupPos) - Math.abs(b.pos - groupPos))[0];
-      const denominator = group.groupPatientNumber || 'Not reported';
-      const denominatorNumber = Number(String(denominator).match(/\d+/)?.[0] || 0);
-      const calculatedPct = denominatorNumber > 0 ? `${((Number(closest.numerator) / denominatorNumber) * 100).toFixed(1)}%` : 'Not reported';
-      pushReinterventionMetric(groupIndex, {
-        timing: 'Overall / not time-categorized',
-        numerator: closest.numerator,
-        denominator,
-        percentage: closest.pct ? `${closest.pct}%` : calculatedPct,
-        percentageSource: closest.pct ? 'Reported' as const : 'Calculated' as const,
-        evidenceQuote: block.replace(/\s+/g, ' ').trim(),
-        evidenceLocation: 'Results narrative - Re-intervention',
-        status: 'Reported' as const,
-      });
-    });
-  }
+  // Bind counts to explicit intervention actions, not nearby cohort totals.
+  const narrativeReinterventions = extractReinterventionNarrative(currentStudyReinterventionText, researchGroups);
 
   let activeTiming = 'Overall / not time-categorized';
   let activeDenominators: string[] = [];
@@ -1244,10 +1131,11 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
           (summary: any) =>
             (summary.groupId && summary.groupId === matchedG.id) ||
             (summary.groupName && normalizeSummaryGroupKey(summary.groupName) === matchedKey)
-        ) || (rawGroupSummaries.length === researchGroups.length ? rawGroupSummaries[index] : {}) || {};
+        ) || {};
 
         const deterministicReinterventions = tableReinterventionMetricsByGroup[index] || [];
-        const reinterventions = deterministicReinterventions.length > 1
+        const narrative = narrativeReinterventions.find(item => item.groupIndex === index);
+        const reinterventions = narrative ? narrative.value : deterministicReinterventions.length > 1
           ? deterministicReinterventions
           : deterministicReinterventions.length === 1
             ? deterministicReinterventions[0]
@@ -1260,7 +1148,7 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
         return {
           groupId: matchedG.id,
           groupName: matchedG.groupName,
-          deviceName: matchedG.devices?.[0]?.deviceProductName || gs.deviceName || 'Not reported',
+          deviceName: matchedG.devices?.map((device: any) => device.deviceProductName).filter(Boolean).join(' / ') || gs.deviceName || 'Not reported',
           populationN: !isMissingExtractedValue(gs.populationN)
             ? gs.populationN
             : matchedG.groupPatientNumber || 'Not reported',
@@ -1275,9 +1163,9 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
           seriousAdverseEvents: gs.seriousAdverseEvents || 'Not reported',
           reinterventions,
           evidenceQuote:
-            gs.evidenceQuote || deterministicEvidence?.evidenceQuote || 'Not reported',
+            narrative?.evidenceQuote || deterministicEvidence?.evidenceQuote || gs.evidenceQuote || 'Not reported',
           evidenceLocation:
-            gs.evidenceLocation || deterministicEvidence?.evidenceLocation || 'Not reported',
+            (narrative ? 'Results narrative - Re-intervention' : '') || deterministicEvidence?.evidenceLocation || gs.evidenceLocation || 'Not reported',
         };
       })
     : rawGroupSummaries.map((gs: any, index: number) => ({

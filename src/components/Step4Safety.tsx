@@ -1008,7 +1008,7 @@ export const Step4Safety: React.FC<Step4SafetyProps> = ({
             (summary.groupId && summary.groupId === researchGroup.id) ||
             getGroupKey(summary.groupName) === getGroupKey(researchGroup.groupName)
         );
-        const summary = directlyMatchedSummary || rawGroupSummaries[index];
+        const summary = directlyMatchedSummary;
         const summaryPopulation = summary?.populationN;
 
         return {
@@ -1016,7 +1016,7 @@ export const Step4Safety: React.FC<Step4SafetyProps> = ({
           groupName: researchGroup.groupName,
           deviceName:
             summary?.deviceName ||
-            researchGroup.devices?.[0]?.deviceProductName ||
+            researchGroup.devices?.map(device => device.deviceProductName).filter(Boolean).join(' / ') ||
             'Not reported',
           populationN:
             summaryPopulation && summaryPopulation !== 'Not reported'

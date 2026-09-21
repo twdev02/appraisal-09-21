@@ -1183,56 +1183,15 @@ export function parseRangeOfTimeData(
   const reintParagraphs = resultParagraphs.filter((p) => formalReinterventionKeyword.test(p));
 
   const findPatientCountNearGroup = (text: string, groupIndex: number) => {
-    const collectAliasPositions = (scope: string): number[] => {
-      const positions: number[] = [];
-      for (const alias of groupAliases[groupIndex]?.aliases || []) {
-        const base = aliasRegex(alias);
-        const re = new RegExp(base.source, 'ig');
-        let aliasMatch: RegExpExecArray | null;
-        while ((aliasMatch = re.exec(scope)) !== null) {
-          positions.push(aliasMatch.index);
-          if (aliasMatch[0].length === 0) re.lastIndex += 1;
-        }
-      }
-      return positions;
-    };
-
-    const chooseFromScope = (scope: string) => {
-      const matches = Array.from(scope.matchAll(/(\d+)\s*(?:\(\s*(\d+(?:\.\d+)?)\s*%\s*\))?\s+patients?\b/gi));
-      const aliasPositions = collectAliasPositions(scope);
-      if (matches.length === 0 || aliasPositions.length === 0) return null;
-      return matches
-        .map((m) => ({
-          n: m[1],
-          pct: m[2],
-          index: m.index || 0,
-          distance: Math.min(...aliasPositions.map((p) => Math.abs((m.index || 0) - p))),
-        }))
-        .sort((a, b) => a.distance - b.distance)[0];
-    };
-
-    // Prefer a sentence that explicitly contains both this group and a patient
-    // count. This avoids a later patency mention of the same acronym pulling the
-    // count away from the true re-intervention/occlusion sentence.
-    const sentences = text
-      .replace(/\bvs\.\s+/gi, 'vs ')
-      .replace(/\n+/g, '. ')
-      .split(/(?<=[.!?])\s+(?=[A-Z0-9])/)
-      .map((sentence) => sentence.trim())
-      .filter(Boolean);
-    const sentenceCandidates = sentences
-      .filter((sentence) => collectAliasPositions(sentence).length > 0 && /\d+\s*(?:\([^)]*\))?\s+patients?\b/i.test(sentence))
-      .sort((a, b) => {
-        const rank = (sentence: string) => /re-?intervention|requiring\s+ERCP|stent\s+occlusion/i.test(sentence) ? 2 : 1;
-        return rank(b) - rank(a);
-      });
-    for (const sentence of sentenceCandidates) {
-      const selected = chooseFromScope(sentence);
-      if (selected) return selected;
+    const sentences = text.replace(/([a-z])-\s*\n\s*([a-z])/gi, '$1$2')
+      .replace(/\n+/g, ' ').split(/(?<=[.!?])\s+(?=[A-Z0-9])/);
+    for (const sentence of sentences) {
+      const namedGroups = researchGroups.map((_, index) => index).filter(index => hasAlias(sentence, index));
+      if (namedGroups.length !== 1 || namedGroups[0] !== groupIndex) continue;
+      // Only an explicit patient -> action link is eligible; proximity is not evidence.
+      const count = sentence.match(/\b(\d+)\s+patients?\s+(?:(?:in|of)\s+the\s+[A-Za-z0-9 -]+?\s+group\s+)?(?:underwent|required|received)\s+(?:endoscopic\s+)?(?:re-?interventions?|repeat\s+ERCP)\b/i);
+      if (count) return { n: count[1], pct: undefined };
     }
-
-    // Never fall back to a distant count from the whole paragraph. A cohort-size
-    // sentence elsewhere in the paragraph is not evidence of reintervention.
     return null;
   };
 
@@ -1652,6 +1611,62 @@ export function parseRangeOfTimeData(
     followUpDuration = formatRow(directFollowUp); followUpQuote = directFollowUp.quote; isProxySurvival = false;
   } else if (survivalRow && (followUpDuration === 'Not reported' || isProxySurvival)) {
     followUpDuration = formatRow(survivalRow, true); followUpQuote = survivalRow.quote; isProxySurvival = true;
+  }
+
+  // Comparative prose can share one unit across both values ("275 vs 268
+  // days"). Parse the pair as a unit instead of assigning the nearest value to
+  // both groups. Keep matching strata separate rather than silently choosing one.
+  for (const sentence of endpointSentenceCandidates) {
+    if (isInvalidContext(sentence)) continue;
+    const pairs = [...sentence.matchAll(/(\d+(?:\.\d+)?)\s*(days?|weeks?|months?|years?)?\s*(?:vs\.?|versus)\s*(\d+(?:\.\d+)?)\s*(days?|weeks?|months?|years?)\b/gi)];
+    if (!pairs.length) continue;
+    const prefix = sentence.slice(0, pairs[0].index);
+    const orderedGroups = researchGroups.map((_, index) => ({ index, pos: findAliasPosition(prefix, index) }))
+      .filter(item => item.pos >= 0).sort((a, b) => a.pos - b.pos);
+    if (orderedGroups.length !== 2 || orderedGroups[0].pos === orderedGroups[1].pos) continue;
+    const strata = [...prefix.matchAll(/\bunmatched\s+cohort\b|\bmatched\s+cohort\b|\bbefore\s+(?:propensity[- ]score\s+)?matching\b|\bafter\s+(?:propensity[- ]score\s+)?matching\b/gi)]
+      .map(match => /unmatched|before/i.test(match[0]) ? 'Unmatched cohort' : 'Matched cohort');
+    if (pairs.length > 1 && (strata.length !== pairs.length || new Set(strata).size !== strata.length)) continue;
+    if (strata.length > 1 && pairs.length !== strata.length) continue;
+    // A partial prose comparison must not erase the complete source table.
+    if (applicationRow && strata.length < 2) continue;
+    // Do not treat two different endpoints as two matching strata.
+    if (/\b(?:overall survival|patient survival|OS)\b/i.test(prefix.slice((prefix.toLowerCase().lastIndexOf('stent patency')) + 'stent patency'.length))) continue;
+    let statistic = /\bmean\b/i.test(prefix) ? 'Mean' : /\bmedian\b/i.test(prefix) ? 'Median' : 'Reported';
+    // A short narrative may omit the statistic explicitly supplied in a table.
+    // Only borrow it when the anchored endpoint row contains the same centers.
+    const tableEvidence = preDiscussionText.split(/\r?\n/).filter(line => {
+      if (!/^\s*stent patency\s*,\s*(?:median|mean)\b/i.test(line)) return false;
+      const centers = [...line.matchAll(/(\d+(?:\.\d+)?)\s*\(/g)].map(match => match[1]);
+      return centers.length === pairs.length * 2 && pairs.every((pair, index) => centers[index * 2] === pair[1] && centers[index * 2 + 1] === pair[3]);
+    });
+    if (statistic === 'Reported' && tableEvidence.length === 1) statistic = /stent patency\s*,\s*median/i.test(tableEvidence[0]) ? 'Median' : 'Mean';
+    const endpoint = describePatencyEndpoint(prefix);
+    appDuration = researchGroups.map((group, index) => {
+      const side = orderedGroups.findIndex(item => item.index === index);
+      if (side < 0) return `${group.groupName}: Not reported`;
+      return pairs.map((pair, pairIndex) => {
+        const value = side === 0 ? pair[1] : pair[3];
+        const unit = side === 0 ? pair[2] || pair[4] : pair[4];
+        return `${group.groupName}${strata[pairIndex] ? ` [${strata[pairIndex]}]` : ''}: ${statistic} ${endpoint}: ${value} ${unit}`;
+      }).join('\n');
+    }).join('\n');
+    appQuote = [sentence, ...(tableEvidence.length === 1 ? tableEvidence : [])].join(' | ');
+    break;
+  }
+
+  // Explicit counts attached to each named arm outrank paragraph proximity.
+  // These are patients undergoing re-intervention, not successful revisions.
+  const directRevision = currentStudyOutcomeText.replace(/\s+/g, ' ').match(
+    /(?:The\s+remaining\s+)?(\d+)\s+patients?\s+in\s+the\s+([A-Za-z][A-Za-z0-9 -]{0,60}?)\s+group\s+and\s+(\d+)\s+(?:patients?\s+)?in\s+the\s+([A-Za-z][A-Za-z0-9 -]{0,60}?)\s+group\s+underwent\s+(?:endoscopic\s+)?re[- ]?interventions?(?:\s+in\s+our\s+cent(?:er|re))?/i
+  );
+  if (directRevision && !repeatRow) {
+    const left = researchGroups.map((_, index) => index).filter(index => hasAlias(directRevision[2], index));
+    const right = researchGroups.map((_, index) => index).filter(index => hasAlias(directRevision[4], index));
+    if (left.length === 1 && right.length === 1 && left[0] !== right[0]) {
+      repeatExposures = researchGroups.map((group, index) => `${group.groupName}: ${index === left[0] ? directRevision[1] : index === right[0] ? directRevision[3] : 'Not reported'} patients [reported re-intervention cohort]`).join('\n');
+      repeatQuote = directRevision[0];
+    }
   }
 
   const selectedOptions: string[] = [];
