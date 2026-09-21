@@ -8,6 +8,18 @@ export function explicitOutcomeTables(text: string, groups: ResearchGroup[]): Co
   const captions = [...source.matchAll(/^\s*Table\s+(?:\d+|[IVX]+)\.\s*([^\n]+)\n/gim)];
   const key = (s: string) => s.toLowerCase().replace(/side.by.side/g, 'sbs')
     .replace(/\b(?:sbs|stenting|at|the|group|cohort|arm)\b/g, ' ').replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+  // Same rationale as cohortTableEvidence.ts: a group's stored name may carry a
+  // descriptor the table's own column header omits (e.g. "sbs" stripped from
+  // `key` here already covers "side by side", but other extra words can still
+  // diverge), so fall back to token-set containment when no exact key match exists.
+  const keyMatches = (columnKey: string, groupKey: string) => {
+    if (columnKey === groupKey) return true;
+    const columnTokens = new Set(columnKey.split(' ').filter(Boolean));
+    const groupTokens = new Set(groupKey.split(' ').filter(Boolean));
+    if (columnTokens.size === 0 || groupTokens.size === 0) return false;
+    const isSubset = (small: Set<string>, big: Set<string>) => [...small].every(token => big.has(token));
+    return isSubset(columnTokens, groupTokens) || isSubset(groupTokens, columnTokens);
+  };
   const output: CohortTableRow[] = [];
   captions.forEach((caption, i) => {
     if (!/^(?:patient characteristics|baseline characteristics|clinical outcomes)\b/i.test(caption[1]) || /previous|published|literature|review|other studies/i.test(caption[1])) return;
@@ -20,8 +32,12 @@ export function explicitOutcomeTables(text: string, groups: ResearchGroup[]): Co
     if (headers.length < 2 || !/^\s*(?:P[- ]?value)?\s*$/i.test(header.slice((headers.at(-1)!.index ?? 0) + headers.at(-1)![0].length))) return;
     const columns = headers.map(h => h[1].trim());
     const groupColumns = groups.map(g => {
-      const found = columns.flatMap((c, j) => key(c) === key(g.groupName) ? [j] : []);
-      return found.length === 1 ? found[0] : undefined;
+      const groupKey = key(g.groupName);
+      const exactFound = columns.flatMap((c, j) => key(c) === groupKey ? [j] : []);
+      if (exactFound.length === 1) return exactFound[0];
+      if (exactFound.length > 1) return undefined;
+      const containmentFound = columns.flatMap((c, j) => keyMatches(key(c), groupKey) ? [j] : []);
+      return containmentFound.length === 1 ? containmentFound[0] : undefined;
     });
     if (groupColumns.some(c => c === undefined) || new Set(groupColumns).size !== groups.length) return;
     const location = caption[0].trim();

@@ -10,6 +10,22 @@ const canonical = (value: string) => value.toLowerCase()
 const identity = (value: string) => canonical(value).replace(/\boverall\b/g, '').trim();
 const escape = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
+// A group's stored name may carry a clarifying descriptor (e.g. "Simultaneous
+// group (side by side)") that the source table's own column header omits when
+// the technique is already implied (e.g. the header just says "Simultaneous
+// group"). Exact identity equality then never matches even though the column
+// unambiguously belongs to that group. Fall back to token-set containment
+// (one identity's words are a subset of the other's) so this still resolves,
+// while still requiring the match to be unique among the table's columns.
+const identityTokens = (value: string) => new Set(identity(value).split(' ').filter(Boolean));
+const identitiesOverlapAsSubset = (a: string, b: string) => {
+  const tokensA = identityTokens(a);
+  const tokensB = identityTokens(b);
+  if (tokensA.size === 0 || tokensB.size === 0) return false;
+  const isSubset = (small: Set<string>, big: Set<string>) => [...small].every(token => big.has(token));
+  return isSubset(tokensA, tokensB) || isSubset(tokensB, tokensA);
+};
+
 export interface CohortTableRow {
   label: string;
   columns: string[];
@@ -22,9 +38,14 @@ export interface CohortTableRow {
 
 export function mapCohortColumns(columns: string[], groups: ResearchGroup[]) {
   return groups.map(group => {
-    const matches = columns.map((column, index) => identity(column) === identity(group.groupName) ? index : -1)
+    const exactMatches = columns.map((column, index) => identity(column) === identity(group.groupName) ? index : -1)
       .filter(index => index >= 0);
-    return matches.length === 1 ? matches[0] : undefined;
+    if (exactMatches.length === 1) return exactMatches[0];
+    if (exactMatches.length > 1) return undefined;
+
+    const containmentMatches = columns.map((column, index) => identitiesOverlapAsSubset(column, group.groupName) ? index : -1)
+      .filter(index => index >= 0);
+    return containmentMatches.length === 1 ? containmentMatches[0] : undefined;
   });
 }
 
