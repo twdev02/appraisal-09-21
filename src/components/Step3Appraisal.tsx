@@ -51,6 +51,57 @@ import {
 } from '../data/appraisalStandards';
 import { exportAppraisalPlanDocx } from '../utils/docxExport';
 
+interface GroupTextSegment {
+  group: string;
+  value: string;
+}
+
+// Extraction fills fields like `durationOfApplicationOrUse` with one "GroupName: value" line per
+// study group (joined by \n). Split them back apart so each group renders in its own cell instead
+// of one run-on paragraph.
+function parseGroupTextSegments(text: string | undefined, groupNames: string[]): GroupTextSegment[] {
+  if (!text || !text.trim() || text.trim() === 'Not reported') return [];
+  const lines = text.split('\n').map((line) => line.trim()).filter(Boolean);
+  return lines.map((line) => {
+    const knownName = groupNames.find((name) => name && line.startsWith(`${name}:`));
+    if (knownName) {
+      return { group: knownName, value: line.slice(knownName.length + 1).trim() || 'Not reported' };
+    }
+    const generic = line.match(/^([^:]{1,100}?):\s*(.+)$/);
+    if (generic) {
+      return { group: generic[1].trim(), value: generic[2].trim() };
+    }
+    return { group: '', value: line };
+  });
+}
+
+const GroupSegmentedField: React.FC<{ text?: string; groupNames: string[] }> = ({ text, groupNames }) => {
+  const segments = parseGroupTextSegments(text, groupNames);
+
+  if (segments.length <= 1) {
+    return (
+      <p className="text-xs font-mono text-slate-900 bg-white p-2 rounded border border-slate-200 leading-snug">
+        {segments[0]?.value || text || 'Not reported'}
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-1.5">
+      {segments.map((seg, i) => (
+        <div key={i} className="bg-white rounded border border-slate-200 p-2">
+          {seg.group && (
+            <div className="text-[9.5px] font-semibold text-slate-500 uppercase tracking-wide mb-0.5 truncate">
+              {seg.group}
+            </div>
+          )}
+          <p className="text-xs font-mono text-slate-900 leading-snug">{seg.value}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 interface Step3AppraisalProps {
   suitability: SuitabilityAppraisalState;
   onUpdateSuitability: (suitability: SuitabilityAppraisalState) => void;
@@ -817,44 +868,56 @@ export const Step3Appraisal: React.FC<Step3AppraisalProps> = ({
                   </div>
                 )}
 
-                {key === 'itemJ_rangeOfTime' && (
-                  <div className="space-y-3">
-                    {/* 3 Sub-Items Visual Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
-                      <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/70 space-y-1">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-slate-800">1. Application / Use Duration</span>
-                          <span className="text-[10px] px-1.5 py-0.2 rounded font-medium bg-slate-200 text-slate-700">Patency / Indwell time</span>
+                {key === 'itemJ_rangeOfTime' && (() => {
+                  const groupNames = (researchGroups || []).map((g) => g.groupName).filter(Boolean);
+                  return (
+                    <div className="space-y-3">
+                      {/* 3 Sub-Items Visual Cards */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+                        <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/70 space-y-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-bold text-slate-800">1. Application / Use Duration</span>
+                            <span className="text-[10px] px-1.5 py-0.2 rounded font-medium bg-slate-200 text-slate-700">Patency / Indwell time</span>
+                          </div>
+                          <GroupSegmentedField
+                            groupNames={groupNames}
+                            text={
+                              item.rangeOfTimeDetails?.durationOfApplicationOrUse ||
+                              (item.comment.match(/Duration of application or use:\s*([^\n]+)/i)?.[1] ?? undefined)
+                            }
+                          />
                         </div>
-                        <p className="text-xs font-mono text-slate-900 bg-white p-2 rounded border border-slate-200 leading-snug">
-                          {item.rangeOfTimeDetails?.durationOfApplicationOrUse ||
-                            (item.comment.match(/Duration of application or use:\s*([^\n]+)/i)?.[1] ?? 'Not reported')}
-                        </p>
-                      </div>
-                     
-                      <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/70 space-y-1">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-slate-800">2. Repeat Exposures</span>
-                          <span className="text-[10px] px-1.5 py-0.2 rounded font-medium bg-slate-200 text-slate-700">Reintervention</span>
+
+                        <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/70 space-y-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-bold text-slate-800">2. Repeat Exposures</span>
+                            <span className="text-[10px] px-1.5 py-0.2 rounded font-medium bg-slate-200 text-slate-700">Reintervention</span>
+                          </div>
+                          <GroupSegmentedField
+                            groupNames={groupNames}
+                            text={
+                              item.rangeOfTimeDetails?.numberOfRepeatExposures ||
+                              (item.comment.match(/Number of repeat exposures:[ \t]*([^\r\n]+)/i)?.[1] ?? undefined)
+                            }
+                          />
                         </div>
-                        <p className="text-xs font-mono text-slate-900 bg-white p-2 rounded border border-slate-200 leading-snug">
-                          {item.rangeOfTimeDetails?.numberOfRepeatExposures ||
-                            (item.comment.match(/Number of repeat exposures:[ \t]*([^\r\n]+)/i)?.[1] ?? "Not reported")}
-                        </p>
-                      </div>
-                      <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/70 space-y-1">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-slate-800">3. Follow-up Duration</span>
-                          <span className="text-[10px] px-1.5 py-0.2 rounded font-medium bg-slate-200 text-slate-700">Follow-up / OS</span>
+                        <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/70 space-y-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-bold text-slate-800">3. Follow-up Duration</span>
+                            <span className="text-[10px] px-1.5 py-0.2 rounded font-medium bg-slate-200 text-slate-700">Follow-up / OS</span>
+                          </div>
+                          <GroupSegmentedField
+                            groupNames={groupNames}
+                            text={
+                              item.rangeOfTimeDetails?.durationOfFollowUp ||
+                              (item.comment.match(/Duration of follow-up:[ \t]*([^\r\n]+)/i)?.[1] ?? undefined)
+                            }
+                          />
                         </div>
-                        <p className="text-xs font-mono text-slate-900 bg-white p-2 rounded border border-slate-200 leading-snug">
-                          {item.rangeOfTimeDetails?.durationOfFollowUp ||
-                            (item.comment.match(/Duration of follow-up:[ \t]*([^\r\n]+)/i)?.[1] ?? 'Not reported')}
-                        </p>
                       </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
 
                 {/* Evidence & Remarks */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
