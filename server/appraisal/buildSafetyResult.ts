@@ -1,4 +1,5 @@
 import { explicitOutcomeTables } from '../../src/utils/nlp/explicitOutcomeTables';
+import { extractCohortTableRows } from '../../src/utils/nlp/cohortTableEvidence';
 import { extractReinterventionNarrative } from './reinterventionNarrative';
 import {
   parseStructuredSafetyTableFromText,
@@ -968,6 +969,36 @@ export async function buildSafetyResult(ctx: PreparedAnalysisContext): Promise<a
         percentage: metric[2] ? `${metric[2]}%` : '', percentageSource: 'Reported', status: 'Reported',
         evidenceQuote: explicitReintervention.quote, evidenceLocation: explicitReintervention.location}];
     });
+  }
+
+  // Reuse the same cohort-table row parser as Step3's Repeat Exposures card
+  // (extractCohortTableRows), which already maps "Reintervention after RBO"
+  // (or "Repeat procedures") to the correct named column per group - including
+  // "overall"/pooled columns that don't correspond to any researchGroups entry.
+  // Prefer this over the positional fallbacks below, which zip table cells to
+  // researchGroups purely by array position and silently misattribute values
+  // when the table has an extra pooled column or a different column order.
+  if (!tableReinterventionMetricsByGroup.some((items) => items.length > 0)) {
+    const cohortReinterventionRow = extractCohortTableRows(paperText, researchGroups)
+      .find(row => /^Re-?intervention\b/i.test(row.label));
+    if (cohortReinterventionRow) {
+      researchGroups.forEach((_: any, index: number) => {
+        const column = cohortReinterventionRow.groupColumns[index];
+        if (column === undefined) return;
+        const metric = cohortReinterventionRow.cells[column].match(/^(\d+)(?:\s*\(([0-9.]+)\))?$/);
+        if (!metric) return;
+        pushReinterventionMetric(index, {
+          timing: 'Overall / not time-categorized',
+          numerator: metric[1],
+          denominator: 'Not reported',
+          percentage: metric[2] ? `${metric[2]}%` : '',
+          percentageSource: 'Reported' as const,
+          evidenceQuote: cohortReinterventionRow.quote,
+          evidenceLocation: cohortReinterventionRow.location,
+          status: 'Reported' as const,
+        });
+      });
+    }
   }
 
   // Some PDF text extractors flatten a table by columns instead of rows.
