@@ -97,6 +97,13 @@ export interface ExtractedDeviceItem {
   length: string;   // Must be separate. If missing -> 'Not reported'
   devicePatientNumber: string; // e.g. "42" or "Not separately reported"
   deviceIndication: string;
+
+  // Whether this study's reported clinical endpoints (technical/clinical success,
+  // safety events, patency, etc.) can be attributed specifically to this device
+  // rather than to the pooled cohort. Drives DUE/Similar Device scoring credit
+  // when the device shares its research group with other devices.
+  deviceOutcomeSeparability?: 'single_device_group' | 'fully_separable' | 'numerator_only' | 'not_separable';
+  deviceOutcomeSeparabilityRationale?: string;
   evidence: EvidenceCitation;
   
   // DUE Inventory Linkage

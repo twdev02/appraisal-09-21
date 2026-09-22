@@ -53,12 +53,20 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const allDevices = researchGroups.flatMap((g: any) =>
     (g.devices || []).map((d: any) => ({ ...d, __groupDeviceCount: (g.devices || []).length }))
   );
-  // When a group pools multiple distinct devices together (devicePatientNumber
-  // "Not separately reported"), the paper's clinical outcomes cannot be attributed
-  // to any single device — including the DUE. Such a device cannot count toward
-  // "Device under evaluation" / "Similar device" credit even though it was used.
+  // When a group pools multiple distinct devices together, the paper's clinical
+  // endpoints cannot be attributed to any single device — including the DUE —
+  // unless those endpoints are actually separated per device (not merely a
+  // per-device patient count or an isolated success/event count without its
+  // own denominator). Such a device cannot count toward "Device under
+  // evaluation" / "Similar device" credit even though it was used.
+  // Conservative by design: ambiguous or partial separation (e.g. a per-device
+  // success count with no matching per-device denominator) does NOT qualify.
   const isDeviceOutcomeExtractable = (d: any) => {
     if ((d.__groupDeviceCount || 1) <= 1) return true;
+    if (d.deviceOutcomeSeparability === 'single_device_group' || d.deviceOutcomeSeparability === 'fully_separable') return true;
+    if (d.deviceOutcomeSeparability === 'numerator_only' || d.deviceOutcomeSeparability === 'not_separable') return false;
+    // Backward-compatible fallback for extractions that did not return
+    // deviceOutcomeSeparability: fall back to the legacy patient-number check.
     const pn = String(d.devicePatientNumber || '').trim();
     return Boolean(pn) && pn.toLowerCase() !== 'not separately reported';
   };
@@ -268,8 +276,11 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const missingDimensionNames = reportChecklist.filter((d: any) => !d.reported).map((d: any) => d.item);
   const reportEvidenceItem = reportChecklist.find((d: any) => d.reported && isMeaningfulReportedText(d.evidenceQuote));
 
+  const pooledNumeratorOnlyDueDevices = pooledOnlyDueDevices.filter((d: any) => d.deviceOutcomeSeparability === 'numerator_only');
   const deviceComment = pooledOnlyDueDevices.length > 0 && extractableDueDevices.length === 0
-    ? `Device under evaluation (${pooledOnlyDueDevices.map((d: any) => d.deviceProductName).join(', ')}) was used in this study, but its clinical outcomes are pooled together with other stent brands in the same cohort without a device-level breakdown (devicePatientNumber: Not separately reported), so DUE-specific results cannot be isolated. Scored as "Other devices and medical alternatives".`
+    ? pooledNumeratorOnlyDueDevices.length > 0
+      ? `Device under evaluation (${pooledNumeratorOnlyDueDevices.map((d: any) => d.deviceProductName).join(', ')}) was used in this study, and a per-device outcome count is reported, but the matching per-device denominator (patients/procedures attempted with this device) is not established, so a device-specific rate cannot be calculated. ${pooledNumeratorOnlyDueDevices.map((d: any) => d.deviceOutcomeSeparabilityRationale).filter(Boolean).join(' ')} Scored conservatively as "Other devices and medical alternatives".`
+      : `Device under evaluation (${pooledOnlyDueDevices.map((d: any) => d.deviceProductName).join(', ')}) was used in this study, but its clinical outcomes are pooled together with other stent brands in the same cohort without a device-level breakdown (devicePatientNumber: Not separately reported), so DUE-specific results cannot be isolated. Scored as "Other devices and medical alternatives".`
     : topDueDevice?.deviceRelationship?.rationale
     ? topDueDevice.deviceRelationship.rationale
     : `Evaluated device(s): ${allDevices.map((d: any) => `${d.deviceProductName} (${d.manufacturer})`).join(', ')}`;

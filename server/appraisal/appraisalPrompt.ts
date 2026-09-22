@@ -29,6 +29,13 @@ MANDATORY EXTRACTION RULES:
    - NEVER overwrite or substitute the verbatim extracted device name with a configured DUE or Similar Device name. The configured DUE inventory and Similar Device registry are reference data only.
    - Exact device evidence requirement: A device may be classified as DUE or Similar Device ONLY when the paper contains direct, device-specific evidence for that product name or registered alias. Do NOT classify based on generic features alone (e.g., 'metal stent', 'SEMS', 'PCSEMS', 'covered', 'EUS-HGS', 'biliary drainage', diameter, or flange design).
    - If the paper describes 'PCSEMS-AF (Spring Stopper)' manufactured by 'Taewoong Medical, Seoul, Korea', extract deviceProductName: 'PCSEMS-AF (Spring Stopper)' and manufacturer: 'Taewoong Medical, Seoul, Korea'. Do NOT output 'Niti-S Hot Giobor Stent'.
+   - Device outcome separability (deviceOutcomeSeparability): For EVERY device, decide whether this study's reported clinical endpoints (technical success, clinical success, patency, adverse events/safety, or any other efficacy/safety result) can actually be attributed to this specific device, not merely whether the device was used or mentioned. This is decided per device, independent of the "Appropriate device" evidence-of-use requirement above.
+      * 'single_device_group': The research group/cohort used ONLY this one device (no other device shares the group). The group's reported clinical endpoints ARE this device's endpoints by definition.
+      * 'fully_separable': The group contains 2+ devices, AND this device's endpoint results are reported with both a numerator and its OWN matching denominator/analysis population (e.g. "21/21 technical success with aixstent" or a continuous outcome reported with its own analysis unit/population for this device), so a rate or value can be computed/interpreted for this device alone.
+      * 'numerator_only': The group contains 2+ devices, and only a per-device count is reported (e.g. "21 succeeded with device A, 37 succeeded with device B") WITHOUT the matching per-device denominator (how many patients were actually treated/attempted with that specific device). Do NOT assume the reported count is the same as the total treated with that device merely because it appears next to the device name. A success/complication count alone is NOT a rate and must not be treated as one.
+      * 'not_separable': The group contains 2+ devices and only pooled/mixed-cohort results are reported (device usage, timing, or overall patient number only; no per-device endpoint counts at all).
+      * Only 'single_device_group' and 'fully_separable' represent endpoints that can be confidently attributed to this device; 'numerator_only' and 'not_separable' must NOT be treated as sufficient evidence of this device's own clinical performance, even though the device was clearly used in the study.
+      * Provide deviceOutcomeSeparabilityRationale: one sentence citing which endpoints were/were not separable and why (e.g. "37 is the technical-success count for Niti-S, not the number of patients attempted with Niti-S, so a per-device rate cannot be computed.").
 9. Indication Relationship:
    - Must evaluate against ALL configured DUE indications.
    - Must expand medical abbreviations (e.g. 'EUS-GBD' = EUS-guided gallbladder drainage = transgastric/transduodenal gallbladder drainage; 'WON' = walled-off necrosis; 'PFC' = pancreatic fluid collection).
@@ -272,6 +279,8 @@ The minimum required structure is:
       "deviceProductName": "", "manufacturer": "", "deviceType": "",
       "coverType": "", "diameter": "", "length": "",
       "devicePatientNumber": "", "deviceIndication": "",
+      "deviceOutcomeSeparability": "single_device_group | fully_separable | numerator_only | not_separable",
+      "deviceOutcomeSeparabilityRationale": "",
       "evidenceQuote": "", "evidenceLocation": ""
     }]
   }],

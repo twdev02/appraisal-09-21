@@ -652,6 +652,11 @@ export async function prepareAnalysisContext(req: any, res: any): Promise<Prepar
       let diameter = d.diameter || d.stentDiameter || d.size || d.diameter_mm || 'Not reported';
       let length = d.length || d.stentLength || d.length_mm || 'Not reported';
       let devPatNum = d.devicePatientNumber || d.patientNumber || d.n || 'Not separately reported';
+      const rawSeparability = String(d.deviceOutcomeSeparability || '').trim().toLowerCase();
+      const devOutcomeSeparability = ['single_device_group', 'fully_separable', 'numerator_only', 'not_separable'].includes(rawSeparability)
+        ? (rawSeparability as 'single_device_group' | 'fully_separable' | 'numerator_only' | 'not_separable')
+        : undefined;
+      const devOutcomeSeparabilityRationale = d.deviceOutcomeSeparabilityRationale || '';
       let rawInd = d.deviceIndication || d.reportedIndication || d.indication || d.studyIndication || d.groupIndication || d.targetIndication || d.disease || d.condition || d.population || d.clinicalIndication || gIndSum || articleMetadata.studyIndication || 'Not reported';
 
       const cleanIndRes = cleanExtractedIndicationText(rawInd);
@@ -720,6 +725,8 @@ export async function prepareAnalysisContext(req: any, res: any): Promise<Prepar
         diameter: diameter,
         length: length,
         devicePatientNumber: devPatNum,
+        deviceOutcomeSeparability: devOutcomeSeparability,
+        deviceOutcomeSeparabilityRationale: devOutcomeSeparabilityRationale,
         deviceIndication: ind,
         matchedDueId: devRel.matchedDueId,
         matchedDueName: devRel.matchedDueName,
