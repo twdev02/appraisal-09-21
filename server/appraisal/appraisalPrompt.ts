@@ -67,9 +67,10 @@ MANDATORY EXTRACTION RULES:
 13. Methodological Appraisal - Information on elementary aspects:
     - Extract 3 independent sub-elements:
       1. Method: Exact study design / type (e.g. 'Retrospective observational study', 'Prospective cohort study')
-      2. Identification of the device: All devices used in the study across all research groups. If multiple study groups exist, extract EVERY primary treatment/device group and its device with exact quote and location. Do NOT output only the first DUE group, first comparator, or first two groups.
+      2. Identification of the device: Extract all devices across EVERY primary study group, with exact quote and location. Mark deviceIdentificationReported true ONLY if an actual device product/trade/model name is explicitly stated in the CURRENT STUDY. Set deviceIdentificationProductName to that exact name and include it verbatim in deviceIdentificationQuote. Generic descriptions (e.g. self-expandable metallic non-covered biliary stent, SEMS, 8.5F pigtail drainage catheter), size/material/type alone, or manufacturer alone do NOT qualify. Never borrow the configured DUE name or infer a brand from manufacturer/features. If no explicit product/model name is reported, set false and leave deviceIdentificationProductName empty, even when device inventory entries exist.
       3. Clinical outcome: Reported clinical endpoints (e.g. 'Technical success, clinical success, stent patency, adverse events')
     - Each sub-element must have extracted value, exact verbatim quote, location, and reported status.
+    - Adequate requires ALL THREE sub-elements to be Reported. If any one is Not reported, classify Non adequate.
 14. Methodological Appraisal - Adequate controls:
     - Evaluate whether confounding factors exist (e.g. baseline characteristic imbalance, disease severity differences, selection bias, differing access route, operator variation, co-interventions) that could materially influence reported results.
     - If no confounding factor materially impacting results is identified, recommend 'Adequate (2)'. If confounding factors exist and were not controlled, recommend 'Non adequate (1)'.
@@ -291,7 +292,7 @@ The minimum required structure is:
   "relevanceExtracts": {},
   "methodologicalExtracts": {
     "methodValue": "", "methodQuote": "", "methodLocation": "", "methodReported": false,
-    "deviceIdentificationValue": "", "deviceIdentificationQuote": "", "deviceIdentificationLocation": "", "deviceIdentificationReported": false,
+    "deviceIdentificationValue": "", "deviceIdentificationProductName": "", "deviceIdentificationQuote": "", "deviceIdentificationLocation": "", "deviceIdentificationReported": false,
     "clinicalOutcomeValue": "", "clinicalOutcomeQuote": "", "clinicalOutcomeLocation": "", "clinicalOutcomeReported": false,
     "adequateControlsSelection": "", "adequateControlsQuote": "", "adequateControlsLocation": "", "adequateControlsComment": "",
     "mortalityAEQuote": "", "mortalityAELocation": "", "mortalityAEComment": "",

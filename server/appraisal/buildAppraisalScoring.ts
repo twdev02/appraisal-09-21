@@ -15,6 +15,7 @@ import {
 } from '../../src/data/appraisalStandards';
 import { detectStatisticalEvidence } from './statisticalEvidence';
 import { hasReportedObservationDuration, scoreReportCollation } from './reportCollation';
+import { hasExplicitProductName, elementaryAspectsAdequate } from './elementaryAspects';
 import { validateGenderEvidence } from './markdownEvidence';
 import {
   reconcileStatisticalEvidence,
@@ -590,7 +591,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   );
 
   // Elementary aspects 3 sub-elements
-  const methodVal = methodExt.methodValue || articleMetadata.studyDesign || 'Cohort study';
+  const methodVal = methodExt.methodValue || articleMetadata.studyDesign || 'Not reported';
   const methodQuote = methodExt.methodQuote || articleMetadata.studyDesign || 'Study design documented in methods';
   const methodLoc = methodExt.methodLocation || 'Methods';
   const methodReported = methodExt.methodReported !== false && methodVal !== 'Not reported';
@@ -604,7 +605,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const devSummaryLoc = groupDeviceList.length > 0
     ? Array.from(new Set(groupDeviceList.map((x: any) => x.evidenceLocation).filter(Boolean))).join(', ')
     : (methodExt.deviceIdentificationLocation || 'Methods');
-  const devReported = groupDeviceList.length > 0 || (methodExt.deviceIdentificationReported !== false && devSummaryVal !== 'Not reported');
+  const devReported = hasExplicitProductName(methodExt);
 
   const aiMethOutcomeVal = isMissingExtractedValue(methodExt.clinicalOutcomeValue)
     ? 'Not reported'
@@ -626,7 +627,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const methOutcomeReported = clinicalOutcomeValidation.status !== 'not_available' &&
     methOutcomeVal !== 'Not reported' && methOutcomeQuote !== 'Not reported';
 
-  const isElementaryAdequate = methodReported || devReported || methOutcomeReported;
+  const isElementaryAdequate = elementaryAspectsAdequate(methodReported, devReported, methOutcomeReported);
   const methElementaryScore = isElementaryAdequate ? 2 : 1;
   const methElementarySelection = isElementaryAdequate ? 'Adequate (2)' : 'Non adequate (1)';
 
@@ -693,8 +694,8 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
         location: 'Methods & Results',
       },
       comment: isElementaryAdequate
-        ? `All ${groupDeviceList.length || 1} study group device(s) and elementary aspects (Method, Device identification, Clinical outcomes) documented from research group inventory.`
-        : 'None of the three elementary aspects are reported in the article.',
+        ? 'All three elementary aspects are reported, including an explicit device product/model name.'
+        : `Non adequate: Not reported — ${[!methodReported && 'Method', !devReported && 'Device product/model name', !methOutcomeReported && 'Clinical outcome'].filter(Boolean).join(', ')}. All three aspects are required.`,
       status: (isElementaryAdequate ? 'Reported' : 'Not reported') as any,
       subElements: [
         { label: 'Method', value: methodVal, reported: methodReported, quote: methodQuote, location: methodLoc },

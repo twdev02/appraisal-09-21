@@ -1024,7 +1024,7 @@ export const Step3Appraisal: React.FC<Step3AppraisalProps> = ({
                         Elementary Aspects Evaluation (3 Independent Sub-Items):
                       </span>
                       <span className="text-[11px] text-slate-500 font-medium">
-                        Standard: Adequate (2 pts) if ≥1 reported; Non adequate (1 pt) if all 3 are Not reported
+                        Standard: Adequate (2 pts) only if all 3 are Reported; Non adequate (1 pt) if any is Not reported. Device identification requires an explicit product/model name.
                       </span>
                     </div>
 
@@ -1087,7 +1087,7 @@ export const Step3Appraisal: React.FC<Step3AppraisalProps> = ({
                             evidenceLocation: d.evidence?.location || g.evidence?.location || 'Methods',
                           })));
 
-                      const isDevReported = devSub?.reported !== false && (deviceEntries.length > 0 || devSub?.value !== 'Not reported');
+                      const isDevReported = devSub?.reported === true;
 
                       return (
                         <div className="bg-white p-3.5 rounded-lg border border-slate-200 space-y-2.5 shadow-2xs">
