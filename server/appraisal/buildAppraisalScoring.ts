@@ -87,6 +87,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
     ? 'Equivalent device or Benchmark/Similar device'
     : 'Other devices and medical alternatives';
   const deviceScore = anyDueDevice ? 2 : anySimDevice ? 1 : 0;
+  const creditedDevice = extractableDueDevices[0] || extractableSimDevices[0];
 
   const anySameIndication = allDevices.some(
     (d: any) => d.indicationRelationship.aiRecommended === 'Same indication'
@@ -266,9 +267,9 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
 
   const deviceComment = pooledOnlyDueDevices.length > 0 && extractableDueDevices.length === 0
     ? `DUE use identified (${pooledOnlyDueDevices.map((d: any) => d.deviceProductName).join(', ')}), but product-specific outcome extractability is not established. Device usage counts and pooled group outcomes do not qualify. Scored as "${deviceSelection}" (${deviceScore}).`
-    : topDueDevice?.deviceRelationship?.rationale
-    ? topDueDevice.deviceRelationship.rationale
-    : `Evaluated device(s): ${allDevices.map((d: any) => `${d.deviceProductName} (${d.manufacturer})`).join(', ')}`;
+    : creditedDevice
+    ? `Product-specific outcome attribution verified (${creditedDevice.outcomeAttribution.basis}): ${creditedDevice.outcomeAttribution.outcome}. Product identity alone does not earn credit.`
+    : 'No qualifying product-specific outcome evidence. Device identity or usage alone does not earn credit.';
 
   const appComment = topSameIndDevice?.indicationRelationship?.rationale
     ? topSameIndDevice.indicationRelationship.rationale
@@ -283,8 +284,8 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
       userFinalScore: deviceScore,
       matchedDueProductName: anyDueDevice ? (matchedDueDisplay || topDueDevice?.matchedDueName || due.productName) : undefined,
       evidence: {
-        quote: topDueDevice?.evidence?.quote || suitabilityComments.appropriateDeviceQuote || 'Device description in paper',
-        location: topDueDevice?.evidence?.location || suitabilityComments.appropriateDeviceLocation || 'Methods',
+        quote: creditedDevice ? `${creditedDevice.outcomeAttribution.outcomeQuote}\n${creditedDevice.outcomeAttribution.attributionQuote}` : 'Product-specific outcome evidence not established.',
+        location: creditedDevice ? `${creditedDevice.outcomeAttribution.outcomeLocation}; ${creditedDevice.outcomeAttribution.attributionLocation}` : 'Not reported',
       },
       comment: deviceComment,
       status: (anyDueDevice || anySimDevice ? 'Reported' : 'Not reported') as any,
