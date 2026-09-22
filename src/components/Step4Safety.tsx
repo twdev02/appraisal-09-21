@@ -1228,7 +1228,9 @@ export const Step4Safety: React.FC<Step4SafetyProps> = ({
                         ? 'bg-rose-100/90 hover:bg-rose-100 shadow-[inset_4px_0_0_0_rgb(244,63,94)]'
                         : showReviewHighlight
                           ? 'bg-amber-200/85 hover:bg-amber-200 shadow-[inset_4px_0_0_0_rgb(245,158,11)]'
-                          : 'hover:bg-slate-50/75';
+                          : depth > 0
+                            ? 'bg-indigo-50/40 hover:bg-indigo-50/70'
+                            : 'hover:bg-slate-50/75';
 
                     return (
                       <tr key={ev.id} className={`${fmeaRowClass} transition-colors`}>
@@ -1246,13 +1248,21 @@ export const Step4Safety: React.FC<Step4SafetyProps> = ({
                         {/* Reported Event */}
                         <td className="py-3 px-4 font-semibold text-slate-900 align-top">
                           <div
-                            className={depth > 0 ? 'border-l-2 border-slate-200' : ''}
+                            className={depth > 0 ? 'border-l-2 border-indigo-300' : ''}
                             style={{ paddingLeft: depth > 0 ? `${depth * 16}px` : undefined }}
                           >
-                            <div className="font-bold leading-snug">
+                            <div className="font-bold leading-snug flex items-center gap-1.5">
+                              {depth > 0 && (
+                                <span className="text-indigo-400 font-normal shrink-0" aria-hidden="true">↳</span>
+                              )}
                               <span className={showNewCandidate ? 'text-rose-900' : 'text-slate-900'}>{ev.eventName}</span>
                               <SelfValidationBadge className="ml-1.5 align-middle" issues={issuesForTarget(selfValidation, `step4.event.${ev.id}`)} />
                             </div>
+                            {depth > 0 && ev.parentEvent && (
+                              <div className="mt-1 inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-indigo-50 border border-indigo-200 text-[9px] font-bold text-indigo-700">
+                                {ev.relationshipType === 'cause' ? 'Cause of' : 'Sub-item of'} "{ev.parentEvent}"
+                              </div>
+                            )}
                             {(newCandidateCleared || isReviewRequired) && (
                               <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                                 {newCandidateCleared && (
