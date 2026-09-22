@@ -72,8 +72,11 @@ MANDATORY EXTRACTION RULES:
     - Each sub-element must have extracted value, exact verbatim quote, location, and reported status.
     - Adequate requires ALL THREE sub-elements to be Reported. If any one is Not reported, classify Non adequate.
 14. Methodological Appraisal - Adequate controls:
-    - Evaluate whether confounding factors exist (e.g. baseline characteristic imbalance, disease severity differences, selection bias, differing access route, operator variation, co-interventions) that could materially influence reported results.
-    - If no confounding factor materially impacting results is identified, recommend 'Adequate (2)'. If confounding factors exist and were not controlled, recommend 'Non adequate (1)'.
+    - Apply this application's conservative operational rule informed by MEDDEV Appendix A6(d): recommend Adequate (2) ONLY with affirmative current-study evidence of BOTH an appropriate comparison AND adequate control of material bias/confounding. Never infer adequacy from silence or from failure to identify a confounder.
+    - Set adequateControlsComparisonType to concurrent, external, performance_criterion, before_after_only, none, or unclear. Uncontrolled single-arm studies and simple within-arm pre/post comparisons are Non adequate (1). Multiple devices, configurations, subgroups, or rows in a table do not themselves establish a control group.
+    - Concurrent comparison: assess comparator relevance, allocation/selection bias, baseline/disease differences, subjective endpoints, natural fluctuations, effective co-interventions, operator skill and infrastructure/aftercare. Randomization, matching, or adjustment can support control but their mere mention is not automatically sufficient. Two arms alone are insufficient.
+    - External controls or a prespecified performance criterion may qualify ONLY when the paper justifies comparability, endpoint/timepoint alignment, the benchmark's validity and handling of material bias/confounding. A Discussion comparison with published success rates is not an eligible control. This is a documented exception, not an automatic pass for single-arm studies.
+    - Set adequateControlsComparatorAppropriate and adequateControlsConfoundingControlled true only when supported. Supply exact current-study quotes and locations separately for comparison and confounding control, plus a rationale in adequateControlsComment. Missing/unclear evidence defaults to Non adequate (1), with the reason stated. Do not claim that MEDDEV itself imposes this application's binary score rule.
 15. Methodological Appraisal - Collection of mortality and serious adverse events data:
     - Recommend 'Adequate (2)' when the paper reports ANY complication/adverse-event data OR ANY mortality data. Explicit zero-event statements such as 'no complications', 'no adverse events', 'no deaths', or mortality 0 are still considered reported data.
     - Recommend 'Non adequate (1)' only when neither complication/adverse-event data nor mortality data are reported anywhere in the paper.
@@ -294,7 +297,7 @@ The minimum required structure is:
     "methodValue": "", "methodQuote": "", "methodLocation": "", "methodReported": false,
     "deviceIdentificationValue": "", "deviceIdentificationProductName": "", "deviceIdentificationQuote": "", "deviceIdentificationLocation": "", "deviceIdentificationReported": false,
     "clinicalOutcomeValue": "", "clinicalOutcomeQuote": "", "clinicalOutcomeLocation": "", "clinicalOutcomeReported": false,
-    "adequateControlsSelection": "", "adequateControlsQuote": "", "adequateControlsLocation": "", "adequateControlsComment": "",
+    "adequateControlsSelection": "", "adequateControlsComparisonType": "unclear", "adequateControlsComparatorAppropriate": false, "adequateControlsConfoundingControlled": false, "adequateControlsQuote": "", "adequateControlsLocation": "", "adequateControlsConfoundingQuote": "", "adequateControlsConfoundingLocation": "", "adequateControlsComment": "",
     "mortalityAEQuote": "", "mortalityAELocation": "", "mortalityAEComment": "",
     "authorsInterpretationQuote": "", "authorsInterpretationLocation": "", "authorsInterpretationComment": "",
     "studyLegalityQuote": "", "studyLegalityLocation": "", "studyLegalityComment": ""

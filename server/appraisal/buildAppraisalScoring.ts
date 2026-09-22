@@ -16,6 +16,7 @@ import {
 import { detectStatisticalEvidence } from './statisticalEvidence';
 import { hasReportedObservationDuration, scoreReportCollation } from './reportCollation';
 import { hasExplicitProductName, elementaryAspectsAdequate } from './elementaryAspects';
+import { evaluateAdequateControls } from './adequateControls';
 import { validateGenderEvidence } from './markdownEvidence';
 import {
   reconcileStatisticalEvidence,
@@ -634,8 +635,9 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const methStatsScore = hasStats ? 2 : 1;
   const methStatsSelection = hasStats ? 'Adequate (2)' : 'Non adequate (1)';
 
-  const methControlsSelection = methodExt.adequateControlsSelection === 'Non adequate (1)' ? 'Non adequate (1)' : 'Adequate (2)';
-  const methControlsScore = methControlsSelection === 'Adequate (2)' ? 2 : 1;
+  const controlsAssessment = evaluateAdequateControls(methodExt);
+  const methControlsSelection = controlsAssessment.selection;
+  const methControlsScore = controlsAssessment.score;
 
   const methodologicalSafetyExtract = parsedAi?.safetyEventsExtract || parsedAi?.safetyExtracts || parsedAi?.safetyEvents || {};
   const methodologicalSafetyEvents = Array.isArray(methodologicalSafetyExtract?.events)
@@ -749,10 +751,10 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
       userFinalSelection: methControlsSelection,
       userFinalScore: methControlsScore,
       evidence: {
-        quote: methodExt.adequateControlsQuote || 'Study cohorts and patient allocation described',
-        location: methodExt.adequateControlsLocation || 'Methods',
+        quote: [methodExt.adequateControlsQuote, methodExt.adequateControlsConfoundingQuote].filter(Boolean).join('\n') || 'Not reported',
+        location: [methodExt.adequateControlsLocation, methodExt.adequateControlsConfoundingLocation].filter(Boolean).join('; ') || 'Not reported',
       },
-      comment: methodExt.adequateControlsComment || 'Evaluation of confounding factors and patient selection.',
+      comment: controlsAssessment.reason,
       status: 'Reported' as any,
     },
     collectionMortalityAE: {
