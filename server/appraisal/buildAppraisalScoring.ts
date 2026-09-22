@@ -828,8 +828,17 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   // to be observed. (Overall survival is still used as a proxy separately under
   // Relevance 'Duration of follow-up'.) Stent patency/time-to-RBO are intentionally
   // excluded here because they belong under Relevance 'Duration of application or use'.
-  const followUpText = (articleMetadata.followUpPeriod && articleMetadata.followUpPeriod !== 'Not reported')
-    ? articleMetadata.followUpPeriod
+  // A duration value that only describes a mortality/death timepoint (e.g. "30-day
+  // mortality") is not a follow-up/observation duration and must never satisfy this
+  // criterion, even when it superficially contains a number + time unit.
+  const isMortalityOnlyDurationText = (text: string) =>
+    /\b(?:mortality|deaths?)\b/i.test(text) && !/follow[- ]?up|observation/i.test(text);
+
+  const rawFollowUpPeriod = (articleMetadata.followUpPeriod && articleMetadata.followUpPeriod !== 'Not reported')
+    ? String(articleMetadata.followUpPeriod)
+    : '';
+  const followUpText = (rawFollowUpPeriod && !isMortalityOnlyDurationText(rawFollowUpPeriod))
+    ? rawFollowUpPeriod
     : (currentStudyText.match(/(?:median|mean|mean\s*±\s*SD|range)?\s*(?:follow-up|follow\s*up|observation\s*period)\s*(?:duration\s*)?(?:of|was|:)?\s*([^\.\n;]+(?:months?|weeks?|days?|years?)[^\.\n;]*)/i)?.[0] || '');
 
   let fuQuote = 'Not reported';
@@ -846,7 +855,12 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
     fuSelection = 'Yes (2)';
     fuScore = 2;
     fuStatus = 'Reported';
-  } else if (String(contExt.followUpMetricType || '') === 'follow_up' && contExt.followUpQuote && contExt.followUpQuote !== 'Not reported') {
+  } else if (
+    String(contExt.followUpMetricType || '') === 'follow_up' &&
+    contExt.followUpQuote &&
+    contExt.followUpQuote !== 'Not reported' &&
+    !isMortalityOnlyDurationText(contExt.followUpQuote)
+  ) {
     fuQuote = contExt.followUpQuote;
     fuLocation = contExt.followUpLocation || 'Results / Methods';
     fuComment = contExt.followUpComment || 'Longitudinal outcome observation period documented.';
