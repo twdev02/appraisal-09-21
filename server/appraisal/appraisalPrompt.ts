@@ -85,6 +85,12 @@ MANDATORY EXTRACTION RULES:
     - AI recommended selection is ALWAYS 'Good (1)'. Quote the authors' interpretation/conclusion sentence if found; otherwise state 'Not reported' in quote and remarks.
 17. Methodological Appraisal - Study legality:
     - AI recommended selection is ALWAYS 'Legal (1)'. Quote ethics approval / IRB / informed consent statement if found; otherwise state 'Not reported' in quote and remarks.
+18a. Contribution Criteria - Data source type (application-specific design rule, not a MEDDEV mandated binary classification):
+    - Classify the CURRENT paper's actual design as randomized_trial, nonrandomized_interventional, cohort, case_control, cross_sectional, case_report, case_series, review, editorial_opinion, nonclinical, or unclear in dataSourceStudyDesign.
+    - Eligible: human clinical trials, prospective/retrospective cohorts, case-control and cross-sectional studies. Ineligible: case reports, case series, all reviews (including systematic reviews/meta-analyses), editorials/opinion, animal/laboratory studies. Missing or ambiguous design is unclear and does not qualify.
+    - A single-arm cohort can qualify here even though it fails Adequate controls. Device configurations or multiple inventory entries do not establish the study design.
+    - Distinguish case series from cohorts using explicit design wording plus patient selection, defined endpoints and observation methods. Neither sample size nor the words 'retrospective study' alone establish a cohort. If unresolved classify unclear; never invent a design.
+    - Provide dataSourceQuote (verbatim current-study design/methods evidence), dataSourceLocation and dataSourceRationale. No eligible classification without supporting evidence.
 18. Contribution Criteria - Outcome measures:
     - Extract actual quantitative results from Results, Tables, or Figures (e.g. 'Technical success: 95.0% (38/40)', 'Clinical success: 87.5% (35/40)', 'Median stent patency: 180 days', 'Adverse events: 12.5% (5/40)'). Do NOT output endpoint names alone.
     - If multiple study groups (e.g. DPPS vs SEMS) exist, present quantitative results for each group separately. Do not average, pool, or blur them.
@@ -303,6 +309,7 @@ The minimum required structure is:
     "studyLegalityQuote": "", "studyLegalityLocation": "", "studyLegalityComment": ""
   },
   "contributionExtracts": {
+    "dataSourceStudyDesign": "unclear", "dataSourceQuote": "", "dataSourceLocation": "", "dataSourceRationale": "",
     "outcomeMeasuresQuote": "", "outcomeMeasuresLocation": "", "outcomeMeasuresComment": "",
     "followUpMetricType": "follow_up | overall_survival | not_reported", "followUpQuote": "", "followUpLocation": "", "followUpComment": "",
     "clinicalSignificanceQuote": "", "clinicalSignificanceLocation": "", "clinicalSignificanceComment": ""

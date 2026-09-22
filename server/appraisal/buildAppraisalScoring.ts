@@ -17,6 +17,7 @@ import { detectStatisticalEvidence } from './statisticalEvidence';
 import { hasReportedObservationDuration, scoreReportCollation } from './reportCollation';
 import { hasExplicitProductName, elementaryAspectsAdequate } from './elementaryAspects';
 import { evaluateAdequateControls } from './adequateControls';
+import { evaluateDataSourceType } from './dataSourceType';
 import { validateGenderEvidence } from './markdownEvidence';
 import {
   reconcileStatisticalEvidence,
@@ -806,6 +807,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
 
   // 4. Contribution Criteria State (Max 10)
   const contExt = parsedAi?.contributionExtracts || {};
+  const dataSourceAssessment = evaluateDataSourceType(contExt, articleMetadata.studyDesign);
 
   // This criterion asks whether follow-up was long enough to observe treatment
   // effects and complications, so only a direct follow-up/observation duration
@@ -881,21 +883,21 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const clinSelection = clinReported ? 'Yes (2)' : 'No (1)';
 
   const contStatsScore = hasStats ? 2 : 1;
-  const contTotal = 2 + contOutcomeScore + fuScore + contStatsScore + clinScore;
+  const contTotal = dataSourceAssessment.score + contOutcomeScore + fuScore + contStatsScore + clinScore;
 
   const contribution: ContributionAppraisalState = {
     dataSourceType: {
       ...DEFAULT_CONTRIBUTION_CRITERIA.dataSourceType,
-      aiRecommendedSelection: 'Yes (2)',
-      aiRecommendedScore: 2,
-      userFinalSelection: 'Yes (2)',
-      userFinalScore: 2,
+      aiRecommendedSelection: dataSourceAssessment.selection,
+      aiRecommendedScore: dataSourceAssessment.score,
+      userFinalSelection: dataSourceAssessment.selection,
+      userFinalScore: dataSourceAssessment.score,
       evidence: {
-        quote: articleMetadata.studyDesign || 'Clinical observational study design',
-        location: 'Methods',
+        quote: dataSourceAssessment.quote,
+        location: dataSourceAssessment.location,
       },
-      comment: 'Appropriate clinical study design documented.',
-      status: 'Reported' as any,
+      comment: dataSourceAssessment.comment,
+      status: dataSourceAssessment.status as any,
     },
     outcomeMeasures: {
       ...DEFAULT_CONTRIBUTION_CRITERIA.outcomeMeasures,
