@@ -196,12 +196,13 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
   validateScoredSection(data.contribution, 'contribution');
 
   // Acceptable report / data collation: the selected quality tier must match
-  // the 9-item checklist it is derived from (0-2 missing=High(3), 3-6=Minor(2),
-  // 7-9=Insufficient(1)), not just be an internally consistent score/label pair.
+  // the 9-item checklist it is derived from (0 missing=High(3), 1-2=Minor(2),
+  // 3-9=Insufficient(1), matching scoreReportCollation in reportCollation.ts),
+  // not just be an internally consistent score/label pair.
   const reportQuality = data.suitability?.acceptableReportDataCollation;
   if (reportQuality?.reportedChecklist?.length) {
     const missingCount = reportQuality.reportedChecklist.filter((entry) => !entry.reported).length;
-    const expectedScore = missingCount <= 2 ? 3 : missingCount <= 6 ? 2 : 1;
+    const expectedScore = missingCount === 0 ? 3 : missingCount <= 2 ? 2 : 1;
     const currentScore = reportQuality.userFinalScore ?? reportQuality.aiRecommendedScore;
     if (Number(currentScore) !== expectedScore) {
       addIssue(issues, 'fail', 3, `step3.${reportQuality.id}`,
