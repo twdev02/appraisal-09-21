@@ -83,7 +83,7 @@ const extractFollowUpCenter = (value: unknown, fieldIsFollowUp = false): { value
   if (!text.trim()) return null;
   const scope = fieldIsFollowUp
     ? text
-    : (text.match(/follow[- ]?up[^.;\n]{0,180}/i)?.[0] || '');
+    : (text.match(/follow\s*-?\s*up[^.;\n]{0,180}/i)?.[0] || '');
   if (!scope) return null;
   const patterns = [
     /(\d+(?:\.\d+)?)\s*(?:\([^)]*\)\s*)?(days?|weeks?|months?|years?)\b/i,
@@ -236,7 +236,7 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
     }
     const allMissing = [details.durationOfApplicationOrUse, details.numberOfRepeatExposures, details.durationOfFollowUp].every(missing);
     const source = String(data.rawPaperText || '').split(/(?:^|\n)\s*(?:discussion|references)\b/i)[0] || '';
-    if (allMissing && /\b(?:patency|indwell(?:ing)?|dwell\s+time|follow[- ]?up|survival|reintervention|repeat\s+(?:stent|procedure)|another\s+stent|second\s+stent)\b/i.test(source)) {
+    if (allMissing && /\b(?:patency|indwell(?:ing)?|dwell\s+time|follow\s*-?\s*up|survival|reintervention|repeat\s+(?:stent|procedure)|another\s+stent|second\s+stent)\b/i.test(source)) {
       addIssue(issues, 'review', 3, `step3.${range.id}`, 'All range-of-time fields are Not reported although relevant timing terms occur in the current-study text.', 'rangeOfTime');
     }
 

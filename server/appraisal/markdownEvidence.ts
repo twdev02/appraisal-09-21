@@ -641,7 +641,7 @@ function inferFollowUpStatistic(text: string): 'median' | 'mean' | 'reported' {
 
 function isDirectFollowUpLabel(text: string): boolean {
   const clean = stripMarkdown(text);
-  if (!/\bfollow[- ]?up\b|\bobservation(?:al)?\s+period\b/i.test(clean)) return false;
+  if (!/\bfollow\s*-?\s*up\b|\bobservation(?:al)?\s+period\b/i.test(clean)) return false;
   // These are different longitudinal endpoints and must never be promoted to true follow-up.
   if (/\boverall\s+survival\b|\bstent\s+patency\b|\bpatency\s+duration\b|\btime\s+to\s+(?:rbo|recurrent|obstruction)|\bdysfunction[- ]?free\b/i.test(clean)) {
     return false;
@@ -735,8 +735,8 @@ function sentenceAroundIndex(text: string, index: number): string {
 function findFollowUpFromNarrative(markdown: string): MarkdownFollowUpEvidence | undefined {
   const source = currentStudyMarkdown(markdown);
   const patterns = [
-    /\b(?:median|mean)\s+follow[- ]?up\s+(?:period|duration)?\s*(?:was|of|:)?\s*(\d+(?:\.\d+)?)\s*(days?|weeks?|months?|years?)\b/i,
-    /\bfollow[- ]?up\s+(?:period|duration)?\s*(?:was|of|:)?\s*(?:a\s+)?(?:median|mean)?\s*(\d+(?:\.\d+)?)\s*(days?|weeks?|months?|years?)\b/i,
+    /\b(?:median|mean)\s+follow\s*-?\s*up\s+(?:period|duration)?\s*(?:was|of|:)?\s*(\d+(?:\.\d+)?)\s*(days?|weeks?|months?|years?)\b/i,
+    /\bfollow\s*-?\s*up\s+(?:period|duration)?\s*(?:was|of|:)?\s*(?:a\s+)?(?:median|mean)?\s*(\d+(?:\.\d+)?)\s*(days?|weeks?|months?|years?)\b/i,
     /\b(?:patients?|participants?|subjects?)\s+were\s+followed(?:\s+up)?\s+for\s+(?:a\s+)?(?:median|mean)?\s*(?:of\s*)?(\d+(?:\.\d+)?)\s*(days?|weeks?|months?|years?)\b/i,
     /\bfollowed(?:\s+up)?\s+for\s+(?:a\s+)?(?:median|mean)?\s*(?:of\s*)?(\d+(?:\.\d+)?)\s*(days?|weeks?|months?|years?)\b/i,
   ];

@@ -832,7 +832,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   // mortality") is not a follow-up/observation duration and must never satisfy this
   // criterion, even when it superficially contains a number + time unit.
   const isMortalityOnlyDurationText = (text: string) =>
-    /\b(?:mortality|deaths?)\b/i.test(text) && !/follow[- ]?up|observation/i.test(text);
+    /\b(?:mortality|deaths?)\b/i.test(text) && !/follow\s*-?\s*up|observation/i.test(text);
 
   const rawFollowUpPeriod = (articleMetadata.followUpPeriod && articleMetadata.followUpPeriod !== 'Not reported')
     ? String(articleMetadata.followUpPeriod)

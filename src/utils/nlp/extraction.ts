@@ -1423,7 +1423,7 @@ export function parseRangeOfTimeData(
     !isInvalidContext(`${aiFuText} ${aiFuQuote}`, aiFuLoc) &&
     !/(?:loss\s+to|lost\s+to|follow-up\s+loss)/i.test(aiFuText) &&
     /\b(?:day|week|month|year)s?\b/i.test(`${aiFuText} ${aiFuQuote}`) &&
-    (Boolean(aiExtract?.isFollowUpProxySurvival) || /follow[- ]?up/i.test(`${aiFuText} ${aiFuQuote}`))
+    (Boolean(aiExtract?.isFollowUpProxySurvival) || /follow\s*-?\s*up/i.test(`${aiFuText} ${aiFuQuote}`))
   );
   if (aiFollowUpUsable) {
     followUpDuration = aiFuText.trim();
@@ -1436,8 +1436,8 @@ export function parseRangeOfTimeData(
   if (followUpDuration === 'Not reported' && researchGroups.length > 0) {
     for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
       const logicalLine = lines.slice(lineIndex, Math.min(lines.length, lineIndex + 3)).join(' ');
-      if (!/follow[- ]?up/i.test(logicalLine) || /lost\s+to|loss\s+to/i.test(logicalLine)) continue;
-      const followMatch = /follow[- ]?up/i.exec(logicalLine);
+      if (!/follow\s*-?\s*up/i.test(logicalLine) || /lost\s+to|loss\s+to/i.test(logicalLine)) continue;
+      const followMatch = /follow\s*-?\s*up/i.exec(logicalLine);
       const valuePart = followMatch ? logicalLine.slice(followMatch.index) : logicalLine;
       const rowUnit = valuePart.match(/\b(days?|weeks?|months?|years?|d|wk|wks|mo|mos|yr|yrs)\b/i)?.[1];
       if (!rowUnit) continue;
@@ -1462,7 +1462,7 @@ export function parseRangeOfTimeData(
   }
 
   const followSentences = splitSentences(currentStudyOutcomeText).filter((sentence) =>
-    /follow[- ]?up/i.test(sentence) && /\b(?:day|week|month|year)s?\b/i.test(sentence) && !/lost\s+to|loss\s+to/i.test(sentence)
+    /follow\s*-?\s*up/i.test(sentence) && /\b(?:day|week|month|year)s?\b/i.test(sentence) && !/lost\s+to|loss\s+to/i.test(sentence)
   );
   if (followUpDuration === 'Not reported') for (const sentence of followSentences) {
     const values = new Map<number, ReturnType<typeof nearestTimeForGroup>>();
@@ -1486,8 +1486,8 @@ export function parseRangeOfTimeData(
     for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
       const line = lines[lineIndex];
       const logicalLine = lines.slice(lineIndex, Math.min(lines.length, lineIndex + 3)).join(' ');
-      if (!/follow[- ]?up/i.test(logicalLine) || /lost\s+to|loss\s+to/i.test(logicalLine)) continue;
-      const followMatch = /follow[- ]?up/i.exec(logicalLine);
+      if (!/follow\s*-?\s*up/i.test(logicalLine) || /lost\s+to|loss\s+to/i.test(logicalLine)) continue;
+      const followMatch = /follow\s*-?\s*up/i.exec(logicalLine);
       const valuePart = followMatch ? logicalLine.slice(followMatch.index) : logicalLine;
       const rowUnit = valuePart.match(/\b(days?|weeks?|months?|years?|d|wk|wks|mo|mos|yr|yrs)\b/i)?.[1];
       if (!rowUnit) continue;
@@ -1507,7 +1507,13 @@ export function parseRangeOfTimeData(
   }
 
   if (followUpDuration === 'Not reported') {
-    const singleFu = currentStudyOutcomeText.match(/(?:median|mean)?\s*(?:duration\s+of\s+)?follow[- ]?up(?:\s+(?:duration|period))?[^.\n]{0,80}?(\d+(?:\.\d+)?)(?:\s*±\s*(\d+(?:\.\d+)?))?\s*(days?|weeks?|months?|years?)/i);
+    // Raw PDF extraction hard-wraps lines mid-sentence (e.g. "...stent removal\nwas
+    // 256 days..."), so a same-line-only gap would miss a value that is only one
+    // line-wrap away from "follow-up" within the same sentence. Flatten those
+    // line-wrap breaks to spaces before matching; a real paragraph/sentence
+    // boundary is still bounded by the exclusion of '.'.
+    const singleFuSource = currentStudyOutcomeText.replace(/\n+/g, ' ');
+    const singleFu = singleFuSource.match(/(?:median|mean)?\s*(?:duration\s+of\s+)?follow\s*-?\s*up(?:\s+(?:duration|period))?[^.]{0,80}?(\d+(?:\.\d+)?)(?:\s*±\s*(\d+(?:\.\d+)?))?\s*(days?|weeks?|months?|years?)/i);
     if (singleFu && !isInvalidContext(singleFu[0])) {
       followUpDuration = singleFu[0].trim();
       followUpQuote = singleFu[0];
@@ -1625,7 +1631,7 @@ export function parseRangeOfTimeData(
     const value = row.cells[column].replace(/[¹²³⁴⁵⁶⁷⁸⁹]/g, '');
     if (/^(?:Not reached|NR)$/i.test(value)) return `${group.groupName}: ${row.label}: ${value}`;
     const cell = value.match(/^(\d+(?:\.\d+)?)(.*)$/)!;
-    const endpoint = proxy ? 'survival' : /follow[- ]?up/i.test(row.label) ? 'follow-up' : describePatencyEndpoint(row.label) + (/in effective drainage cases/i.test(row.label) ? ' [effective drainage cases only]' : '');
+    const endpoint = proxy ? 'survival' : /follow\s*-?\s*up/i.test(row.label) ? 'follow-up' : describePatencyEndpoint(row.label) + (/in effective drainage cases/i.test(row.label) ? ' [effective drainage cases only]' : '');
     return `${cohortDisplayName(row, group, column)}: ${proxy ? 'Overall survival used as a proxy because follow-up duration was not reported: ' : ''}${stat} ${endpoint}: ${cell[1]} ${unit}${cell[2]}`;
   }).join('\n');
   const applicationRow = timeRow(patencyEndpointRegex);
@@ -1639,7 +1645,7 @@ export function parseRangeOfTimeData(
     }).join('\n');
     repeatQuote = repeatRow.quote;
   }
-  const directFollowUp = timeRow(/follow[- ]?up/i);
+  const directFollowUp = timeRow(/follow\s*-?\s*up/i);
   const survivalRow = timeRow(/^(?:overall\s+survival|patient\s+survival|survival\s+time|median\s+survival|mean\s+survival)/i);
   if (directFollowUp) {
     followUpDuration = formatRow(directFollowUp); followUpQuote = directFollowUp.quote; isProxySurvival = false;

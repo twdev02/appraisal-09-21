@@ -99,7 +99,7 @@ export function classifySafetyRowLabel(label: unknown, contextText: unknown = ''
   if (/\b(?:mortality|deaths?|fatalit(?:y|ies))\b/.test(text)) return 'non_event';
   if (/\b(?:reinterventions?|re-interventions?|repeat interventions?|repeat procedures?|successful reintervention|revision procedures?)\b/.test(text)) return 'non_event';
   if (/^(?:time to|time until|duration of|median time|mean time)\b/.test(text) || /\b(?:time to rbo|time to recurrent|time to obstruction|time to dysfunction)\b/.test(text)) return 'non_event';
-  if (/\b(?:patency|survival|follow[- ]?up)\b/.test(text)) return 'non_event';
+  if (/\b(?:patency|survival|follow\s*-?\s*up)\b/.test(text)) return 'non_event';
 
   // A few labels contain procedural words but are themselves true adverse
   // events; recognize those before excluding ordinary management/treatment rows.
@@ -115,7 +115,7 @@ export function classifySafetyRowLabel(label: unknown, contextText: unknown = ''
   if (eventPattern.test(text)) return 'event';
 
   // Clearly non-safety rows commonly present in mixed outcomes/baseline tables.
-  const nonEventPattern = /\b(?:number of patients|patient number|sample size|median age|mean age|age years?|sex|gender|male|female|body mass index|bmi|asa(?: score| class)?|ecog|performance status|tumou?r type|cancer type|etiology|bismuth|bilirubin|aspartate aminotransferase|alanine aminotransferase|ast|alt|alkaline phosphatase|alp|gamma glutamyl|ggt|hemoglobin|haemoglobin|platelets?|inr|albumin|creatinine|c-reactive protein|crp|white blood cells?|wbc|procedure duration|procedural time|procedure time|operation time|fluoroscopy time|length of stay|hospital stay|stent length|stent diameter|delivery system|number of stents|number of sems|(?:\d+|one|two|three|four|five) sems{1,2}|stent placement|sems placement|placement was|drainage|plastic stents?|metal stents?|covered stents?|uncovered stents?|drainage route|drainage method|drainage type|chemotherapy|technical success|clinical success|procedural success|treatment success|overall survival|survival time|median survival|mean survival|stent patency|patency duration|dysfunction-free patency|follow[- ]?up|quality of life|gooss|dysphagia score|p value|odds ratio|hazard ratio|confidence interval)\b/;
+  const nonEventPattern = /\b(?:number of patients|patient number|sample size|median age|mean age|age years?|sex|gender|male|female|body mass index|bmi|asa(?: score| class)?|ecog|performance status|tumou?r type|cancer type|etiology|bismuth|bilirubin|aspartate aminotransferase|alanine aminotransferase|ast|alt|alkaline phosphatase|alp|gamma glutamyl|ggt|hemoglobin|haemoglobin|platelets?|inr|albumin|creatinine|c-reactive protein|crp|white blood cells?|wbc|procedure duration|procedural time|procedure time|operation time|fluoroscopy time|length of stay|hospital stay|stent length|stent diameter|delivery system|number of stents|number of sems|(?:\d+|one|two|three|four|five) sems{1,2}|stent placement|sems placement|placement was|drainage|plastic stents?|metal stents?|covered stents?|uncovered stents?|drainage route|drainage method|drainage type|chemotherapy|technical success|clinical success|procedural success|treatment success|overall survival|survival time|median survival|mean survival|stent patency|patency duration|dysfunction-free patency|follow\s*-?\s*up|quality of life|gooss|dysphagia score|p value|odds ratio|hazard ratio|confidence interval)\b/;
   if (nonEventPattern.test(text)) return 'non_event';
 
   // Units strongly associated with continuous measurements are a final guard
@@ -315,7 +315,7 @@ export function parseStructuredSafetyTableFromText(
       // In a mixed outcomes table this prevents age, laboratory values, procedure
       // duration, technical success, stent type, etc. from becoming complications.
       if (rowClassification === 'non_event') {
-        if (/\b(?:technical success|clinical success|procedure duration|procedural time|overall survival|survival time|follow[- ]?up|patency|reintervention|time to)\b/i.test(rawName)) {
+        if (/\b(?:technical success|clinical success|procedure duration|procedural time|overall survival|survival time|follow\s*-?\s*up|patency|reintervention|time to)\b/i.test(rawName)) {
           safetySectionActive = false;
           currentParentEventItem = null;
           currentDetailType = '';
