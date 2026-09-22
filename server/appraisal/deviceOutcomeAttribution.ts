@@ -4,6 +4,16 @@ const positiveNumber = (value: unknown) => meaningful(value) && Number.isFinite(
 
 /** Require coverage of the paper's independently enumerated clinical endpoints. */
 export function isDeviceOutcomeExtractable(device: any): boolean {
+  // A group that used only this one device has no other device to pool/confuse
+  // its results with: every endpoint the group reports IS this device's result
+  // by definition. Do not make this fall through the strict per-endpoint
+  // inventory check below, which depends on the AI perfectly filling in a
+  // structured attribution row for every single endpoint (technical success,
+  // clinical success, pain score, patency, follow-up, each AE, etc.) — a single
+  // missed/malformed field anywhere would otherwise wrongly zero out an
+  // unambiguous single-arm study.
+  if ((device?.__groupDeviceCount || 1) <= 1) return true;
+
   const evidence = device?.outcomeAttribution;
   const inventory = device?.__clinicalEndpointInventory;
   if (!Array.isArray(inventory) || inventory.length === 0 ||
