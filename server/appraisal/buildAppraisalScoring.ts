@@ -15,7 +15,7 @@ import {
 } from '../../src/data/appraisalStandards';
 import { detectStatisticalEvidence } from './statisticalEvidence';
 import { hasReportedObservationDuration, scoreReportCollation } from './reportCollation';
-import { hasExplicitProductName, elementaryAspectsAdequate } from './elementaryAspects';
+import { hasExplicitProductName, hasExplicitProductNameInDevices, elementaryAspectsAdequate } from './elementaryAspects';
 import { evaluateAdequateControls } from './adequateControls';
 import { evaluateDataSourceType } from './dataSourceType';
 import { isDeviceOutcomeExtractable } from './deviceOutcomeAttribution';
@@ -601,7 +601,9 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const devSummaryLoc = groupDeviceList.length > 0
     ? Array.from(new Set(groupDeviceList.map((x: any) => x.evidenceLocation).filter(Boolean))).join(', ')
     : (methodExt.deviceIdentificationLocation || 'Methods');
-  const devReported = hasExplicitProductName(methodExt);
+  const devReported = hasExplicitProductName(methodExt) || hasExplicitProductNameInDevices(
+    allDevices.map((d: any) => ({ name: d.deviceProductName, quote: d.evidence?.quote || '' }))
+  );
 
   const aiMethOutcomeVal = isMissingExtractedValue(methodExt.clinicalOutcomeValue)
     ? 'Not reported'
