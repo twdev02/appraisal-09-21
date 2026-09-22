@@ -56,7 +56,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   } = ctx;
   const suitabilityComments = parsedAi?.suitabilityComments || {};
   const allDevices = researchGroups.flatMap((g: any) =>
-    (g.devices || []).map((d: any) => ({ ...d, __groupDeviceCount: (g.devices || []).length }))
+    (g.devices || []).map((d: any) => ({ ...d, __groupDeviceCount: (g.devices || []).length, __clinicalEndpointInventory: parsedAi?.clinicalEndpointInventory }))
   );
   // Require outcome attribution evidence, independently of device counts or names.
 
@@ -266,9 +266,9 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const reportEvidenceItem = reportChecklist.find((d: any) => d.reported && isMeaningfulReportedText(d.evidenceQuote));
 
   const deviceComment = pooledOnlyDueDevices.length > 0 && extractableDueDevices.length === 0
-    ? `DUE use identified (${pooledOnlyDueDevices.map((d: any) => d.deviceProductName).join(', ')}), but product-specific outcome extractability is not established. Device usage counts and pooled group outcomes do not qualify. Scored as "${deviceSelection}" (${deviceScore}).`
+    ? `DUE use identified (${pooledOnlyDueDevices.map((d: any) => d.deviceProductName).join(', ')}), but complete product-specific coverage of the paper's clinical endpoints is not established. Partial results, success counts without denominators and pooled outcomes do not qualify. Scored as "${deviceSelection}" (${deviceScore}).`
     : creditedDevice
-    ? `Product-specific outcome attribution verified (${creditedDevice.outcomeAttribution.basis}): ${creditedDevice.outcomeAttribution.outcome}. Product identity alone does not earn credit.`
+    ? `All ${creditedDevice.outcomeAttribution.endpoints.length} reported clinical endpoints have product-attributable results (${creditedDevice.outcomeAttribution.basis}). Product identity alone does not earn credit.`
     : 'No qualifying product-specific outcome evidence. Device identity or usage alone does not earn credit.';
 
   const appComment = topSameIndDevice?.indicationRelationship?.rationale
@@ -284,8 +284,8 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
       userFinalScore: deviceScore,
       matchedDueProductName: anyDueDevice ? (matchedDueDisplay || topDueDevice?.matchedDueName || due.productName) : undefined,
       evidence: {
-        quote: creditedDevice ? `${creditedDevice.outcomeAttribution.outcomeQuote}\n${creditedDevice.outcomeAttribution.attributionQuote}` : 'Product-specific outcome evidence not established.',
-        location: creditedDevice ? `${creditedDevice.outcomeAttribution.outcomeLocation}; ${creditedDevice.outcomeAttribution.attributionLocation}` : 'Not reported',
+        quote: creditedDevice ? [creditedDevice.outcomeAttribution.attributionQuote, ...creditedDevice.outcomeAttribution.endpoints.map((row: any) => `${row.endpointId}: ${row.quote}\n${row.attributionQuote}`)].join('\n') : 'Complete product-specific endpoint evidence not established.',
+        location: creditedDevice ? creditedDevice.outcomeAttribution.endpoints.map((row: any) => `${row.location}; ${row.attributionLocation}`).join('; ') : 'Not reported',
       },
       comment: deviceComment,
       status: (anyDueDevice || anySimDevice ? 'Reported' : 'Not reported') as any,

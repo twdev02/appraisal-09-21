@@ -19,12 +19,19 @@ MANDATORY EXTRACTION RULES:
 4. Never generate an AI summary as an evidence quote. It must be verbatim.
 5. Identify ALL PRIMARY research groups/cohorts/arms used in the current study. There is NO two-group limit: if the study has 3 or more treatment/device arms, return every arm. NEVER filter the group list to DUE-only groups; comparator/control/other-device groups must also be returned. Do not mistake subgroup analyses (e.g. hilar vs nonhilar) or pre-/post-propensity-matching versions of the same treatment arm for new primary treatment groups. If multiple devices are in a single cohort, keep 1 group and list each device as a sub-item. Never duplicate pooled patient numbers across devices. If per-device n is not broken down, set devicePatientNumber to "Not separately reported".
    - When the SAME stent/DUE is used in multiple arms but one arm adds an adjunctive non-device treatment/procedure and another arm uses the device alone or standard care, preserve every arm. Treat the device-only/standard arm as the main device-evaluation group and the added-treatment arm as adjunctive; never treat the adjunctive procedure itself as a separate device.
-5a. PRODUCT-SPECIFIC OUTCOME ATTRIBUTION (required for every device, separate from product identity):
-   - Return outcomeAttribution with extractable, basis, outcome, outcomeQuote, outcomeLocation, attributionQuote, attributionLocation. Accept only actual current-study quantitative performance/safety outcomes, not patient usage counts, device specifications or dates.
-   - basis=device_specific: an outcome is reported separately for this exact product; quote the result and evidence tying it to that product/arm.
-   - basis=exclusive_device_cohort: the source explicitly establishes that the outcome cohort used only this product for the evaluated device role; quote both exclusivity/assignment and its quantitative result. One extracted inventory entry does NOT prove exclusivity.
-   - basis=pooled: multiple products share combined results with no product-level breakdown. Set extractable=false even if per-product patient counts or usage years are known. basis=unclear and extractable=false when attribution cannot be established.
-   - Example: simultaneous SBS n=62 uses aixstent BDH and Niti-S M-Type, with pooled technical success 94%. Neither product earns device-specific outcome credit from 94%, even if the number receiving Niti-S or its 2020–2023 usage period is known. Technique/configuration results are not product results. Never split pooled results mathematically or copy them to each brand.
+5a. CLINICAL ENDPOINT INVENTORY (required once per paper, independent of device or group):
+   - Before attributing any outcome to a device, first enumerate EVERY distinct clinical endpoint the CURRENT study reports ANYWHERE (Abstract, Results, Tables, Figures) into the top-level clinicalEndpointInventory array — e.g. technical success, clinical success, stent patency/TRBO, adverse events/complications, reintervention, mortality, and any other efficacy/safety/performance endpoint the paper investigates. One entry per distinct endpoint concept, regardless of how many groups/devices report it.
+   - Each entry needs a stable id (e.g. "ep-technical-success"), a short name, and a verbatim quote/location showing that the paper reports this endpoint (any group's mention is sufficient evidence that the endpoint exists in this paper).
+   - Do NOT include patient counts, device specifications, dates, or usage-duration-only mentions as endpoints unless they are themselves a reported clinical outcome (e.g. stent patency duration IS an endpoint; "the study enrolled from 2020–2023" is NOT).
+5b. PRODUCT-SPECIFIC OUTCOME ATTRIBUTION (required for every device, separate from product identity):
+   - For every device, decide overall extractability plus a per-endpoint breakdown covering EVERY entry in clinicalEndpointInventory. A device only earns DUE/Similar Device outcome credit when ALL of the paper's reported endpoints are individually attributable to it — a device that only has some endpoints separated out (e.g. only technical success, while adverse events and patency remain pooled) does NOT qualify.
+   - Return outcomeAttribution with extractable, basis, attributionQuote, attributionLocation, exclusiveCohortConfirmed, and an endpoints[] array with one row per clinicalEndpointInventory entry (same endpointId).
+   - basis=device_specific: results are reported separately for this exact product across the endpoints. basis=exclusive_device_cohort: the source explicitly states the outcome cohort used ONLY this product for the evaluated device role (quote the exclusivity/assignment statement itself) — set exclusiveCohortConfirmed=true only when that explicit exclusivity wording exists; one extracted inventory entry alone does NOT prove exclusivity. basis=pooled: multiple products share combined results with no product-level breakdown; set extractable=false even if per-product patient counts or usage years are known. basis=unclear and extractable=false when attribution cannot be established.
+   - Each endpoints[] row needs: endpointId (matching clinicalEndpointInventory), attributable (true only if this specific endpoint's result is validly isolated for this device), pooledAcrossProducts (true if this endpoint is only available as a multi-product pooled figure for this device), resultType ('proportion' | 'continuous' | 'time_to_event' | 'insufficient'), value, quote, location, cohort (the exact analysis population this value belongs to), timepoint, attributionQuote, attributionLocation.
+     * proportion rows additionally need numerator and denominator drawn from the SAME source row/column for this device (e.g. "21/21" for aixstent's technical success) — a bare success/event COUNT without its own matching denominator for this device is NOT sufficient; set attributable=false and resultType='insufficient' instead of guessing or borrowing a pooled/group-wide denominator.
+     * continuous/time_to_event rows additionally need analysisN (the number of patients/subjects the value was computed over, for this device) and unit.
+     * If an endpoint is genuinely not reported for this device at all (e.g. the paper never separates mortality by product), still include a row with attributable=false, resultType='insufficient', and a brief quote/location showing where the endpoint appears study-wide.
+   - Example: simultaneous SBS n=62 uses aixstent BDH and Niti-S M-Type; the paper reports "58 patients underwent technical success: 21 using aixstent BDH, 37 using Niti-S M-Type" with pooled adverse events 94%/62 only. The technical-success numerator (37) has no matching per-device attempted/denominator count, so it is NOT a valid proportion — its row must be attributable=false, resultType='insufficient' (a count is not a rate). Adverse events are pooled entirely, so that row is attributable=false, pooledAcrossProducts=true. Neither product earns outcome credit here even though device names and per-arm usage years are known. Technique/configuration results are not product results. Never split pooled results mathematically, never copy them to each brand, and never treat a raw count as its own denominator.
 6. Manufacturer Extraction Rules:
    - Extract manufacturer strictly and ONLY from the device description, figure caption, table, or Methods directly linked to the device (e.g. from "(Spring Stopper; Taewoong Medical, Seoul, Korea)" -> "Taewoong Medical, Seoul, Korea" or "Taewoong Medical").
    - NEVER extract a manufacturer from hospital names, universities, author affiliations, study sites, publishers, journals, or ethics/IRB statements (e.g. 'the human research committee at Osaka Medical College' is an ethics statement, NEVER a manufacturer). If no manufacturer is directly linked to the device, set to "Not reported".
@@ -268,8 +275,8 @@ FINAL INTERNAL SELF-CHECK BEFORE RETURNING JSON:
 - If a field remains uncertain after this check, preserve the source-backed value if present and mark the relevant classification as review_required where supported by the schema; otherwise use Not reported.
 
 Return one valid JSON object. The response MUST include all of these top-level keys:
-articleMetadata, researchGroups, suitabilityComments, relevanceExtracts,
-methodologicalExtracts, contributionExtracts, and safetyEventsExtract.
+articleMetadata, clinicalEndpointInventory, researchGroups, suitabilityComments,
+relevanceExtracts, methodologicalExtracts, contributionExtracts, and safetyEventsExtract.
 
 Do not omit an entire section when an individual field is unavailable. Use
 "Not reported" for the unavailable field and preserve all other extracted data.
@@ -281,6 +288,9 @@ The minimum required structure is:
     "authors": "", "totalPatientCount": "", "studyDesign": "",
     "studyPeriod": "", "followUpPeriod": "", "studyIndication": ""
   },
+  "clinicalEndpointInventory": [{
+    "id": "", "name": "", "quote": "", "location": ""
+  }],
   "researchGroups": [{
     "groupName": "", "groupPatientNumber": "", "groupIndicationSummary": "", "groupRole": "Main | Adjunctive | Comparator | Study group",
     "evidenceQuote": "", "evidenceLocation": "",
@@ -288,7 +298,16 @@ The minimum required structure is:
       "deviceProductName": "", "manufacturer": "", "deviceType": "",
       "coverType": "", "diameter": "", "length": "",
       "devicePatientNumber": "", "deviceIndication": "",
-      "outcomeAttribution": {"extractable": false, "basis": "unclear", "outcome": "", "outcomeQuote": "", "outcomeLocation": "", "attributionQuote": "", "attributionLocation": ""},
+      "outcomeAttribution": {
+        "extractable": false, "basis": "unclear",
+        "attributionQuote": "", "attributionLocation": "", "exclusiveCohortConfirmed": false,
+        "endpoints": [{
+          "endpointId": "", "attributable": false, "pooledAcrossProducts": false,
+          "resultType": "insufficient", "value": "", "numerator": "", "denominator": "", "analysisN": "", "unit": "",
+          "cohort": "", "timepoint": "", "quote": "", "location": "",
+          "attributionQuote": "", "attributionLocation": ""
+        }]
+      },
       "evidenceQuote": "", "evidenceLocation": ""
     }]
   }],

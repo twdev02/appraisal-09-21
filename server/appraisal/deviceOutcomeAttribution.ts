@@ -1,22 +1,34 @@
-/** Device counts and inventory size do not establish product-specific outcomes. */
+const meaningful = (value: unknown) => Boolean(String(value ?? '').trim()) &&
+  !/^(?:not reported|not separately reported|not assessable|unknown|unclear|n\/?a)$/i.test(String(value).trim());
+const positiveNumber = (value: unknown) => meaningful(value) && Number.isFinite(Number(value)) && Number(value) > 0;
+
+/** Require coverage of the paper's independently enumerated clinical endpoints. */
 export function isDeviceOutcomeExtractable(device: any): boolean {
   const evidence = device?.outcomeAttribution;
-  const meaningful = (value: unknown) => Boolean(String(value || '').trim()) &&
-    !/^(?:not reported|not separately reported|not assessable|unknown|n\/?a)$/i.test(String(value).trim());
-  const normalize = (value: unknown) => String(value || '').toLowerCase().replace(/[™®]/g, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
-  const names = [device?.deviceProductName, device?.matchedDueName].map(normalize).filter(Boolean);
-  const mentionsProduct = (quote: unknown) => names.some(name => (` ${normalize(quote)} `).includes(` ${name} `));
-  const outcomeQuote = String(evidence?.outcomeQuote || '');
-  // A year, delivery-system size or usage count is not a clinical outcome.
-  const quantitativeOutcome = /\d/.test(outcomeQuote) && /\b(?:success|complications?|adverse|mortality|deaths?|survival|patency|reintervention|occlusion|migration|obstruction|bilirubin|trbo|rbo)\b/i.test(outcomeQuote);
-  const attributionSupported = evidence?.basis === 'device_specific'
-    ? mentionsProduct(outcomeQuote)
-    : evidence?.basis === 'exclusive_device_cohort' &&
-      device?.__groupDeviceCount === 1 && mentionsProduct(evidence?.attributionQuote) &&
-      /\b(?:only|exclusively|all patients|every patient)\b/i.test(String(evidence?.attributionQuote || ''));
-  return evidence?.extractable === true && attributionSupported &&
-    ['device_specific', 'exclusive_device_cohort'].includes(evidence?.basis) &&
-    [evidence?.outcome, evidence?.outcomeQuote, evidence?.outcomeLocation,
-      evidence?.attributionQuote, evidence?.attributionLocation].every(meaningful) &&
-    quantitativeOutcome;
+  const inventory = device?.__clinicalEndpointInventory;
+  if (!Array.isArray(inventory) || inventory.length === 0 ||
+      !inventory.every((entry: any) => [entry.id, entry.name, entry.quote, entry.location].every(meaningful))) return false;
+  if (new Set(inventory.map((entry: any) => entry.id)).size !== inventory.length) return false;
+  if (evidence?.extractable !== true || !['device_specific', 'exclusive_device_cohort'].includes(evidence?.basis)) return false;
+  if (![evidence.attributionQuote, evidence.attributionLocation].every(meaningful)) return false;
+  if (evidence.basis === 'exclusive_device_cohort' && evidence.exclusiveCohortConfirmed !== true) return false;
+  const rows = evidence.endpoints;
+  if (!Array.isArray(rows)) return false;
+  return inventory.every((expected: any) => {
+    const matches = rows.filter((row: any) => row.endpointId === expected.id);
+    if (matches.length !== 1) return false;
+    const row = matches[0];
+    if (row.attributable !== true || row.pooledAcrossProducts !== false) return false;
+    if (![row.value, row.quote, row.location, row.cohort, row.timepoint,
+      row.attributionQuote, row.attributionLocation].every(meaningful)) return false;
+    if (row.resultType === 'proportion') {
+      return positiveNumber(row.denominator) && Number.isInteger(Number(row.denominator)) &&
+        meaningful(row.numerator) && Number.isInteger(Number(row.numerator)) &&
+        Number(row.numerator) >= 0 && Number(row.numerator) <= Number(row.denominator);
+    }
+    if (row.resultType === 'continuous' || row.resultType === 'time_to_event') {
+      return positiveNumber(row.analysisN) && meaningful(row.unit) && /\d/.test(String(row.value));
+    }
+    return false;
+  });
 }

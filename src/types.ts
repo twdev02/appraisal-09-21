@@ -99,11 +99,16 @@ export interface ExtractedDeviceItem {
   outcomeAttribution?: {
     extractable: boolean;
     basis: 'device_specific' | 'exclusive_device_cohort' | 'pooled' | 'unclear';
-    outcome: string;
-    outcomeQuote: string;
-    outcomeLocation: string;
     attributionQuote: string;
     attributionLocation: string;
+    exclusiveCohortConfirmed?: boolean;
+    endpoints?: Array<{
+      endpointId: string; attributable: boolean; pooledAcrossProducts: boolean;
+      resultType: 'proportion' | 'continuous' | 'time_to_event' | 'insufficient';
+      value: string; numerator: string; denominator: string; analysisN: string; unit: string;
+      cohort: string; timepoint: string; quote: string; location: string;
+      attributionQuote: string; attributionLocation: string;
+    }>;
   };
   deviceIndication: string;
   evidence: EvidenceCitation;
