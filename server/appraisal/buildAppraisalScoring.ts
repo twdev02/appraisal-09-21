@@ -14,6 +14,7 @@ import {
   calculateContributionGrade,
 } from '../../src/data/appraisalStandards';
 import { detectStatisticalEvidence } from './statisticalEvidence';
+import { hasReportedObservationDuration, scoreReportCollation } from './reportCollation';
 import { validateGenderEvidence } from './markdownEvidence';
 import {
   reconcileStatisticalEvidence,
@@ -107,7 +108,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   // Suitability Criterion #4 is scored from 9 independent report/data-collation
   // dimensions. It no longer drops from 3 -> 2 solely because statistical
   // methods are absent. For THIS criterion, statistical software alone counts
-  // as Reported and any follow-up mention counts as Reported even without a duration.
+  // as Reported; follow-up/observation requires an explicit numeric duration and unit.
   const reportDimsRaw = suitabilityComments.reportCollationDimensions || {};
   const currentStudyText = (() => {
     const source = String(paperText || '');
@@ -184,7 +185,12 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const outcomeEvidenceLocation = useMarkdownClinicalOutcome && markdownAppraisalEvidence.clinicalOutcomes
     ? markdownAppraisalEvidence.clinicalOutcomes.location
     : (parsedAi?.contributionExtracts?.outcomeMeasuresLocation || parsedAi?.methodologicalExtracts?.clinicalOutcomeLocation || 'Methods / Results');
-  const followMentionQuote = sentenceAround(/\bfollow(?:ed)?[- ]?up\b|\bfollowing\s+up\b|\bobservation(?:al)?\s+period\b/i);
+  const followUpEvidence = [
+    { quote: reportDimsRaw.followUpObservation?.evidenceQuote, location: reportDimsRaw.followUpObservation?.evidenceLocation },
+    { quote: followUpValidation?.evidenceQuote, location: followUpValidation?.evidenceLocation },
+    { quote: parsedAi?.contributionExtracts?.followUpQuote, location: parsedAi?.contributionExtracts?.followUpLocation },
+    ...currentStudyText.split(/(?<=[.!?])\s+|\n/).map(quote => ({ quote, location: 'Methods / Results' })),
+  ].find(candidate => hasReportedObservationDuration(candidate.quote));
   const resultsEvidenceQuote = isMeaningfulReportedText(parsedAi?.contributionExtracts?.outcomeMeasuresQuote)
     ? parsedAi.contributionExtracts.outcomeMeasuresQuote
     : sentenceAround(/\bresults?\b/i);
@@ -228,13 +234,12 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
       String(outcomeEvidenceQuote || 'Not reported'),
       outcomeEvidenceLocation
     ),
-    normalizeReportDimension(
-      'followUpObservation',
-      'Follow-up or observation',
-      isMeaningfulReportedText(followMentionQuote) || isMeaningfulReportedText(articleMetadata.followUpPeriod) || isMeaningfulReportedText(parsedAi?.contributionExtracts?.followUpQuote),
-      isMeaningfulReportedText(followMentionQuote) ? followMentionQuote : String(parsedAi?.contributionExtracts?.followUpQuote || articleMetadata.followUpPeriod || 'Not reported'),
-      parsedAi?.contributionExtracts?.followUpLocation || 'Methods / Results'
-    ),
+    {
+      item: 'Follow-up or observation',
+      reported: Boolean(followUpEvidence),
+      evidenceQuote: followUpEvidence ? String(followUpEvidence.quote) : 'Not reported',
+      location: followUpEvidence ? String(followUpEvidence.location || 'Methods / Results') : 'Not reported',
+    },
     normalizeReportDimension(
       'results',
       'Results',
@@ -259,12 +264,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
 
   const reportMissingCount = reportChecklist.filter((d: any) => !d.reported).length;
   const reportReportedCount = reportChecklist.length - reportMissingCount;
-  const reportSelection = reportMissingCount <= 2
-    ? 'High quality'
-    : reportMissingCount <= 6
-    ? 'Minor deficiencies'
-    : 'Insufficient information';
-  const reportScore = reportMissingCount <= 2 ? 3 : reportMissingCount <= 6 ? 2 : 1;
+  const { selection: reportSelection, score: reportScore } = scoreReportCollation(reportMissingCount);
   const missingDimensionNames = reportChecklist.filter((d: any) => !d.reported).map((d: any) => d.item);
   const reportEvidenceItem = reportChecklist.find((d: any) => d.reported && isMeaningfulReportedText(d.evidenceQuote));
 
@@ -331,7 +331,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
         quote: reportEvidenceItem?.evidenceQuote || 'Not reported',
         location: reportEvidenceItem?.location || 'Not reported',
       },
-      comment: `Core quality dimensions reported: ${reportReportedCount}/9; Not reported: ${reportMissingCount}/9${missingDimensionNames.length > 0 ? ` (${missingDimensionNames.join(', ')})` : ''}. Score rule: 0–2 missing = High quality (3), 3–6 missing = Minor deficiencies (2), 7–9 missing = Insufficient information (1).`,
+      comment: `Core quality dimensions reported: ${reportReportedCount}/9; Not reported: ${reportMissingCount}/9${missingDimensionNames.length > 0 ? ` (${missingDimensionNames.join(', ')})` : ''}. Score rule: 0 missing = High quality (3), 1–2 missing = Minor deficiencies (2), 3–9 missing = Insufficient information (1). Follow-up or observation requires an explicit numeric duration and unit.`,
       status: (reportReportedCount > 0 ? 'Reported' : 'Not reported') as any,
       reportedChecklist: reportChecklist,
     },
