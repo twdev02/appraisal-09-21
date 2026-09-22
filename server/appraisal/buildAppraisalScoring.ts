@@ -18,6 +18,7 @@ import { hasReportedObservationDuration, scoreReportCollation } from './reportCo
 import { hasExplicitProductName, elementaryAspectsAdequate } from './elementaryAspects';
 import { evaluateAdequateControls } from './adequateControls';
 import { evaluateDataSourceType } from './dataSourceType';
+import { isDeviceOutcomeExtractable } from './deviceOutcomeAttribution';
 import { validateGenderEvidence } from './markdownEvidence';
 import {
   reconcileStatisticalEvidence,
@@ -57,15 +58,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const allDevices = researchGroups.flatMap((g: any) =>
     (g.devices || []).map((d: any) => ({ ...d, __groupDeviceCount: (g.devices || []).length }))
   );
-  // When a group pools multiple distinct devices together (devicePatientNumber
-  // "Not separately reported"), the paper's clinical outcomes cannot be attributed
-  // to any single device — including the DUE. Such a device cannot count toward
-  // "Device under evaluation" / "Similar device" credit even though it was used.
-  const isDeviceOutcomeExtractable = (d: any) => {
-    if ((d.__groupDeviceCount || 1) <= 1) return true;
-    const pn = String(d.devicePatientNumber || '').trim();
-    return Boolean(pn) && pn.toLowerCase() !== 'not separately reported';
-  };
+  // Require outcome attribution evidence, independently of device counts or names.
 
   const dueDevices = allDevices.filter((d: any) => d.deviceRelationship.aiRecommended === 'DUE');
   const extractableDueDevices = dueDevices.filter(isDeviceOutcomeExtractable);
@@ -272,7 +265,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const reportEvidenceItem = reportChecklist.find((d: any) => d.reported && isMeaningfulReportedText(d.evidenceQuote));
 
   const deviceComment = pooledOnlyDueDevices.length > 0 && extractableDueDevices.length === 0
-    ? `Device under evaluation (${pooledOnlyDueDevices.map((d: any) => d.deviceProductName).join(', ')}) was used in this study, but its clinical outcomes are pooled together with other stent brands in the same cohort without a device-level breakdown (devicePatientNumber: Not separately reported), so DUE-specific results cannot be isolated. Scored as "Other devices and medical alternatives".`
+    ? `DUE use identified (${pooledOnlyDueDevices.map((d: any) => d.deviceProductName).join(', ')}), but product-specific outcome extractability is not established. Device usage counts and pooled group outcomes do not qualify. Scored as "${deviceSelection}" (${deviceScore}).`
     : topDueDevice?.deviceRelationship?.rationale
     ? topDueDevice.deviceRelationship.rationale
     : `Evaluated device(s): ${allDevices.map((d: any) => `${d.deviceProductName} (${d.manufacturer})`).join(', ')}`;

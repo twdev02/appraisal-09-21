@@ -19,6 +19,12 @@ MANDATORY EXTRACTION RULES:
 4. Never generate an AI summary as an evidence quote. It must be verbatim.
 5. Identify ALL PRIMARY research groups/cohorts/arms used in the current study. There is NO two-group limit: if the study has 3 or more treatment/device arms, return every arm. NEVER filter the group list to DUE-only groups; comparator/control/other-device groups must also be returned. Do not mistake subgroup analyses (e.g. hilar vs nonhilar) or pre-/post-propensity-matching versions of the same treatment arm for new primary treatment groups. If multiple devices are in a single cohort, keep 1 group and list each device as a sub-item. Never duplicate pooled patient numbers across devices. If per-device n is not broken down, set devicePatientNumber to "Not separately reported".
    - When the SAME stent/DUE is used in multiple arms but one arm adds an adjunctive non-device treatment/procedure and another arm uses the device alone or standard care, preserve every arm. Treat the device-only/standard arm as the main device-evaluation group and the added-treatment arm as adjunctive; never treat the adjunctive procedure itself as a separate device.
+5a. PRODUCT-SPECIFIC OUTCOME ATTRIBUTION (required for every device, separate from product identity):
+   - Return outcomeAttribution with extractable, basis, outcome, outcomeQuote, outcomeLocation, attributionQuote, attributionLocation. Accept only actual current-study quantitative performance/safety outcomes, not patient usage counts, device specifications or dates.
+   - basis=device_specific: an outcome is reported separately for this exact product; quote the result and evidence tying it to that product/arm.
+   - basis=exclusive_device_cohort: the source explicitly establishes that the outcome cohort used only this product for the evaluated device role; quote both exclusivity/assignment and its quantitative result. One extracted inventory entry does NOT prove exclusivity.
+   - basis=pooled: multiple products share combined results with no product-level breakdown. Set extractable=false even if per-product patient counts or usage years are known. basis=unclear and extractable=false when attribution cannot be established.
+   - Example: simultaneous SBS n=62 uses aixstent BDH and Niti-S M-Type, with pooled technical success 94%. Neither product earns device-specific outcome credit from 94%, even if the number receiving Niti-S or its 2020–2023 usage period is known. Technique/configuration results are not product results. Never split pooled results mathematically or copy them to each brand.
 6. Manufacturer Extraction Rules:
    - Extract manufacturer strictly and ONLY from the device description, figure caption, table, or Methods directly linked to the device (e.g. from "(Spring Stopper; Taewoong Medical, Seoul, Korea)" -> "Taewoong Medical, Seoul, Korea" or "Taewoong Medical").
    - NEVER extract a manufacturer from hospital names, universities, author affiliations, study sites, publishers, journals, or ethics/IRB statements (e.g. 'the human research committee at Osaka Medical College' is an ethics statement, NEVER a manufacturer). If no manufacturer is directly linked to the device, set to "Not reported".
@@ -282,6 +288,7 @@ The minimum required structure is:
       "deviceProductName": "", "manufacturer": "", "deviceType": "",
       "coverType": "", "diameter": "", "length": "",
       "devicePatientNumber": "", "deviceIndication": "",
+      "outcomeAttribution": {"extractable": false, "basis": "unclear", "outcome": "", "outcomeQuote": "", "outcomeLocation": "", "attributionQuote": "", "attributionLocation": ""},
       "evidenceQuote": "", "evidenceLocation": ""
     }]
   }],

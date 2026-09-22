@@ -96,6 +96,15 @@ export interface ExtractedDeviceItem {
   diameter: string; // Must be separate. If missing -> 'Not reported'
   length: string;   // Must be separate. If missing -> 'Not reported'
   devicePatientNumber: string; // e.g. "42" or "Not separately reported"
+  outcomeAttribution?: {
+    extractable: boolean;
+    basis: 'device_specific' | 'exclusive_device_cohort' | 'pooled' | 'unclear';
+    outcome: string;
+    outcomeQuote: string;
+    outcomeLocation: string;
+    attributionQuote: string;
+    attributionLocation: string;
+  };
   deviceIndication: string;
   evidence: EvidenceCitation;
   
