@@ -633,11 +633,34 @@ export function parseRangeOfTimeData(
   const abstractResultsMatch = preDiscussionText.match(
     /\bresults\s*:?\s*([\s\S]*?)(?=\b(?:conclusion|conclusions|keywords?|introduction)\b)/i
   );
+  // Two-column PDF layouts are frequently extracted out of visual order: a
+  // full-width results/outcomes table embedded mid-page can land AFTER the
+  // "Discussion" heading from an adjacent column in the linearized text, even
+  // though it belongs to Results. Rescue such tables (by caption, cut only at
+  // References) so a misplaced follow-up/patency table is not silently dropped.
+  // Exclude captions that are themselves cross-study comparisons/literature
+  // reviews, since those legitimately mix in other studies' figures.
+  const preReferencesText = normalizedText.split(/(?:^|\n)\s*references\b/i)[0] || normalizedText;
+  const isSafeResultsTableCaption = (caption: string) => {
+    const c = caption.toLowerCase();
+    if (/previous\s+stud|literature\s+review|meta-?analysis|systematic\s+review|comparison\s+(?:of\s+this\s+study|with\s+(?:previous|prior))/.test(c)) return false;
+    return /result|outcome|patency|follow-?up|adverse\s+event|complication|characteristic|patient/.test(c);
+  };
+  const rescuedTableBlocks: string[] = [];
+  for (const cap of preReferencesText.matchAll(/\bTable\s+(?:\d+|[IVXLCDM]+)\b[^\n\r]{0,220}/gi)) {
+    if (!isSafeResultsTableCaption(cap[0])) continue;
+    const idx = cap.index ?? 0;
+    const nextTable = preReferencesText.slice(idx + cap[0].length).search(/\n\s*Table\s+(?:\d+|[IVXLCDM]+)\b/i);
+    const end = nextTable >= 0 ? idx + cap[0].length + nextTable : Math.min(preReferencesText.length, idx + 4000);
+    rescuedTableBlocks.push(preReferencesText.slice(idx, end));
+  }
+
   // Body Results/Tables are primary. Abstract Results are appended as an additional
   // current-study source because some PDF layouts split table rows or columns badly.
   const currentStudyOutcomeText = [
     resultsSectionMatch?.[1]?.trim(),
     abstractResultsMatch?.[1]?.trim(),
+    ...rescuedTableBlocks,
   ].filter(Boolean).join('\n') || preDiscussionText;
 
   // Auxiliary source used only for strict, directly anchored reintervention rows.
@@ -770,6 +793,16 @@ export function parseRangeOfTimeData(
     if (p < 0) return null;
     const times = extractTimeTokens(text);
     if (times.length === 0) return null;
+    // "<value> <unit> for (the) <alias>" directly attributes the preceding value
+    // to this group. Prefer the nearest PRECEDING token in that case, instead of
+    // a numerically closer token that actually belongs to the next clause (e.g.
+    // "14.2 months for the FCSEMS group and 9.7 months for the FCSEMS-AF group"
+    // must not let FCSEMS's nearer-by-distance "9.7" outrank its own "14.2").
+    const precedingContext = text.slice(Math.max(0, p - 20), p);
+    if (/\bfor\s+(?:the\s+)?$/i.test(precedingContext)) {
+      const before = times.filter((t) => t.index < p);
+      if (before.length > 0) return before[before.length - 1];
+    }
     return times.sort((a, b) => Math.abs(a.index - p) - Math.abs(b.index - p))[0];
   };
 

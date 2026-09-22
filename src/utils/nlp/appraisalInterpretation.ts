@@ -281,6 +281,21 @@ export function formatGenderDistribution(
     return source.slice(0, endPos);
   })();
 
+  // Two-column PDF layouts are frequently extracted out of visual order: a
+  // full-width table embedded mid-page can land AFTER a "Discussion" heading
+  // from an adjacent column in the linearized text, even though the table
+  // itself belongs to Results. An explicitly captioned baseline/demographics
+  // table ("Table N. Baseline characteristics of...") is unambiguous evidence
+  // of the current study regardless of where extraction placed it, so only cut
+  // at References (never fabricated inside a paper) for this specific search.
+  // Narrative/heading-based extraction below stays restricted to pre-Discussion
+  // text, since unstructured prose is more likely to pick up a comparator's
+  // numbers quoted in the Discussion section.
+  const textForTableCaptions = (() => {
+    const source = (paperText || '').replace(/[–—−]/g, '-');
+    const referencesIdx = source.search(/\bReferences\b/i);
+    return referencesIdx >= 0 ? source.slice(0, referencesIdx) : source;
+  })();
 
   // -------------------------------------------------------------------------
   // A0-1. Baseline-first gender extraction.
@@ -292,19 +307,20 @@ export function formatGenderDistribution(
   // -------------------------------------------------------------------------
   const baselineScopes: Array<{ text: string; location: string }> = [];
 
-  const tableCaptionPattern = /\bTable\s+\d+[^\n\r]{0,220}\b(?:patient\s+characteristics?|baseline\s+characteristics?|demographic(?:s|\s+characteristics?)?|baseline\s+demographics?)\b/gi;
-  const tableCaptions = Array.from(currentStudyPopulationText.matchAll(tableCaptionPattern));
+  // Older journals often caption tables with Roman numerals ("Table I", "Table IV").
+  const tableCaptionPattern = /\bTable\s+(?:\d+|[IVXLCDM]+)\b[^\n\r]{0,220}\b(?:patient\s+characteristics?|baseline\s+characteristics?|demographic(?:s|\s+characteristics?)?|baseline\s+demographics?)\b/gi;
+  const tableCaptions = Array.from(textForTableCaptions.matchAll(tableCaptionPattern));
   for (const caption of tableCaptions) {
     const captionIndex = caption.index ?? 0;
-    const nextTable = currentStudyPopulationText.slice(captionIndex + caption[0].length)
-      .search(/\n\s*Table\s+\d+\b/i);
+    const nextTable = textForTableCaptions.slice(captionIndex + caption[0].length)
+      .search(/\n\s*Table\s+(?:\d+|[IVXLCDM]+)\b/i);
     const end = nextTable >= 0
       ? captionIndex + caption[0].length + nextTable
-      : Math.min(currentStudyPopulationText.length, captionIndex + 7000);
+      : Math.min(textForTableCaptions.length, captionIndex + 7000);
     // PDF extraction can place column headers just before the literal table caption.
     const start = Math.max(0, captionIndex - 1200);
     baselineScopes.push({
-      text: currentStudyPopulationText.slice(start, end),
+      text: textForTableCaptions.slice(start, end),
       location: 'Baseline / Patient characteristics table',
     });
   }
@@ -550,8 +566,11 @@ export function formatGenderDistribution(
     }
   }
 
-  const sourceMaleLine = currentStudyPopulationText.match(/(?:^|\n)\s*Male\b[^\n\r]*/im)?.[0] || '';
-  const sourceFemaleLine = currentStudyPopulationText.match(/(?:^|\n)\s*Female\b[^\n\r]*/im)?.[0] || '';
+  // A single-row "Gender, male" / "Sex, male" label (with only one binary sex
+  // reported per column) is as common as a standalone "Male" line; recognize
+  // both instead of requiring the line to start with the bare word.
+  const sourceMaleLine = currentStudyPopulationText.match(/(?:^|\n)\s*(?:Sex[,\s:-]*|Gender[,\s:-]*)?Male\b[^\n\r]*/im)?.[0] || '';
+  const sourceFemaleLine = currentStudyPopulationText.match(/(?:^|\n)\s*(?:Sex[,\s:-]*|Gender[,\s:-]*)?Female\b[^\n\r]*/im)?.[0] || '';
   const sourcePatientLine = currentStudyPopulationText.match(/(?:^|\n)\s*(?:Number\s+of\s+patients|Total\s+(?:number\s+of\s+)?patients|Sample\s+size|Patients?,?\s*n)\b[^\n\r]*/im)?.[0] || '';
   const sourceMaleCells = parseMetricCells(sourceMaleLine);
   const sourceFemaleCells = parseMetricCells(sourceFemaleLine);
@@ -611,6 +630,41 @@ export function formatGenderDistribution(
     }
   }
 
+  // Some multi-group baseline tables report only a single "Gender, male" row
+  // (one cell per group, no dedicated body "Number of patients" row) and rely
+  // on each column header carrying its own N (e.g. "FCSEMS-AF (n = 73)"). When
+  // there is exactly one sex cell per research group, align them positionally
+  // and derive the other sex from that group's already-known patient count.
+  if (
+    researchGroups.length > 1 &&
+    sourcePatientCounts.length === 0 &&
+    ((sourceMaleCells.length === researchGroups.length && sourceFemaleCells.length === 0) ||
+      (sourceFemaleCells.length === researchGroups.length && sourceMaleCells.length === 0))
+  ) {
+    const usingMale = sourceMaleCells.length === researchGroups.length;
+    const rows: string[] = [];
+    for (let i = 0; i < researchGroups.length; i++) {
+      const total = groupN(i);
+      const metric = usingMale ? sourceMaleCells[i] : sourceFemaleCells[i];
+      if (!total || !metric || metric.n > total) continue;
+      const pct = metricPctForGroup(metric, total);
+      const other = total - metric.n;
+      rows.push(
+        usingMale
+          ? `${groupNames[i]} — Male: n = ${metric.n}${formatPct(metric.n, total, pct)}, Female: n = ${other}${formatDerivedPct(other, total)}`
+          : `${groupNames[i]} — Male: n = ${other}${formatDerivedPct(other, total)}, Female: n = ${metric.n}${formatPct(metric.n, total, pct)}`
+      );
+    }
+    if (rows.length === researchGroups.length) {
+      return {
+        formattedDistribution: rows.join('\n'),
+        isReported: true,
+        quote: (usingMale ? sourceMaleLine : sourceFemaleLine).trim(),
+        location: 'Baseline / Patient characteristics table',
+      };
+    }
+  }
+
   if (sourceMaleCells.length > 0 && sourceFemaleCells.length > 0) {
     if (researchGroups.length <= 1) {
       const m = sourceMaleCells[0];
@@ -632,7 +686,7 @@ export function formatGenderDistribution(
   if (researchGroups.length <= 1) {
     const expectedN = groupN(0);
     if (expectedN && expectedN > 0) {
-      const tableStarts = Array.from(currentStudyPopulationText.matchAll(/\bTable\s+\d+\b/gi));
+      const tableStarts = Array.from(currentStudyPopulationText.matchAll(/\bTable\s+(?:\d+|[IVXLCDM]+)\b/gi));
       for (let ti = 0; ti < tableStarts.length; ti++) {
         const start = tableStarts[ti].index ?? 0;
         const end = ti + 1 < tableStarts.length ? (tableStarts[ti + 1].index ?? currentStudyPopulationText.length) : currentStudyPopulationText.length;

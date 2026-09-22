@@ -100,7 +100,11 @@ export async function prepareAnalysisContext(req: any, res: any): Promise<Prepar
       parser = new PDFParse({ data: uint8Data });
       const textResult = await parser.getText();
       if (textResult && textResult.text && textResult.text.trim().length > 0) {
-        extractedPdfText = textResult.text.trim();
+        // pdf-parse occasionally mis-decodes the "=" glyph as "[" for certain
+        // embedded/subset fonts, turning "(n = 142)" into "(n [ 142)". This
+        // breaks every downstream "n = N" pattern match (group totals, gender
+        // derivation, etc.), so normalize this narrow, unambiguous case.
+        extractedPdfText = textResult.text.trim().replace(/\(\s*([nN])\s*\[\s*(\d+)\s*\)/g, '($1 = $2)');
         if (!paperText) {
           paperText = extractedPdfText;
         }

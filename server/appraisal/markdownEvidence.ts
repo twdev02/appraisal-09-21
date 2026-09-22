@@ -148,7 +148,7 @@ function parseTableRows(block: string): string[][] {
     .filter((cells) => !isSeparatorRow(cells));
 }
 
-function parseTables(markdown: string): MarkdownTableBlock[] {
+function parseAnnotatedTables(markdown: string): MarkdownTableBlock[] {
   const marker = /<!--\s*TABLE:\s*(.*?)\s*\|\s*reconstruction=(confident|uncertain)\s*-->/gi;
   const matches = [...markdown.matchAll(marker)];
 
@@ -170,6 +170,75 @@ function parseTables(markdown: string): MarkdownTableBlock[] {
   });
 }
 
+function stripCaptionLineMarkup(line: string): string {
+  return stripMarkdown(line)
+    .replace(/^#{1,6}\s*/, '')
+    .replace(/^\*\*(.*)\*\*$/, '$1')
+    .replace(/\*\*/g, '')
+    .trim();
+}
+
+// Plain GitHub-flavored markdown tables (no special annotation comments), as
+// produced by generic PDF-to-Markdown tools/services (e.g. NotebookLM exports).
+// A table is any run of consecutive '|'-prefixed lines whose second line is a
+// separator row. The caption is taken from the nearest non-blank line above the
+// table that reads like a heading/caption (heading markup, bold text, or a line
+// mentioning "Table N"); such tables are treated as confidently reconstructed
+// because a well-formed pipe table already encodes its own row/column structure.
+function parsePlainMarkdownTables(markdown: string): MarkdownTableBlock[] {
+  const lines = markdown.split(/\r?\n/);
+  const lineOffsets: number[] = [];
+  {
+    let offset = 0;
+    for (const line of lines) {
+      lineOffsets.push(offset);
+      offset += line.length + 1;
+    }
+  }
+
+  const tables: MarkdownTableBlock[] = [];
+  let i = 0;
+  while (i < lines.length) {
+    if (!lines[i].trim().startsWith('|')) {
+      i++;
+      continue;
+    }
+    const blockStart = i;
+    let j = i;
+    while (j < lines.length && lines[j].trim().startsWith('|')) j++;
+    const blockLines = lines.slice(blockStart, j);
+
+    const isTable = blockLines.length >= 2 && isSeparatorRow(splitMarkdownRow(blockLines[1]));
+    if (isTable) {
+      let captionLine = '';
+      for (let k = blockStart - 1; k >= 0 && k >= blockStart - 8; k--) {
+        const trimmed = lines[k].trim();
+        if (!trimmed || trimmed === '---') continue;
+        if (trimmed.startsWith('|')) break;
+        captionLine = stripCaptionLineMarkup(lines[k]);
+        break;
+      }
+      const body = blockLines.join('\n');
+      tables.push({
+        caption: captionLine,
+        reconstruction: 'confident',
+        markdown: body,
+        startIndex: lineOffsets[blockStart] ?? 0,
+        pageNumber: pageAt(markdown, lineOffsets[blockStart] ?? 0),
+        rows: parseTableRows(body),
+      });
+    }
+    i = j;
+  }
+  return tables;
+}
+
+function parseTables(markdown: string): MarkdownTableBlock[] {
+  const annotated = parseAnnotatedTables(markdown);
+  if (annotated.length > 0) return annotated;
+  return parsePlainMarkdownTables(markdown);
+}
+
 function currentStudyMarkdown(markdown: string): string {
   const source = normalizeMarkdownForParsing(markdown);
   const discussion = source.search(/^#{1,6}\s+Discussion\b/im);
@@ -189,6 +258,17 @@ function stripMarkdown(value: string): string {
     .replace(/&nbsp;/gi, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+// Sub-rows of a body category are frequently rendered as a list item within the
+// first table cell (e.g. "- Men", "• Female"). Strip that leading list marker
+// before label-matching, without touching a value cell's own leading sign/dash.
+function stripListMarker(value: string): string {
+  return value.replace(/^[-*•◦‣]\s+/, '');
+}
+
+function rowLabel(row: string[]): string {
+  return stripListMarker(stripMarkdown(row[0] || ''));
 }
 
 function parseNumericToken(raw: string): number | undefined {
@@ -214,7 +294,7 @@ function findSingleStudyNFromBaselineTable(table: MarkdownTableBlock): MarkdownP
 
   for (const row of table.rows) {
     if (row.length < 2) continue;
-    const label = stripMarkdown(row[0]);
+    const label = rowLabel(row);
     if (!/^(?:number\s+of\s+patients(?:,?\s*n)?|total\s+(?:number\s+of\s+)?patients(?:,?\s*n)?|sample\s+size(?:,?\s*n)?|patients?,?\s*n)$/i.test(label)) {
       continue;
     }
@@ -297,10 +377,39 @@ function parseHeaderNames(rows: string[][], width: number): string[] {
   return names;
 }
 
+// Baseline/outcome tables commonly append a trailing P value (or HR/CI) column
+// that is not a study group and must never be treated as one when deriving
+// per-group sex/outcome values. Trim any such trailing column(s) from the
+// value width used to determine how many real group columns exist.
+function effectiveValueWidth(rows: string[][], rawWidth: number): number {
+  const headerRow = rows.find((row) => row.length >= rawWidth) || rows[0] || [];
+  let width = rawWidth;
+  while (width > 2) {
+    const cell = stripMarkdown(headerRow[width - 1] || '');
+    if (/^p[\s-]?[-=]?\s*value$/i.test(cell) || /^p$/i.test(cell)) {
+      width--;
+    } else {
+      break;
+    }
+  }
+  return width;
+}
+
+// Many tables report each column's N in its own header cell (e.g. "FCSEMS-AF
+// (n = 73)") instead of a dedicated "Number of patients" body row. Extract it
+// as a fallback source of truth for the group total.
+function parseHeaderColumnN(rows: string[][], width: number): Array<number | undefined> {
+  const first = rows.find((row) => row.length >= width) || rows[0] || [];
+  return first.slice(1, width).map((cell) => {
+    const m = stripMarkdown(cell || '').match(/\bn\s*=\s*(\d{1,6})\b/i);
+    return m ? Number(m[1]) : undefined;
+  });
+}
+
 function baselineTableHasGenderRow(table: MarkdownTableBlock): boolean {
   return table.rows.some((row) =>
     /^(?:sex[\s,:-]*(?:male|female)|gender[\s,:-]*(?:male|female)|male|men|female|women)(?:\b|,)/i.test(
-      stripMarkdown(row[0] || '')
+      rowLabel(row)
     )
   );
 }
@@ -360,23 +469,26 @@ function findGenderFromBaselineTable(
 ): MarkdownGenderEvidence | undefined {
   if (table.reconstruction !== 'confident' || !isBaselineCaption(table.caption)) return undefined;
 
-  const maleRow = table.rows.find((row) => /^(?:sex[,\s:-]*male|gender[,\s:-]*male|male|men)(?:\b|,)/i.test(stripMarkdown(row[0] || '')));
-  const femaleRow = table.rows.find((row) => /^(?:sex[,\s:-]*female|gender[,\s:-]*female|female|women)(?:\b|,)/i.test(stripMarkdown(row[0] || '')));
+  const maleRow = table.rows.find((row) => /^(?:sex[,\s:-]*male|gender[,\s:-]*male|male|men)(?:\b|,)/i.test(rowLabel(row)));
+  const femaleRow = table.rows.find((row) => /^(?:sex[,\s:-]*female|gender[,\s:-]*female|female|women)(?:\b|,)/i.test(rowLabel(row)));
   if (!maleRow && !femaleRow) return undefined;
 
-  const patientRow = table.rows.find((row) => /^(?:number\s+of\s+patients|total\s+(?:number\s+of\s+)?patients|sample\s+size|patients?,?\s*n)(?:\b|,)/i.test(stripMarkdown(row[0] || '')));
-  const valueWidth = Math.max(maleRow?.length || 0, femaleRow?.length || 0, patientRow?.length || 0);
+  const patientRow = table.rows.find((row) => /^(?:number\s+of\s+patients|total\s+(?:number\s+of\s+)?patients|sample\s+size|patients?,?\s*n)(?:\b|,)/i.test(rowLabel(row)));
+  const rawWidth = Math.max(maleRow?.length || 0, femaleRow?.length || 0, patientRow?.length || 0);
+  const valueWidth = effectiveValueWidth(table.rows, rawWidth);
   const groupCount = Math.max(1, valueWidth - 1);
 
+  const headerNs = parseHeaderColumnN(table.rows, valueWidth);
   const totals = Array.from({ length: groupCount }, (_, i) => {
     const fromPatientRow = patientRow ? parseNumericToken(patientRow[i + 1] || '') : undefined;
-    if (groupCount === 1) return fromPatientRow || patientCount?.value;
-    return fromPatientRow;
+    if (fromPatientRow) return fromPatientRow;
+    if (groupCount === 1) return headerNs[i] || patientCount?.value;
+    return headerNs[i];
   });
 
   const parsedMales = Array.from({ length: groupCount }, (_, i) => maleRow ? parseSexMetric(maleRow[i + 1] || '', totals[i]) : undefined);
   const parsedFemales = Array.from({ length: groupCount }, (_, i) => femaleRow ? parseSexMetric(femaleRow[i + 1] || '', totals[i]) : undefined);
-  const hasUnknownCategory = table.rows.some((row) => /^(?:unknown|other|non[- ]?binary)(?:\b|,)/i.test(stripMarkdown(row[0] || '')));
+  const hasUnknownCategory = table.rows.some((row) => /^(?:unknown|other|non[- ]?binary)(?:\b|,)/i.test(rowLabel(row)));
 
   // Do not trust a table merely because Gemini labelled its reconstruction as
   // confident. Cross-check each sex count against the group N. A clearly shifted
