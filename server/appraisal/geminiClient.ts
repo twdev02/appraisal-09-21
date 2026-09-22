@@ -1,28 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
 
-// Shared Gemini client with lazy/conditional key handling.
-// Multiple keys are supported so the app can keep using the SAME model when
-// one Google AI project reaches its per-project daily quota. A backup key
-// should come from a different Google AI project; another key from the same
-// project normally shares the same quota.
-const getGeminiApiKeys = (): string[] => {
-  const candidates = [
-    process.env.GEMINI_API_KEY,
-    process.env.GEMINI_API_KEY_2,
-    process.env.GEMINI_API_KEY_3,
-    process.env.GOOGLE_API_KEY,
-    process.env.API_KEY,
-  ];
-
-  return Array.from(
-    new Set(
-      candidates
-        .map((value) => String(value || '').trim())
-        .filter(Boolean)
-    )
-  );
-};
-
 const getGeminiErrorText = (error: any): string => {
   const pieces = [
     error?.message,
@@ -58,72 +35,20 @@ const getSuggestedRetryDelayMs = (error: any): number | null => {
   return Math.min(Math.ceil(seconds * 1000), 60_000);
 };
 
+// Use one configured key; legacy environment names remain supported.
 export const getGeminiClient = (): GoogleGenAI | null => {
-  const keys = getGeminiApiKeys();
-  if (keys.length === 0) return null;
-
-  const clients = keys.map(
-    (key) =>
-      new GoogleGenAI({
-        apiKey: key,
-        httpOptions: {
-          timeout: 120_000,
-          headers: {
-            'User-Agent': 'aistudio-build',
-          },
-        },
-      })
-  );
-
-  // Keep the rest of the extraction pipeline unchanged: it can continue to
-  // call ai.models.generateContent(...). Only quota failover is handled here.
-  const pooledClient = {
-    models: {
-      generateContent: async (args: any) => {
-        let lastQuotaError: any = null;
-
-        for (let index = 0; index < clients.length; index++) {
-          try {
-            if (index > 0) {
-              console.warn(
-                `[Gemini API] Trying backup API project ${index + 1}/${clients.length} with the same model...`
-              );
-            }
-            return await clients[index].models.generateContent(args);
-          } catch (error: any) {
-            if (!isGeminiDailyQuotaError(error)) {
-              throw error;
-            }
-
-            lastQuotaError = error;
-            console.warn(
-              `[Gemini API] API project ${index + 1}/${clients.length} reached its daily quota.`
-            );
-
-            if (index < clients.length - 1) {
-              continue;
-            }
-          }
-        }
-
-        const quotaError: any = new Error(
-          clients.length > 1
-            ? 'Gemini daily free-tier quota is exhausted for all configured API projects. Add another backup key from a different Google AI project or retry after the quota resets.'
-            : 'Gemini daily free-tier quota is exhausted for gemini-3.8-flash. Add GEMINI_API_KEY_2 from a different Google AI project or retry after the quota resets.'
-        );
-        quotaError.status = 429;
-        quotaError.code = 'GEMINI_DAILY_QUOTA_EXCEEDED';
-        quotaError.retryable = false;
-        quotaError.cause = lastQuotaError;
-        throw quotaError;
-      },
+  const apiKey = [process.env.GEMINI_API_KEY, process.env.GOOGLE_API_KEY, process.env.API_KEY]
+    .map(value => String(value || '').trim())
+    .find(Boolean);
+  if (!apiKey) return null;
+  return new GoogleGenAI({
+    apiKey,
+    httpOptions: {
+      timeout: 120_000,
+      headers: { 'User-Agent': 'aistudio-build' },
     },
-  };
-
-  return pooledClient as unknown as GoogleGenAI;
+  });
 };
-
-
 // Robust Gemini caller using gemini-3.8-flash. It retries transient provider
 // failures, but it DOES NOT waste retries on the daily per-project quota.
 export async function callGeminiWithRetry(
@@ -186,8 +111,8 @@ export async function callGeminiWithRetry(
 
       // Daily quota is not a short-lived transient error. Retrying the same
       // project after 1-2 seconds only burns time and produces the huge 429
-      // message the UI was showing. Backup-project failover has already been
-      // attempted inside getGeminiClient().
+      // message the UI was showing. Wait for the quota to reset instead.
+
       if (isGeminiDailyQuotaError(err) || err?.code === 'GEMINI_DAILY_QUOTA_EXCEEDED') {
         break;
       }
@@ -223,4 +148,5 @@ export async function callGeminiWithRetry(
 
   throw lastError || new Error('Gemini API extraction failed with gemini-3.8-flash after maximum retries.');
 }
+
 

@@ -4,7 +4,7 @@ import express from 'express';
 import { registerAnalyzePdfRoute } from './analyzePdfRoute';
 
 test('HTTP upload returns a job and polling preserves pipeline errors', async () => {
-  const keys = ['GEMINI_API_KEY', 'GEMINI_API_KEY_2', 'GEMINI_API_KEY_3', 'GOOGLE_API_KEY', 'API_KEY'];
+  const keys = ['GEMINI_API_KEY', 'GOOGLE_API_KEY', 'API_KEY'];
   const original = keys.map(key => process.env[key]);
   keys.forEach(key => delete process.env[key]);
   const app = express();
@@ -65,3 +65,4 @@ test('HTTP upload returns a job and polling preserves pipeline errors', async ()
     });
   }
 });
+
