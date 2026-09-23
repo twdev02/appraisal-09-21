@@ -2,30 +2,19 @@ const meaningful = (value: unknown) => Boolean(String(value ?? '').trim()) &&
   !/^(?:not reported|not separately reported|not assessable|unknown|unclear|n\/?a)$/i.test(String(value).trim());
 const positiveNumber = (value: unknown) => meaningful(value) && Number.isFinite(Number(value)) && Number(value) > 0;
 
+export function evaluateDeviceCredit(devices: any[]) {
+  const due = devices.filter(d => d.deviceRelationship?.aiRecommended === 'DUE');
+  const similar = devices.filter(d => d.deviceRelationship?.aiRecommended === 'Similar Device');
+  const anyDueDevice = due.some(isDeviceOutcomeExtractable);
+  const anySimDevice = similar.length > 0 && similar.every(isDeviceOutcomeExtractable);
+  return { anyDueDevice, anySimDevice, score: anyDueDevice ? 2 : anySimDevice ? 1 : 0 };
+}
+
 /** Require coverage of the paper's independently enumerated clinical endpoints. */
 export function isDeviceOutcomeExtractable(device: any): boolean {
   const evidence = device?.outcomeAttribution;
 
-  // A group that used only this one device has no other device to pool/confuse
-  // its results with: every endpoint the group reports IS this device's result
-  // by definition. Do not make this fall through the strict per-endpoint
-  // inventory check below, which depends on the AI perfectly filling in a
-  // structured attribution row for every single endpoint (technical success,
-  // clinical success, pain score, patency, follow-up, each AE, etc.) — a single
-  // missed/malformed field anywhere would otherwise wrongly zero out an
-  // unambiguous single-arm study.
-  //
-  // __groupDeviceCount only reflects how many devices the AI happened to list
-  // under this research group, which can undercount a cohort that actually
-  // mixes many more device brands (the AI may have enumerated only the DUE and
-  // skipped listing every co-mingled brand). Never let this bypass override an
-  // explicit negative signal the AI already gave for THIS device — if it
-  // marked the outcome as pooled/unextractable itself, trust that judgment
-  // instead of the possibly-incomplete device count.
-  if ((device?.__groupDeviceCount || 1) <= 1 && evidence?.basis !== 'pooled' && evidence?.extractable !== false) {
-    return true;
-  }
-
+  // Inventory size alone never establishes source-backed exclusivity.
   const inventory = device?.__clinicalEndpointInventory;
   if (!Array.isArray(inventory) || inventory.length === 0 ||
       !inventory.every((entry: any) => [entry.id, entry.name, entry.quote, entry.location].every(meaningful))) return false;

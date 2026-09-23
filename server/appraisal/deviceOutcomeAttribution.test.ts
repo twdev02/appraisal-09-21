@@ -1,33 +1,34 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { isDeviceOutcomeExtractable } from './deviceOutcomeAttribution';
-const evidence = {
-  extractable: true, basis: 'device_specific', outcome: 'Technical success 94%',
-  outcomeQuote: 'Technical success with Niti-S M-Type was 94%.', outcomeLocation: 'Table 3',
-  attributionQuote: 'This arm used Niti-S M-Type only.', attributionLocation: 'Methods',
-};
-test('pooled simultaneous SBS results cannot earn DUE credit through device counts', () => {
-  for (const count of ['30', '62', 'Not separately reported', 'Not reported']) {
-    for (const inventorySize of [1, 2]) {
-      const device = { deviceProductName: 'Niti-S M-Type', devicePatientNumber: count, __groupDeviceCount: inventorySize };
-      assert.equal(isDeviceOutcomeExtractable(device), false);
-      assert.equal(isDeviceOutcomeExtractable({ ...device, outcomeAttribution: { ...evidence, basis: 'pooled' } }), false);
-    }
-  }
+import { evaluateDeviceCredit, isDeviceOutcomeExtractable } from './deviceOutcomeAttribution';
+function device(type: string, complete: boolean, exclusive = false): any {
+  return { deviceRelationship: { aiRecommended: type }, __groupDeviceCount: 1,
+    __clinicalEndpointInventory: ['technical', 'clinical'].map(id => ({id,name:id,quote:'Reported endpoint',location:'Results'})),
+    outcomeAttribution: { extractable: true, basis: exclusive ? 'exclusive_device_cohort' : 'device_specific',
+      exclusiveCohortConfirmed: exclusive, attributionQuote:'The cohort used only this product.',attributionLocation:'Methods',
+      endpoints: ['technical', 'clinical'].map(id => ({endpointId:id,attributable:complete || id === 'technical',pooledAcrossProducts:false,
+        resultType:'proportion',value:'9/10',numerator:'9',denominator:'10',cohort:'Evaluated cohort',timepoint:'Index procedure',
+        quote:'9/10 patients',location:'Results',attributionQuote:'Product-specific cohort',attributionLocation:'Methods'})) } };
+}
+test('all agreed DUE/Similar/Other combinations', () => {
+  const D=(ok:boolean)=>device('DUE',ok), S=(ok:boolean)=>device('Similar Device',ok), O=(ok:boolean)=>device('Other',ok);
+  const cases: [any[],number][] = [
+    [[],0], [[D(true)],2], [[D(false)],0], [[S(true)],1], [[S(false)],0],
+    [[S(true),S(true)],1], [[S(true),S(false)],0], [[O(true)],0],
+    [[D(true),S(false)],2], [[D(false),S(true)],1], [[D(false),S(true),S(false)],0],
+    [[D(true),O(false)],2], [[D(false),O(true)],0], [[S(true),O(false)],1],
+    [[D(false),S(true),O(false)],1], [[D(true),D(false)],2],
+  ];
+  for (const [devices,score] of cases) assert.equal(evaluateDeviceCredit(devices).score,score,JSON.stringify(devices.map(d=>d.deviceRelationship)));
 });
-test('requires product attribution and quantitative outcome evidence', () => {
-  for (const basis of ['device_specific', 'exclusive_device_cohort']) {
-    assert.equal(isDeviceOutcomeExtractable({ deviceProductName: 'Niti-S M-Type', __groupDeviceCount: 1, outcomeAttribution: { ...evidence, basis } }), true);
-  }
-  for (const field of ['outcome', 'outcomeQuote', 'outcomeLocation', 'attributionQuote', 'attributionLocation']) {
-    assert.equal(isDeviceOutcomeExtractable({ outcomeAttribution: { ...evidence, [field]: 'Not reported' } }), false);
-  }
-  assert.equal(isDeviceOutcomeExtractable({ outcomeAttribution: { ...evidence, extractable: false } }), false);
-});
-
-test('rejects AI true with pooled outcomes, multiple-brand exclusivity or usage-only evidence', () => {
-  const device = { deviceProductName: 'Niti-S M-Type', __groupDeviceCount: 2 };
-  assert.equal(isDeviceOutcomeExtractable({ ...device, outcomeAttribution: { ...evidence, outcomeQuote: 'Technical success in simultaneous SBS was 94%.' } }), false);
-  assert.equal(isDeviceOutcomeExtractable({ ...device, outcomeAttribution: { ...evidence, basis: 'exclusive_device_cohort' } }), false);
-  assert.equal(isDeviceOutcomeExtractable({ ...device, outcomeAttribution: { ...evidence, outcomeQuote: 'Niti-S M-Type was carried by a 6 Fr delivery system from 2020 to 2023.' } }), false);
+test('single record never bypasses evidence; source-backed exclusive cohort with all endpoints qualifies', () => {
+  assert.equal(isDeviceOutcomeExtractable({__groupDeviceCount:1}),false);
+  assert.equal(isDeviceOutcomeExtractable({__groupDeviceCount:1,outcomeAttribution:{basis:'unclear'}}),false);
+  assert.equal(isDeviceOutcomeExtractable(device('DUE',true,true)),true);
+  const noProof=device('DUE',true,true); noProof.outcomeAttribution.exclusiveCohortConfirmed=false;
+  assert.equal(isDeviceOutcomeExtractable(noProof),false);
+  const missing=device('DUE',true); missing.outcomeAttribution.endpoints.pop();
+  assert.equal(isDeviceOutcomeExtractable(missing),false);
+  const countOnly=device('DUE',true); countOnly.outcomeAttribution.endpoints[0].denominator='';
+  assert.equal(isDeviceOutcomeExtractable(countOnly),false);
 });

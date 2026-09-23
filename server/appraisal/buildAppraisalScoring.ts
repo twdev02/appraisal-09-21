@@ -18,7 +18,7 @@ import { hasReportedObservationDuration, scoreReportCollation } from './reportCo
 import { hasExplicitProductName, hasExplicitProductNameInDevices, elementaryAspectsAdequate } from './elementaryAspects';
 import { evaluateAdequateControls } from './adequateControls';
 import { evaluateDataSourceType } from './dataSourceType';
-import { isDeviceOutcomeExtractable } from './deviceOutcomeAttribution';
+import { isDeviceOutcomeExtractable, evaluateDeviceCredit } from './deviceOutcomeAttribution';
 import { validateGenderEvidence } from './markdownEvidence';
 import {
   reconcileStatisticalEvidence,
@@ -69,20 +69,10 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const topDueDevice = extractableDueDevices[0] || dueDevices[0] || allDevices[0];
   const topSameIndDevice = allDevices.find((d: any) => d.indicationRelationship.aiRecommended === 'Same indication') || allDevices[0];
 
-  // Require EVERY OTHER stent/device used in the study (i.e. every non-DUE
-  // device) to have separable outcome data before a Similar/Benchmark device
-  // can earn fallback credit in isolation. This stops a single comparator
-  // brand from earning "Equivalent device" credit merely because its own
-  // cohort happened to be clean, while the rest of the study's devices are
-  // pooled/unresolved. The DUE itself is excluded from this gate: DUE credit
-  // (2 pts) is judged solely on whether the DUE's own data is separable,
-  // regardless of how well other devices in the same paper separate.
-  const nonDueDevices = allDevices.filter((d: any) => d.deviceRelationship.aiRecommended !== 'DUE');
-  const nonExtractableNonDueDevices = nonDueDevices.filter((d: any) => !isDeviceOutcomeExtractable(d));
-  const allOtherDevicesExtractable = nonExtractableNonDueDevices.length === 0;
-
-  const anyDueDevice = extractableDueDevices.length > 0;
-  const anySimDevice = extractableSimDevices.length > 0 && allOtherDevicesExtractable;
+  // DUE takes precedence. Otherwise every Similar device must qualify;
+  // unrelated Other devices never block either level of credit.
+  const nonExtractableSimilarDevices = simDevices.filter((d: any) => !isDeviceOutcomeExtractable(d));
+  const { anyDueDevice, anySimDevice, score: deviceScore } = evaluateDeviceCredit(allDevices);
   const matchedDueNames = Array.from(new Set(
     extractableDueDevices
       .flatMap((d: any) => {
@@ -98,8 +88,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
     : anySimDevice
     ? 'Equivalent device or Benchmark/Similar device'
     : 'Other devices and medical alternatives';
-  const deviceScore = anyDueDevice ? 2 : anySimDevice ? 1 : 0;
-  const creditedDevice = extractableDueDevices[0] || (allOtherDevicesExtractable ? extractableSimDevices[0] : undefined);
+  const creditedDevice = extractableDueDevices[0] || (anySimDevice ? extractableSimDevices[0] : undefined);
 
   const anySameIndication = allDevices.some(
     (d: any) => d.indicationRelationship.aiRecommended === 'Same indication'
@@ -282,9 +271,9 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
     : pooledOnlyDueDevices.length > 0
     ? `DUE use identified (${pooledOnlyDueDevices.map((d: any) => d.deviceProductName).join(', ')}), but complete product-specific coverage of the paper's clinical endpoints is not established for the DUE. Partial results, success counts without denominators and pooled outcomes do not qualify. Scored as "${deviceSelection}" (${deviceScore}).`
     : anySimDevice
-    ? `All ${creditedDevice.outcomeAttribution.endpoints.length} reported clinical endpoints have product-attributable results (${creditedDevice.outcomeAttribution.basis}), and every other device used in this study also has separable outcome data. Product identity alone does not earn credit.`
+    ? `All ${creditedDevice.outcomeAttribution.endpoints.length} reported clinical endpoints have product-attributable results (${creditedDevice.outcomeAttribution.basis}), and every Similar device used in this study has separable outcome data; Other devices do not affect this score. Product identity alone does not earn credit.`
     : extractableSimDevices.length > 0
-    ? `${extractableSimDevices.map((d: any) => d.deviceProductName).join(', ')} has fully product-attributable results on its own, but ${nonExtractableNonDueDevices.map((d: any) => d.deviceProductName).join(', ')} used elsewhere in this study could not have its/their clinical endpoints isolated. Credit for a Similar/Benchmark device requires every other device used in the study to also have separable outcome data, so no credit is given. Scored as "${deviceSelection}" (${deviceScore}).`
+    ? `${extractableSimDevices.map((d: any) => d.deviceProductName).join(', ')} has fully product-attributable results on its own, but ${nonExtractableSimilarDevices.map((d: any) => d.deviceProductName).join(', ')} used elsewhere in this study could not have its/their clinical endpoints isolated. Credit for a Similar/Benchmark device requires every Similar device used in the study to have separable outcome data; Other devices are not part of this requirement, so no credit is given. Scored as "${deviceSelection}" (${deviceScore}).`
     : 'No qualifying product-specific outcome evidence. Device identity or usage alone does not earn credit.';
 
   const appComment = topSameIndDevice?.indicationRelationship?.rationale
