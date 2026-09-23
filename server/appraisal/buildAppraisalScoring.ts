@@ -61,18 +61,18 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   // Require outcome attribution evidence, independently of device counts or names.
 
   const dueDevices = allDevices.filter((d: any) => d.deviceRelationship.aiRecommended === 'DUE');
-  const extractableDueDevices = dueDevices.filter(isDeviceOutcomeExtractable);
-  const pooledOnlyDueDevices = dueDevices.filter((d: any) => !isDeviceOutcomeExtractable(d));
+  const extractableDueDevices = dueDevices.filter((d: any) => isDeviceOutcomeExtractable(d, paperText));
+  const pooledOnlyDueDevices = dueDevices.filter((d: any) => !isDeviceOutcomeExtractable(d, paperText));
   const simDevices = allDevices.filter((d: any) => d.deviceRelationship.aiRecommended === 'Similar Device');
-  const extractableSimDevices = simDevices.filter(isDeviceOutcomeExtractable);
+  const extractableSimDevices = simDevices.filter((d: any) => isDeviceOutcomeExtractable(d, paperText));
 
   const topDueDevice = extractableDueDevices[0] || dueDevices[0] || allDevices[0];
   const topSameIndDevice = allDevices.find((d: any) => d.indicationRelationship.aiRecommended === 'Same indication') || allDevices[0];
 
   // DUE takes precedence. Otherwise every Similar device must qualify;
   // unrelated Other devices never block either level of credit.
-  const nonExtractableSimilarDevices = simDevices.filter((d: any) => !isDeviceOutcomeExtractable(d));
-  const { anyDueDevice, anySimDevice, score: deviceScore } = evaluateDeviceCredit(allDevices);
+  const nonExtractableSimilarDevices = simDevices.filter((d: any) => !isDeviceOutcomeExtractable(d, paperText));
+  const { anyDueDevice, anySimDevice, score: deviceScore } = evaluateDeviceCredit(allDevices, paperText);
   const matchedDueNames = Array.from(new Set(
     extractableDueDevices
       .flatMap((d: any) => {
@@ -606,8 +606,9 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   const devSummaryLoc = groupDeviceList.length > 0
     ? Array.from(new Set(groupDeviceList.map((x: any) => x.evidenceLocation).filter(Boolean))).join(', ')
     : (methodExt.deviceIdentificationLocation || 'Methods');
-  const devReported = hasExplicitProductName(methodExt) || hasExplicitProductNameInDevices(
-    allDevices.map((d: any) => ({ name: d.deviceProductName, quote: d.evidence?.quote || '' }))
+  const devReported = hasExplicitProductName(methodExt, paperText) || hasExplicitProductNameInDevices(
+    allDevices.map((d: any) => ({ name: d.deviceProductName, quote: d.evidence?.quote || '' })),
+    paperText
   );
 
   const aiMethOutcomeVal = isMissingExtractedValue(methodExt.clinicalOutcomeValue)

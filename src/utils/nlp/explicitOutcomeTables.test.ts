@@ -88,6 +88,26 @@ Age (years), median (IQR)\t79 (61-85)
   const gender = formatGenderDistribution('', '', groups6 as any, paper6);
   assert.equal(gender.formattedDistribution, 'Male: n = 39, Female: n = 42');
 });
+test("patient-level table with combined 'age/sex' cells (e.g. 65/M) is counted correctly", () => {
+  const groups7 = [{id: '0', groupName: 'POPFC/PFC cohort', groupPatientNumber: '10', devices: []}];
+  const paper7 = `RESULTS
+Ten patients were included. The median age was 57 years, and 60% were male.
+Table 1. Baseline Characteristics
+No. Age, yr/sex Fluid collection size, mm
+1 65/M 85
+2 69/M 86
+3 51/F 132
+4 23/F 95
+5 52/M 171
+6 75/F 105
+7 41/M 96
+8 66/M 67
+9 49/F 63
+10 62/M 86
+`;
+  const gender = formatGenderDistribution('', '', groups7 as any, paper7);
+  assert.equal(gender.formattedDistribution, 'Male: n = 6, Female: n = 4');
+});
 test("Sex (male) row after a linearized Discussion heading is still recognized", () => {
   const groups2 = ["SBTS group", "ES group"].map((groupName, i) => ({id: String(i), groupName, groupPatientNumber: String([29, 77][i]), devices: []}));
   const paper2 = `RESULTS

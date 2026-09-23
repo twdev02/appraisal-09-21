@@ -21,6 +21,15 @@ test('all agreed DUE/Similar/Other combinations', () => {
   ];
   for (const [devices,score] of cases) assert.equal(evaluateDeviceCredit(devices).score,score,JSON.stringify(devices.map(d=>d.deviceRelationship)));
 });
+test('a fabricated/paraphrased quote fails verbatim verification against the source text', () => {
+  const d = device('DUE', true, true);
+  const genuinePaper = 'Methods: The cohort used only this product. Product-specific cohort results follow. Results: 9/10 patients achieved technical success.';
+  assert.equal(isDeviceOutcomeExtractable(d), true, 'no paperText supplied: unchanged behavior');
+  assert.equal(isDeviceOutcomeExtractable(d, genuinePaper), true, 'quotes genuinely appear in the source');
+  const fabricated = device('DUE', true, true);
+  fabricated.outcomeAttribution.endpoints[0].quote = '9/12 patients';
+  assert.equal(isDeviceOutcomeExtractable(fabricated, genuinePaper), false, 'quote does not match the source text');
+});
 test('single record never bypasses evidence; source-backed exclusive cohort with all endpoints qualifies', () => {
   assert.equal(isDeviceOutcomeExtractable({}),false);
   assert.equal(isDeviceOutcomeExtractable({outcomeAttribution:{basis:'unclear'}}),false);

@@ -1,18 +1,28 @@
+import { isVerbatimQuote } from './verbatimCheck';
+
 const meaningful = (value: unknown) => Boolean(String(value ?? '').trim()) &&
   !/^(?:not reported|not separately reported|not assessable|unknown|unclear|n\/?a)$/i.test(String(value).trim());
 const positiveNumber = (value: unknown) => meaningful(value) && Number.isFinite(Number(value)) && Number(value) > 0;
 
-export function evaluateDeviceCredit(devices: any[]) {
+export function evaluateDeviceCredit(devices: any[], paperText?: string) {
   const due = devices.filter(d => d.deviceRelationship?.aiRecommended === 'DUE');
   const similar = devices.filter(d => d.deviceRelationship?.aiRecommended === 'Similar Device');
-  const anyDueDevice = due.some(isDeviceOutcomeExtractable);
-  const anySimDevice = similar.length > 0 && similar.every(isDeviceOutcomeExtractable);
+  const anyDueDevice = due.some((d) => isDeviceOutcomeExtractable(d, paperText));
+  const anySimDevice = similar.length > 0 && similar.every((d) => isDeviceOutcomeExtractable(d, paperText));
   return { anyDueDevice, anySimDevice, score: anyDueDevice ? 2 : anySimDevice ? 1 : 0 };
 }
 
-/** Require coverage of the paper's independently enumerated clinical endpoints. */
-export function isDeviceOutcomeExtractable(device: any): boolean {
+/**
+ * Require coverage of the paper's independently enumerated clinical endpoints.
+ * When `paperText` is supplied, every quote the AI attaches to this credit
+ * decision (the device-level attribution quote and each endpoint's own value
+ * and attribution quotes) must be verifiably present in the source text —
+ * this catches the AI paraphrasing or misremembering a number (e.g. quoting
+ * "90%" when the paper says "100%") while otherwise looking well-formed.
+ */
+export function isDeviceOutcomeExtractable(device: any, paperText?: string): boolean {
   const evidence = device?.outcomeAttribution;
+  const verbatim = (quote: unknown) => !paperText || isVerbatimQuote(quote, paperText);
 
   // Inventory size alone never establishes source-backed exclusivity.
   const inventory = device?.__clinicalEndpointInventory;
@@ -21,6 +31,7 @@ export function isDeviceOutcomeExtractable(device: any): boolean {
   if (new Set(inventory.map((entry: any) => entry.id)).size !== inventory.length) return false;
   if (evidence?.extractable !== true || !['device_specific', 'exclusive_device_cohort'].includes(evidence?.basis)) return false;
   if (![evidence.attributionQuote, evidence.attributionLocation].every(meaningful)) return false;
+  if (!verbatim(evidence.attributionQuote)) return false;
   if (evidence.basis === 'exclusive_device_cohort' && evidence.exclusiveCohortConfirmed !== true) return false;
   const rows = evidence.endpoints;
   if (!Array.isArray(rows)) return false;
@@ -31,6 +42,7 @@ export function isDeviceOutcomeExtractable(device: any): boolean {
     if (row.attributable !== true || row.pooledAcrossProducts !== false) return false;
     if (![row.value, row.quote, row.location, row.cohort, row.timepoint,
       row.attributionQuote, row.attributionLocation].every(meaningful)) return false;
+    if (!verbatim(row.quote) || !verbatim(row.attributionQuote)) return false;
     if (row.resultType === 'proportion') {
       return positiveNumber(row.denominator) && Number.isInteger(Number(row.denominator)) &&
         meaningful(row.numerator) && Number.isInteger(Number(row.numerator)) &&

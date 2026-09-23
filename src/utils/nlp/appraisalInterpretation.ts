@@ -720,8 +720,10 @@ export function formatGenderDistribution(
         // Remove header notation itself so "Sex (M/F)" is not counted as two patients.
         block = block.replace(/\b(?:Sex|Gender)\s*\(\s*M\s*\/\s*F\s*\)/gi, 'Sex')
           .replace(/\bM\s*\/\s*F\b/gi, '');
-        const maleCells = Array.from(block.matchAll(/(?:^|\s)M(?=\s|$|[|;])/g));
-        const femaleCells = Array.from(block.matchAll(/(?:^|\s)F(?=\s|$|[|;])/g));
+        // Some patient-level tables combine age and sex in one cell (e.g. "65/M",
+        // "23/F" under an "Age, yr/sex" header) instead of a standalone M/F cell.
+        const maleCells = Array.from(block.matchAll(/(?:^|\s)M(?=\s|$|[|;])|\b\d{1,3}\s*\/\s*M\b/g));
+        const femaleCells = Array.from(block.matchAll(/(?:^|\s)F(?=\s|$|[|;])|\b\d{1,3}\s*\/\s*F\b/g));
         const countedN = maleCells.length + femaleCells.length;
         if (countedN === expectedN && countedN > 0) {
           const positions = [...maleCells, ...femaleCells].map((m) => m.index ?? 0).sort((a, b) => a - b);
