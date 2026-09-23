@@ -217,6 +217,13 @@ export const GENERIC_DEVICE_DESCRIPTORS = new Set([
   'niti',
   'niti-s',
   'nitis',
+  // "HANAROSTENT" is M.I. Tech's whole product-line name (like "Niti-S" is
+  // Taewoong's), used across many structurally different devices (biliary
+  // stents, LAMS, etc.). Treating it as a distinctive anchor let two unrelated
+  // M.I. Tech products (e.g. a LAMS and a biliary stent) match on this shared
+  // brand-line word alone, without their actual distinguishing model names
+  // ("Hot-Plumber" vs "BPD"/"BPE") ever needing to agree.
+  'hanarostent',
   'taewoong',
   'boston',
   'cook',
