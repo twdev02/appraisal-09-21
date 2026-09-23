@@ -776,7 +776,10 @@ export function parseRangeOfTimeData(
 
   const extractStatCells = (text: string, unit: string) => {
     const cells: Array<{ value: string; unit: string; detail: string }> = [];
-    const re = /(\d+(?:\.\d+)?)\s*(?:±\s*(\d+(?:\.\d+)?)|\(\s*([^)]*(?:±|range|IQR|CI|\d)[^)]*)\))/gi;
+    // "13 of 161 (8.1%)" reports a proportion, not a duration/stat value; the
+    // second number is a fraction denominator (a patient count), never a
+    // measurement. Excluding it here stops it from being misread as one.
+    const re = /\b(?<!\d+(?:\.\d+)?\s+of\s{1,3})(\d+(?:\.\d+)?)\s*(?:±\s*(\d+(?:\.\d+)?)|\(\s*([^)]*(?:±|range|IQR|CI|\d)[^)]*)\))/gi;
     let m: RegExpExecArray | null;
     while ((m = re.exec(text)) !== null) {
       cells.push({
@@ -1191,6 +1194,12 @@ export function parseRangeOfTimeData(
     const fractionPct = value.match(/(\d+)\s*\/\s*(\d+)\s*\(\s*(\d+(?:\.\d+)?)\s*%?\s*\)/);
     if (fractionPct) return { n: fractionPct[1], denominator: fractionPct[2], pct: fractionPct[3] };
 
+    // "13 of 161 (8.1%)" is the same X-of-Y fraction as above, worded with "of"
+    // instead of "/". Must be checked before the bare nPct fallback below, which
+    // would otherwise misread the denominator (161) as the reintervention count.
+    const ofFractionPct = value.match(/\b(\d+)\s+of\s+(\d+)\s*\(\s*(\d+(?:\.\d+)?)\s*%?\s*\)/i);
+    if (ofFractionPct) return { n: ofFractionPct[1], denominator: ofFractionPct[2], pct: ofFractionPct[3] };
+
     const patientsPct = value.match(/\b(\d+)\s+patients?\b[^.\n]{0,50}?\(\s*(\d+(?:\.\d+)?)\s*%\s*\)/i);
     if (patientsPct) return { n: patientsPct[1], pct: patientsPct[2] };
 
@@ -1317,7 +1326,7 @@ export function parseRangeOfTimeData(
     for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
       const line = lines[lineIndex];
       if (!/re-?intervention/i.test(line) || plannedProcedureKeyword.test(line)) continue;
-      const cells = Array.from(line.matchAll(/(\d+)\s*\(\s*(\d+(?:\.\d+)?)\s*%?\s*\)/g)).map((m) => ({ n: m[1], pct: m[2] }));
+      const cells = Array.from(line.matchAll(/\b(?<!\d+(?:\.\d+)?\s+of\s{1,3})(\d+)\s*\(\s*(\d+(?:\.\d+)?)\s*%?\s*\)/g)).map((m) => ({ n: m[1], pct: m[2] }));
       if (cells.length !== researchGroups.length) continue;
       let sourceOrder = sourceGroupOrderNearLine(lineIndex);
       if (sourceOrder.length !== researchGroups.length) continue;
@@ -1341,7 +1350,7 @@ export function parseRangeOfTimeData(
       const line = lines[lineIndex];
       if (!/^\s*(?:rate\s+of\s+)?stent\s+occlusion\b/i.test(line)) continue;
       const cells = Array.from(line.matchAll(
-        /(\d+)\s*\(\s*(\d+(?:\.\d+)?)\s*%?\s*\)/g
+        /\b(?<!\d+(?:\.\d+)?\s+of\s{1,3})(\d+)\s*\(\s*(\d+(?:\.\d+)?)\s*%?\s*\)/g
       )).map((m) => ({ n: m[1], pct: m[2] }));
       if (cells.length !== researchGroups.length) continue;
 
@@ -1423,7 +1432,7 @@ export function parseRangeOfTimeData(
     !isInvalidContext(`${aiFuText} ${aiFuQuote}`, aiFuLoc) &&
     !/(?:loss\s+to|lost\s+to|follow-up\s+loss)/i.test(aiFuText) &&
     /\b(?:day|week|month|year)s?\b/i.test(`${aiFuText} ${aiFuQuote}`) &&
-    (Boolean(aiExtract?.isFollowUpProxySurvival) || /follow\s*-?\s*up/i.test(`${aiFuText} ${aiFuQuote}`))
+    (Boolean(aiExtract?.isFollowUpProxySurvival) || /(?:follow\s*-?\s*up|followed(?:\s*-?\s*up)?(?!\s+by))/i.test(`${aiFuText} ${aiFuQuote}`))
   );
   if (aiFollowUpUsable) {
     followUpDuration = aiFuText.trim();
@@ -1436,13 +1445,13 @@ export function parseRangeOfTimeData(
   if (followUpDuration === 'Not reported' && researchGroups.length > 0) {
     for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
       const logicalLine = lines.slice(lineIndex, Math.min(lines.length, lineIndex + 3)).join(' ');
-      if (!/follow\s*-?\s*up/i.test(logicalLine) || /lost\s+to|loss\s+to/i.test(logicalLine)) continue;
-      const followMatch = /follow\s*-?\s*up/i.exec(logicalLine);
+      if (!/(?:follow\s*-?\s*up|followed(?:\s*-?\s*up)?(?!\s+by))/i.test(logicalLine) || /lost\s+to|loss\s+to/i.test(logicalLine)) continue;
+      const followMatch = /(?:follow\s*-?\s*up|followed(?:\s*-?\s*up)?(?!\s+by))/i.exec(logicalLine);
       const valuePart = followMatch ? logicalLine.slice(followMatch.index) : logicalLine;
       const rowUnit = valuePart.match(/\b(days?|weeks?|months?|years?|d|wk|wks|mo|mos|yr|yrs)\b/i)?.[1];
       if (!rowUnit) continue;
       const cells = Array.from(valuePart.matchAll(
-        /(\d+(?:\.\d+)?)\s*\(\s*([0-9.]+\s*[-–]\s*[0-9.]+|[^)]*(?:range|IQR)[^)]*)\)/gi
+        /\b(?<!\d+(?:\.\d+)?\s+of\s{1,3})(\d+(?:\.\d+)?)\s*\(\s*([0-9.]+\s*[-–]\s*[0-9.]+|[^)]*(?:range|IQR)[^)]*)\)/gi
       )).map((m) => ({ value: m[1], detail: m[2].trim(), unit: rowUnit }));
       if (cells.length !== researchGroups.length) continue;
 
@@ -1462,7 +1471,7 @@ export function parseRangeOfTimeData(
   }
 
   const followSentences = splitSentences(currentStudyOutcomeText).filter((sentence) =>
-    /follow\s*-?\s*up/i.test(sentence) && /\b(?:day|week|month|year)s?\b/i.test(sentence) && !/lost\s+to|loss\s+to/i.test(sentence)
+    /(?:follow\s*-?\s*up|followed(?:\s*-?\s*up)?(?!\s+by))/i.test(sentence) && /\b(?:day|week|month|year)s?\b/i.test(sentence) && !/lost\s+to|loss\s+to/i.test(sentence)
   );
   if (followUpDuration === 'Not reported') for (const sentence of followSentences) {
     const values = new Map<number, ReturnType<typeof nearestTimeForGroup>>();
@@ -1486,12 +1495,12 @@ export function parseRangeOfTimeData(
     for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
       const line = lines[lineIndex];
       const logicalLine = lines.slice(lineIndex, Math.min(lines.length, lineIndex + 3)).join(' ');
-      if (!/follow\s*-?\s*up/i.test(logicalLine) || /lost\s+to|loss\s+to/i.test(logicalLine)) continue;
-      const followMatch = /follow\s*-?\s*up/i.exec(logicalLine);
+      if (!/(?:follow\s*-?\s*up|followed(?:\s*-?\s*up)?(?!\s+by))/i.test(logicalLine) || /lost\s+to|loss\s+to/i.test(logicalLine)) continue;
+      const followMatch = /(?:follow\s*-?\s*up|followed(?:\s*-?\s*up)?(?!\s+by))/i.exec(logicalLine);
       const valuePart = followMatch ? logicalLine.slice(followMatch.index) : logicalLine;
       const rowUnit = valuePart.match(/\b(days?|weeks?|months?|years?|d|wk|wks|mo|mos|yr|yrs)\b/i)?.[1];
       if (!rowUnit) continue;
-      const cells = Array.from(valuePart.matchAll(/(\d+(?:\.\d+)?)\s*\(\s*([^)]+)\)/g)).map((m) => ({ value: m[1], detail: m[2], unit: rowUnit }));
+      const cells = Array.from(valuePart.matchAll(/\b(?<!\d+(?:\.\d+)?\s+of\s{1,3})(\d+(?:\.\d+)?)\s*\(\s*([^)]+)\)/g)).map((m) => ({ value: m[1], detail: m[2], unit: rowUnit }));
       if (cells.length !== researchGroups.length) continue;
       let sourceOrder = sourceGroupOrderNearLine(lineIndex);
       if (sourceOrder.length !== researchGroups.length) continue;
@@ -1512,8 +1521,16 @@ export function parseRangeOfTimeData(
     // line-wrap away from "follow-up" within the same sentence. Flatten those
     // line-wrap breaks to spaces before matching; a real paragraph/sentence
     // boundary is still bounded by the exclusion of '.'.
-    const singleFuSource = currentStudyOutcomeText.replace(/\n+/g, ' ');
-    const singleFu = singleFuSource.match(/(?:median|mean)?\s*(?:duration\s+of\s+)?follow\s*-?\s*up(?:\s+(?:duration|period))?[^.]{0,80}?(\d+(?:\.\d+)?)(?:\s*±\s*(\d+(?:\.\d+)?))?\s*(days?|weeks?|months?|years?)/i);
+    // Unlike per-group RESULT numbers (patency, reintervention, etc.), the overall
+    // follow-up length/protocol is routinely stated in Methods ("Each patient was
+    // followed for 3 years"), not Results, so this whole-study statement searches
+    // preDiscussionText rather than the Results-only currentStudyOutcomeText.
+    const singleFuSource = preDiscussionText.replace(/\n+/g, ' ');
+    // The number must sit right next to the follow-up phrase itself (through only
+    // a short connector), not merely appear somewhere within the next 80 characters —
+    // otherwise an unrelated nearby figure (e.g. an imaging-interval "every 6 months"
+    // in the same sentence) gets misread as the follow-up length.
+    const singleFu = singleFuSource.match(/(?:median|mean)?\s*(?:duration\s+of\s+)?(?:follow\s*-?\s*up|followed(?:\s*-?\s*up)?(?!\s+by))(?:\s+(?:duration|period))?\s*(?:was|is|of|for|:|,)?\s*(\d+(?:\.\d+)?)(?:\s*±\s*(\d+(?:\.\d+)?))?\s*(days?|weeks?|months?|years?)/i);
     if (singleFu && !isInvalidContext(singleFu[0])) {
       followUpDuration = singleFu[0].trim();
       followUpQuote = singleFu[0];
@@ -1548,7 +1565,9 @@ export function parseRangeOfTimeData(
       const rowUnit = survivalRowText.match(/\b(days?|weeks?|months?|years?|d|wk|wks|mo|mos|yr|yrs)\b/i)?.[1];
       if (!rowUnit) continue;
       const statistic = /\bmedian\b/i.test(survivalRowText) ? 'Median' : /\bmean\b/i.test(survivalRowText) ? 'Mean' : 'Survival';
-      const cells = Array.from(survivalRowText.matchAll(/(\d+(?:\.\d+)?)\s*\(\s*([^)]+)\)/g))
+      // "40 of 161 (24.8%)" reports a survival proportion, not a survival duration;
+      // the second number is a fraction denominator (a patient count), not a time value.
+      const cells = Array.from(survivalRowText.matchAll(/\b(?<!\d+(?:\.\d+)?\s+of\s{1,3})(\d+(?:\.\d+)?)\s*\(\s*([^)]+)\)/g))
         .map((m) => ({ value: m[1], detail: m[2], unit: rowUnit }));
       if (cells.length !== researchGroups.length) continue;
       let sourceOrder = sourceGroupOrderNearLine(lineIndex, survivalLines);
@@ -1631,7 +1650,7 @@ export function parseRangeOfTimeData(
     const value = row.cells[column].replace(/[¹²³⁴⁵⁶⁷⁸⁹]/g, '');
     if (/^(?:Not reached|NR)$/i.test(value)) return `${group.groupName}: ${row.label}: ${value}`;
     const cell = value.match(/^(\d+(?:\.\d+)?)(.*)$/)!;
-    const endpoint = proxy ? 'survival' : /follow\s*-?\s*up/i.test(row.label) ? 'follow-up' : describePatencyEndpoint(row.label) + (/in effective drainage cases/i.test(row.label) ? ' [effective drainage cases only]' : '');
+    const endpoint = proxy ? 'survival' : /(?:follow\s*-?\s*up|followed(?:\s*-?\s*up)?(?!\s+by))/i.test(row.label) ? 'follow-up' : describePatencyEndpoint(row.label) + (/in effective drainage cases/i.test(row.label) ? ' [effective drainage cases only]' : '');
     return `${cohortDisplayName(row, group, column)}: ${proxy ? 'Overall survival used as a proxy because follow-up duration was not reported: ' : ''}${stat} ${endpoint}: ${cell[1]} ${unit}${cell[2]}`;
   }).join('\n');
   const applicationRow = timeRow(patencyEndpointRegex);
@@ -1645,7 +1664,7 @@ export function parseRangeOfTimeData(
     }).join('\n');
     repeatQuote = repeatRow.quote;
   }
-  const directFollowUp = timeRow(/follow\s*-?\s*up/i);
+  const directFollowUp = timeRow(/(?:follow\s*-?\s*up|followed(?:\s*-?\s*up)?(?!\s+by))/i);
   const survivalRow = timeRow(/^(?:overall\s+survival|patient\s+survival|survival\s+time|median\s+survival|mean\s+survival)/i);
   if (directFollowUp) {
     followUpDuration = formatRow(directFollowUp); followUpQuote = directFollowUp.quote; isProxySurvival = false;

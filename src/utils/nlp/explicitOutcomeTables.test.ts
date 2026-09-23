@@ -40,6 +40,19 @@ test('Roman tables after Discussion preserve groups, missing median, and endpoin
     assert.match(gender.formattedDistribution, /Initial ERCP group — Male: n = 6, Female: n = 7/);
   }
 });
+test("'X of Y (Z%)' proportions are not misread as durations, and the numerator is used for repeat-exposure counts", () => {
+  const groups4 = ["Covered stent group", "Uncovered stent group"].map((groupName, i) => ({id: String(i), groupName, groupPatientNumber: String([161, 166][i]), devices: []}));
+  const paper4 = `RESULTS
+Stent patency at 6 months in stented patients was 117 of 161 (72.7%, covered) and 136 of 166 (81.9%, uncovered) (adjusted HR 1.48, 97.5% confidence interval (c.i.): 0.86-2.54).
+Endoscopic re-intervention up to 6 months after randomization was attempted in 13 of 161 (8.1%) covered stent patients and 6 of 166 (3.6%) uncovered stent patients.
+Overall survival was 40 of 161 (24.8%) for covered stent patients versus 42 of 166 (25.3%) for uncovered stent patients. QoL at 3 months was assessed in 216 patients.
+`;
+  const time = parseRangeOfTimeData(paper4, groups4 as any).rangeOfTimeDetails;
+  assert.equal(time.durationOfApplicationOrUse, 'Not reported');
+  assert.equal(time.durationOfFollowUp, 'Not reported');
+  assert.match(time.numberOfRepeatExposures, /13\/161 \(8\.1%\)/);
+  assert.doesNotMatch(time.numberOfRepeatExposures, /^161 \(8\.1%\)/);
+});
 test("prose-only follow-up sentence with 'in the X group and ... in the Y group' maps values to the correct arm", () => {
   const groups3 = ["SBTS group", "ES group"].map((groupName, i) => ({id: String(i), groupName, groupPatientNumber: String([29, 77][i]), devices: []}));
   const paper3 = `RESULTS
@@ -50,6 +63,30 @@ The median time to surgery in the SBTS group was 19 days.
   const time = parseRangeOfTimeData(paper3, groups3 as any).rangeOfTimeDetails;
   assert.match(time.durationOfFollowUp, /SBTS group:.*30\.9 months/);
   assert.match(time.durationOfFollowUp, /ES group:.*39\.51 months/);
+});
+test("'patients were followed for N years' in Methods is recognized, and 'followed by' / nearby imaging intervals are not", () => {
+  const groups5 = ["Experimental group", "Control group"].map((groupName, i) => ({id: String(i), groupName, groupPatientNumber: String([31, 38][i]), devices: []}));
+  const paper5 = `MATERIALS AND METHODS
+The control group underwent emergency laparotomy with one-stage resection and stoma formation, followed by a postoperative second-stage stoma closure every 3 to 6 months.
+OS and DFS were calculated from the date of resection surgery until recurrence, death, or the end of the follow-up period for all cases receiving subsequent resections. For the 2-3-year follow-up duration, CT, abdominal ultrasound, chest X-ray, and blood tests were performed every 6 months. Each patient was followed for 3 years or until death.
+
+RESULTS
+The experimental group had significantly lower rates of complications than the control group.
+`;
+  const time = parseRangeOfTimeData(paper5, groups5 as any).rangeOfTimeDetails;
+  assert.match(time.durationOfFollowUp, /followed for 3 years/);
+  assert.doesNotMatch(time.durationOfFollowUp, /every 6 months/);
+  assert.doesNotMatch(time.durationOfFollowUp, /stoma closure/);
+});
+test("single-arm 'Sex (male/female): X/Y' combined pair is not misread as X for both sexes", () => {
+  const groups6 = [{id: '0', groupName: 'Clinical success cohort', groupPatientNumber: '81', devices: []}];
+  const paper6 = `RESULTS
+Table 1: Patient characteristics (n = 81).
+Sex (male/female)\t39/42
+Age (years), median (IQR)\t79 (61-85)
+`;
+  const gender = formatGenderDistribution('', '', groups6 as any, paper6);
+  assert.equal(gender.formattedDistribution, 'Male: n = 39, Female: n = 42');
 });
 test("Sex (male) row after a linearized Discussion heading is still recognized", () => {
   const groups2 = ["SBTS group", "ES group"].map((groupName, i) => ({id: String(i), groupName, groupPatientNumber: String([29, 77][i]), devices: []}));

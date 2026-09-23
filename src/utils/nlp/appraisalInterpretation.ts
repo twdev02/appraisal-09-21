@@ -447,8 +447,25 @@ export function formatGenderDistribution(
     return derived.toFixed(1);
   };
 
+  const combinedSexPairPattern = /(?:Sex\s*\(\s*male\s*\/\s*female\s*\)|Sex\s*\(\s*M\s*\/\s*F\s*\)|Male\s*\/\s*Female|M\s*\/\s*F)[^\n\r]*/i;
+
   if (researchGroups.length <= 1) {
     for (const scope of baselineScopes) {
+      // A combined "Sex (male/female): 39/42" header reports ONE shared pair, not
+      // two independently-anchored single values. Read it as a pair first —
+      // anchoring on "male" and "female" separately would otherwise both land
+      // before the same shared pair and report its first number for both sexes.
+      const pairMatch = scope.text.match(combinedSexPairPattern);
+      const pairNumbers = pairMatch?.[0]?.match(/(\d+)\s*\/\s*(\d+)/);
+      if (pairMatch && pairNumbers) {
+        return {
+          formattedDistribution: `Male: n = ${Number(pairNumbers[1])}, Female: n = ${Number(pairNumbers[2])}`,
+          isReported: true,
+          quote: pairMatch[0].trim(),
+          location: scope.location,
+        };
+      }
+
       const maleMetric = parseAnchoredSexMetric(scope.text, 'male');
       const femaleMetric = parseAnchoredSexMetric(scope.text, 'female');
       const baselineN = extractCohortNFromScope(scope.text) || studyWideCohortN;
