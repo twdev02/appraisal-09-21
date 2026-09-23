@@ -56,9 +56,8 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   } = ctx;
   const suitabilityComments = parsedAi?.suitabilityComments || {};
   const allDevices = researchGroups.flatMap((g: any) =>
-    (g.devices || []).map((d: any) => ({ ...d, __clinicalEndpointInventory: parsedAi?.clinicalEndpointInventory }))
+    (g.devices || []).map((d: any) => ({ ...d, __groupDeviceCount: (g.devices || []).length, __clinicalEndpointInventory: parsedAi?.clinicalEndpointInventory }))
   );
-  // Require outcome attribution evidence, independently of device counts or names.
 
   const dueDevices = allDevices.filter((d: any) => d.deviceRelationship.aiRecommended === 'DUE');
   const extractableDueDevices = dueDevices.filter((d: any) => isDeviceOutcomeExtractable(d, paperText));
