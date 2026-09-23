@@ -25,6 +25,32 @@ test('a shared brand-line prefix (HANAROSTENT) alone does not make two unrelated
   assert.equal(result.type, 'Other Device');
 });
 
+test('an abbreviated distinctive model name (Hot-Spaxus, Nagi, Bumpy, Hot Giobor) locks in its DUE', () => {
+  const dueList = [
+    { id: 'DUE-1', productName: 'Niti-S SPAXUS\u2122 Stent', indications: ['Pancreatic pseudocyst', 'Walled-off necrosis'] },
+    { id: 'DUE-2', productName: 'Niti-S Hot SPAXUS\u2122 Stent', indications: ['Gallbladder', 'Choledochoduodenostomy', 'Hepaticogastrostomy', 'EUS-HGS'] },
+    { id: 'DUE-3', productName: 'Niti-S Nagi\u2122 Stent', indications: ['Pancreatic pseudocyst'] },
+    { id: 'DUE-4', productName: 'Niti-S Hot Giobor Stent', indications: ['Pancreatic pseudocyst', 'Walled-off necrosis'] },
+  ] as any;
+
+  const cases: [string, string][] = [
+    ['Hot-Spaxus', 'DUE-2'],
+    ['Nagi', 'DUE-3'],
+    ['Hot Giobor', 'DUE-4'],
+  ];
+  for (const [extracted, expectedId] of cases) {
+    const result = classifyDeviceWithInventory(
+      extracted,
+      'Taewoong Medical, Goyang-si, Korea',
+      dueList,
+      undefined,
+      'Fully covered with silicone',
+      'Gallbladder drainage (GBD) and pancreatic pseudocysts'
+    );
+    assert.equal(result.type, 'DUE', `${extracted} should lock in a DUE`);
+    assert.equal(result.matchedDueId, expectedId, `${extracted} should match ${expectedId}`);
+  }
+});
 test('a genuine registered Similar Device alias still matches (regression guard)', () => {
   const dueList = [{
     id: 'DUE-1',

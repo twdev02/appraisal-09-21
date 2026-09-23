@@ -1090,11 +1090,11 @@ function getDistinctiveModelKey(text: string): DistinctiveModelKey | null {
   const norm = normalizeText(text || '');
   if (!norm) return null;
 
-  if (/hot\s*[- ]?\s*spaxus/.test(norm)) return 'hot spaxus';
-  if (/spaxus/.test(norm)) return 'spaxus';
-  if (/nagi/.test(norm)) return 'nagi';
-  if (/bumpy/.test(norm)) return 'bumpy';
-  if (/hot\s*[- ]?\s*giobor/.test(norm)) return 'hot giobor';
+  if (/\bhot\s*[- ]?\s*spaxus\b/.test(norm)) return 'hot spaxus';
+  if (/\bspaxus\b/.test(norm)) return 'spaxus';
+  if (/\bnagi\b/.test(norm)) return 'nagi';
+  if (/\bbumpy\b/.test(norm)) return 'bumpy';
+  if (/\bhot\s*[- ]?\s*giobor\b/.test(norm)) return 'hot giobor';
   return null;
 }
 
