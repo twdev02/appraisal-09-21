@@ -67,10 +67,13 @@ export async function callGeminiWithRetry(
     try {
       console.log(`[Gemini API] Requesting extraction with model "${model}" (attempt ${attempt + 1}/${maxRetries + 1})...`);
 
+      // Extraction is a factual-recall task, not a creative one: pin temperature
+      // to 0 by default so identical input yields consistent output across runs.
+      // Callers can still override by including their own `temperature` in config.
       const response = await genAi.models.generateContent({
         model,
         contents,
-        config,
+        config: { temperature: 0, ...config },
       });
 
       const text = response.text;
