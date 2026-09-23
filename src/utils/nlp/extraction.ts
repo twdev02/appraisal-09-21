@@ -799,7 +799,7 @@ export function parseRangeOfTimeData(
     // "14.2 months for the FCSEMS group and 9.7 months for the FCSEMS-AF group"
     // must not let FCSEMS's nearer-by-distance "9.7" outrank its own "14.2").
     const precedingContext = text.slice(Math.max(0, p - 20), p);
-    if (/\bfor\s+(?:the\s+)?$/i.test(precedingContext)) {
+    if (/\b(?:for|in|among|within)\s+(?:the\s+)?$/i.test(precedingContext)) {
       const before = times.filter((t) => t.index < p);
       if (before.length > 0) return before[before.length - 1];
     }

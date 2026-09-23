@@ -21,6 +21,8 @@ test('requires a duration tied to observation, not just numbers or endpoint time
     'Follow-up ranged from 3–12 months.',
     'A 30-day follow-up was completed.',
     '| Median follow-up (months) | 6 (3–12) |',
+    'The mean follow-up time was 30.9 ± 23.21 months in the SBTS group and 39.51 ± 26.54 months in the ES group.',
+    'Follow-up time was 12.4 +/- 3.2 months.',
   ]) assert.equal(hasReportedObservationDuration(text), true, text);
 });
 

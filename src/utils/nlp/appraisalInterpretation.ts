@@ -545,7 +545,10 @@ export function formatGenderDistribution(
     return selected;
   };
 
-  const sourceSexPairLine = currentStudyPopulationText.match(/(?:Sex\s*\(\s*male\s*\/\s*female\s*\)|Sex\s*\(\s*M\s*\/\s*F\s*\)|Male\s*\/\s*Female|M\s*\/\s*F)[^\n\r]*/i)?.[0];
+  const matchWithTableFallback = (regex: RegExp): string | undefined => {
+    return currentStudyPopulationText.match(regex)?.[0] ?? textForTableCaptions.match(regex)?.[0];
+  };
+  const sourceSexPairLine = matchWithTableFallback(/(?:Sex\s*\(\s*male\s*\/\s*female\s*\)|Sex\s*\(\s*M\s*\/\s*F\s*\)|Male\s*\/\s*Female|M\s*\/\s*F)[^\n\r]*/i);
   if (sourceSexPairLine) {
     const allPairs = Array.from(sourceSexPairLine.matchAll(/(\d+)\s*\/\s*(\d+)/g));
     const sexPairs = chooseSexPairsForGroups(allPairs);
@@ -569,9 +572,9 @@ export function formatGenderDistribution(
   // A single-row "Gender, male" / "Sex, male" label (with only one binary sex
   // reported per column) is as common as a standalone "Male" line; recognize
   // both instead of requiring the line to start with the bare word.
-  const sourceMaleLine = currentStudyPopulationText.match(/(?:^|\n)\s*(?:Sex[,\s:-]*|Gender[,\s:-]*)?Male\b[^\n\r]*/im)?.[0] || '';
-  const sourceFemaleLine = currentStudyPopulationText.match(/(?:^|\n)\s*(?:Sex[,\s:-]*|Gender[,\s:-]*)?Female\b[^\n\r]*/im)?.[0] || '';
-  const sourcePatientLine = currentStudyPopulationText.match(/(?:^|\n)\s*(?:Number\s+of\s+patients|Total\s+(?:number\s+of\s+)?patients|Sample\s+size|Patients?,?\s*n)\b[^\n\r]*/im)?.[0] || '';
+  const sourceMaleLine = matchWithTableFallback(/(?:^|\n)\s*(?:Sex[,\s:()-]*|Gender[,\s:()-]*)?Male\b[^\n\r]*/im) || '';
+  const sourceFemaleLine = matchWithTableFallback(/(?:^|\n)\s*(?:Sex[,\s:()-]*|Gender[,\s:()-]*)?Female\b[^\n\r]*/im) || '';
+  const sourcePatientLine = matchWithTableFallback(/(?:^|\n)\s*(?:Number\s+of\s+patients|Total\s+(?:number\s+of\s+)?patients|Sample\s+size|Patients?,?\s*n)\b[^\n\r]*/im) || '';
   const sourceMaleCells = parseMetricCells(sourceMaleLine);
   const sourceFemaleCells = parseMetricCells(sourceFemaleLine);
   const sourcePatientCounts = parsePatientCountCells(sourcePatientLine);
