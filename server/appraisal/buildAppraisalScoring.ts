@@ -56,7 +56,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   } = ctx;
   const suitabilityComments = parsedAi?.suitabilityComments || {};
   const allDevices = researchGroups.flatMap((g: any) =>
-    (g.devices || []).map((d: any) => ({ ...d, __groupDeviceCount: (g.devices || []).length, __clinicalEndpointInventory: parsedAi?.clinicalEndpointInventory }))
+    (g.devices || []).map((d: any) => ({ ...d, __clinicalEndpointInventory: parsedAi?.clinicalEndpointInventory }))
   );
   // Require outcome attribution evidence, independently of device counts or names.
 

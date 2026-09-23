@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { evaluateDeviceCredit, isDeviceOutcomeExtractable } from './deviceOutcomeAttribution';
 function device(type: string, complete: boolean, exclusive = false): any {
-  return { deviceRelationship: { aiRecommended: type }, __groupDeviceCount: 1,
+  return { deviceRelationship: { aiRecommended: type },
     __clinicalEndpointInventory: ['technical', 'clinical'].map(id => ({id,name:id,quote:'Reported endpoint',location:'Results'})),
     outcomeAttribution: { extractable: true, basis: exclusive ? 'exclusive_device_cohort' : 'device_specific',
       exclusiveCohortConfirmed: exclusive, attributionQuote:'The cohort used only this product.',attributionLocation:'Methods',
@@ -22,8 +22,8 @@ test('all agreed DUE/Similar/Other combinations', () => {
   for (const [devices,score] of cases) assert.equal(evaluateDeviceCredit(devices).score,score,JSON.stringify(devices.map(d=>d.deviceRelationship)));
 });
 test('single record never bypasses evidence; source-backed exclusive cohort with all endpoints qualifies', () => {
-  assert.equal(isDeviceOutcomeExtractable({__groupDeviceCount:1}),false);
-  assert.equal(isDeviceOutcomeExtractable({__groupDeviceCount:1,outcomeAttribution:{basis:'unclear'}}),false);
+  assert.equal(isDeviceOutcomeExtractable({}),false);
+  assert.equal(isDeviceOutcomeExtractable({outcomeAttribution:{basis:'unclear'}}),false);
   assert.equal(isDeviceOutcomeExtractable(device('DUE',true,true)),true);
   const noProof=device('DUE',true,true); noProof.outcomeAttribution.exclusiveCohortConfirmed=false;
   assert.equal(isDeviceOutcomeExtractable(noProof),false);
