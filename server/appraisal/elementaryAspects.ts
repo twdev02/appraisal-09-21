@@ -6,8 +6,14 @@ const normalize = (value: string) => value.toLowerCase().replace(/[™®]/g, '')
 // A bare 1-3 digit number is almost always a size (mm/cm/French, e.g. the "8"
 // left over from "8.5F"); a longer run of digits is far more likely to be an
 // actual model/catalogue/registration number, which DOES identify the device.
+// "Niti-S"/"HANAROSTENT" are whole product-line brand names (Taewoong's and
+// M.I. Tech's, respectively) shared across many structurally different
+// devices, and "Hot-" denotes the electrocautery-enhanced variant shared
+// across several manufacturers' LAMS (Hot-AXIOS, Hot-SPAXUS, Hot-Plumber) —
+// none of these alone identify a specific product, matching how they are
+// already excluded from the brand-anchor matching in deviceMatching.ts.
 const stripGenericTerms = (value: string) => value
-  .replace(/\b(?:not reported|unknown|self expandable|self expanding|non covered|uncovered|covered|partially|fully|metallic|metal|plastic|biliary|drainage|pigtail|stents?|catheters?|sems|pcsems|fcsems|french|fr|mm|cm|\d+f|\d{1,3})\b/g, '')
+  .replace(/\b(?:not reported|unknown|self expandable|self expanding|non covered|uncovered|covered|partially|fully|metallic|metal|plastic|biliary|drainage|pigtail|stents?|catheters?|sems|pcsems|fcsems|french|fr|mm|cm|\d+f|\d{1,3}|niti|niti s|hanarostent|hot)\b/g, '')
   .trim();
 
 function isExplicitProductNameQuote(name: string, quote: string): boolean {
@@ -21,7 +27,19 @@ function isExplicitProductNameQuote(name: string, quote: string): boolean {
   // connector word, or minor reordering broke the exact contiguous phrase above.
   const nameWords = normalizedName.split(' ').filter(Boolean);
   const quoteWords = new Set(normalizedQuote.split(' ').filter(Boolean));
-  return nameWords.length > 0 && nameWords.every((w) => quoteWords.has(w));
+  if (nameWords.length > 0 && nameWords.every((w) => quoteWords.has(w))) return true;
+
+  // Some extracted names append a trailing qualifier the AI's own chosen quote
+  // doesn't happen to repeat (e.g. "HANAROSTENT Hot-Plumber with Z-EUS IT" where
+  // "Z-EUS IT" is the delivery system, quoted separately elsewhere in the paper
+  // from the stent itself). Trim trailing words one at a time and accept the
+  // first remaining core that is still non-generic and appears verbatim.
+  for (let end = nameWords.length - 1; end >= 1; end--) {
+    const core = nameWords.slice(0, end).join(' ');
+    if (!stripGenericTerms(core)) continue;
+    if ((` ${normalizedQuote} `).includes(` ${core} `)) return true;
+  }
+  return false;
 }
 
 export function hasExplicitProductName(extract: any, paperText?: string): boolean {

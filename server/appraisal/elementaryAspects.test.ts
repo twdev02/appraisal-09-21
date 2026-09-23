@@ -25,6 +25,10 @@ test('a name split by a line-wrap artifact or minor reordering in the quote stil
   const missingWord = { ...item, deviceIdentificationQuote: 'The novel LAMS, HANAROSTENT with Z-EUS IT, is made of nitinol wire.' };
   assert.equal(hasExplicitProductName(missingWord), false);
 });
+test('a product name with a trailing delivery-system qualifier still counts when the quote covers the core stent name', () => {
+  const item = { deviceIdentificationReported: true, deviceIdentificationProductName: 'HANAROSTENT Hot-Plumber with Z-EUS IT', deviceIdentificationQuote: 'The novel LAMS, Hot-Plumber (HANAROSTENT Hot-Plumber; MI Tech Co.), is made of nitinol wire and is fully covered with a silicone membrane.' };
+  assert.equal(hasExplicitProductName(item), true);
+});
 test('a quote that does not verify against the source text is rejected when paperText is supplied', () => {
   const item = { deviceIdentificationReported: true, deviceIdentificationProductName: 'Niti-S', deviceIdentificationQuote: 'A Niti-S stent was placed.' };
   const genuinePaper = 'Methods: A Niti-S stent was placed. Fluoroscopic guidance was used throughout.';

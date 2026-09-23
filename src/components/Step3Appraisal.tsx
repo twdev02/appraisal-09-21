@@ -620,11 +620,11 @@ export const Step3Appraisal: React.FC<Step3AppraisalProps> = ({
                     <p className="text-xs text-slate-600 mt-1 italic leading-relaxed font-medium">
                       &quot;{item.question}&quot;
                     </p>
-                    {key === 'appropriateDevice' && (item.matchedDueProductName || due?.productName) && (
+                    {key === 'appropriateDevice' && item.matchedDueProductName && (
                       <div className="mt-2 flex items-center gap-2 flex-wrap text-xs">
                         <span className="font-semibold text-slate-700">Matched DUE Product:</span>
                         <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200 font-medium">
-                          {item.matchedDueProductName || due?.productName}
+                          {item.matchedDueProductName}
                         </span>
                       </div>
                     )}
