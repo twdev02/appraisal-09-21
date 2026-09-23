@@ -821,14 +821,18 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   // mortality") is not a follow-up/observation duration and must never satisfy this
   // criterion, even when it superficially contains a number + time unit.
   const isMortalityOnlyDurationText = (text: string) =>
-    /\b(?:mortality|deaths?)\b/i.test(text) && !/follow\s*-?\s*up|observation/i.test(text);
+    /\b(?:mortality|deaths?)\b/i.test(text) && !/follow\s*-?\s*up|followed(?:\s*-?\s*up)?(?!\s+by)|observation/i.test(text);
 
   const rawFollowUpPeriod = (articleMetadata.followUpPeriod && articleMetadata.followUpPeriod !== 'Not reported')
     ? String(articleMetadata.followUpPeriod)
     : '';
   const followUpText = (rawFollowUpPeriod && !isMortalityOnlyDurationText(rawFollowUpPeriod))
     ? rawFollowUpPeriod
-    : (currentStudyText.match(/(?:median|mean|mean\s*±\s*SD|range)?\s*(?:follow-up|follow\s*up|observation\s*period)\s*(?:duration\s*)?(?:of|was|:)?\s*([^\.\n;]+(?:months?|weeks?|days?|years?)[^\.\n;]*)/i)?.[0] || '');
+    // The number must sit right next to the follow-up phrase (through only a
+    // short connector), and "followed" (the verb form, excluding "followed by",
+    // an unrelated common phrase) is recognized alongside "follow-up" — mirroring
+    // the same fix already applied to Relevance 'Duration of follow-up' in extraction.ts.
+    : (currentStudyText.match(/(?:median|mean|mean\s*±\s*SD|range)?\s*(?:follow-up|follow\s*up|followed(?:\s*up)?(?!\s+by)|observation\s*period)\s*(?:duration\s*)?\s*(?:was|is|of|for|:|,)?\s*(\d+(?:\.\d+)?(?:\s*±\s*\d+(?:\.\d+)?)?\s*(?:months?|weeks?|days?|years?)[^\.\n;]*)/i)?.[0] || '');
 
   let fuQuote = 'Not reported';
   let fuLocation = 'Not reported';
