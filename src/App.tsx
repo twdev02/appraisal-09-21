@@ -19,6 +19,7 @@ import {
   ContributionAppraisalState,
   SafetyEventState,
   Article,
+  SourceConflictChoice,
 } from './types';
 import {
   DEFAULT_SUITABILITY_CRITERIA,
@@ -28,6 +29,8 @@ import {
 } from './data/appraisalStandards';
 import { exportBatchAppraisalDocx } from './utils/docxExport';
 import { runSelfValidation } from './utils/selfValidation';
+import { applySourceConflictChoice, type SourceConflictField } from './utils/sourceConflicts';
+import { SourceConflictResolverContext } from './components/SelfValidationBadge';
 import { callAnalyzePdfApi, AnalysisRequestError } from './features/appraisal/services/appraisalApi';
 
 
@@ -915,6 +918,40 @@ export default function App() {
     (article) => article.status === 'completed' && !article.markdownNeedsAnalysis
   );
 
+  const handleResolveSourceConflict = (
+    field: SourceConflictField,
+    choice: SourceConflictChoice
+  ) => {
+    const active = articles[activeArticleIndex];
+    if (!active || active.id !== activeArticleIdRef.current) return;
+    const next = applySourceConflictChoice(
+      {
+        articleMetadata,
+        relevance,
+        methodological,
+        contribution,
+        evidenceValidation: active.data.evidenceValidation,
+      },
+      field,
+      choice
+    );
+    if (next.evidenceValidation === active.data.evidenceValidation) return;
+
+    // evidenceValidation lives only on the article record, so write it there;
+    // the sync effect then folds in the edited appraisal state as usual.
+    setArticles((previousArticles) =>
+      previousArticles.map((article) =>
+        article.id === active.id
+          ? { ...article, data: { ...article.data, evidenceValidation: next.evidenceValidation } }
+          : article
+      )
+    );
+    setArticleMetadata(next.articleMetadata);
+    setRelevance(next.relevance);
+    setMethodological(next.methodological);
+    setContribution(next.contribution);
+  };
+
   const selfValidation = useMemo(() => {
     const active = articles[activeArticleIndex];
     if (!active || active.status !== 'completed') return active?.data?.selfValidation;
@@ -1144,6 +1181,7 @@ export default function App() {
             )}
 
             {currentStep === 3 && (
+              <SourceConflictResolverContext.Provider value={handleResolveSourceConflict}>
               <Step3Appraisal
                 suitability={suitability}
                 onUpdateSuitability={setSuitability}
@@ -1170,6 +1208,7 @@ export default function App() {
                 }
                 completedArticleCount={completedArticles.length}
               />
+              </SourceConflictResolverContext.Provider>
             )}
 
             {currentStep === 4 && (

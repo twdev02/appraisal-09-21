@@ -137,7 +137,7 @@ export function buildAppraisalScoring(ctx: PreparedAnalysisContext): AppraisalSc
   );
   const useMarkdownClinicalOutcome = Boolean(
     markdownAppraisalEvidence.clinicalOutcomes &&
-    ['validated', 'supplemented', 'md_only'].includes(clinicalOutcomeValidation.status)
+    ['validated', 'supplemented', 'conflict', 'md_only'].includes(clinicalOutcomeValidation.status)
   );
   const isMeaningfulReportedText = (value: any) => {
     const t = String(value ?? '').trim();

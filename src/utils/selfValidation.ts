@@ -100,7 +100,8 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
   const issues: SelfValidationIssue[] = [];
   // Source disagreement remains reviewable even after the selected Markdown
   // value makes downstream arithmetic consistent. Editing a value alone does
-  // not establish that the independent source conflict has been resolved.
+  // not establish that the independent source conflict has been resolved; only
+  // an explicit reviewer choice between the two sources does.
   const sourceChecks = [
     ['patientCount', 'Patient count', data.methodological?.patientsNumber?.id],
     ['gender', 'Gender distribution', data.relevance?.itemH_gender?.id],
@@ -110,9 +111,36 @@ export function runSelfValidation(data: FullAppraisalData): SelfValidationState 
   for (const [field, label, itemId] of sourceChecks) {
     const validation = data.evidenceValidation?.[field];
     if (validation?.status === 'conflict') {
-      addIssue(issues, 'review', 3, `step3.${itemId || field}`,
-        `${label}: PDF/Gemini and Markdown disagree (PDF: ${validation.pdfValue}; Markdown: ${validation.markdownValue}). Check the original source before finalizing.`,
+      // Outcome summaries can span several lines; keep the badge readable.
+      const brief = (value: unknown) => {
+        const text = String(value ?? '').replace(/\s+/g, ' ').trim();
+        return text.length > 160 ? `${text.slice(0, 157)}...` : text;
+      };
+      const sourceConflict = {
+        field,
+        pdfValue: String(validation.pdfValue ?? ''),
+        markdownValue: String(validation.markdownValue ?? ''),
+        resolution: validation.resolution,
+      };
+      const targetId = `step3.${itemId || field}`;
+      if (validation.resolution) {
+        const chosen = validation.resolution.choice === 'pdf' ? 'PDF/Gemini' : 'Markdown';
+        issues.push({
+          id: `${targetId}:markdown-${field}:resolved`.toLowerCase(),
+          status: 'resolved',
+          step: 3,
+          targetId,
+          field: `markdown.${field}`,
+          message: `${label}: reviewer selected the ${chosen} value.`,
+          sourceConflict,
+        });
+        continue;
+      }
+      addIssue(issues, 'review', 3, targetId,
+        `${label}: PDF/Gemini and Markdown disagree (PDF: ${brief(validation.pdfValue)}; Markdown: ${brief(validation.markdownValue)}). The Markdown value is applied provisionally; choose the source to use.`,
         `markdown.${field}`);
+      const added = issues[issues.length - 1];
+      if (added?.field === `markdown.${field}`) added.sourceConflict = sourceConflict;
     }
   }
   const dueList = data.dueList?.length

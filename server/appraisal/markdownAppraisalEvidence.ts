@@ -6,6 +6,7 @@ import {
 export type AppraisalEvidenceValidationStatus =
   | 'validated'
   | 'supplemented'
+  | 'conflict'
   | 'md_only'
   | 'pdf_only'
   | 'not_available';
@@ -485,6 +486,49 @@ function numericTokens(value: string): string[] {
   return Array.from(clean.matchAll(/\b\d+(?:\.\d+)?(?:\s*%|\s*\/\s*\d+)?\b/g)).map((match) => match[0].replace(/\s+/g, ''));
 }
 
+// Each token expands to the values it can legitimately be compared on: a ratio
+// n/N contributes n, N and its percentage, so "48/50 (96%)" agrees with "96.0%"
+// or "48 patients". Percentage-derived values tolerate rounding (±0.6 points).
+function comparableValues(token: string): Array<{ value: number; percent: boolean }> {
+  const ratio = token.match(/^(\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/);
+  if (ratio) {
+    const n = Number(ratio[1]);
+    const d = Number(ratio[2]);
+    const out = [{ value: n, percent: false }, { value: d, percent: false }];
+    if (d > 0) out.push({ value: (n / d) * 100, percent: true });
+    return out;
+  }
+  const value = Number(token.replace('%', ''));
+  if (!Number.isFinite(value)) return [];
+  return [{ value, percent: token.endsWith('%') || !Number.isInteger(value) }];
+}
+
+function outcomeValuesOverlap(pdfTokens: string[], mdTokens: string[]): boolean {
+  const pdfValues = pdfTokens.flatMap(comparableValues);
+  const mdValues = mdTokens.flatMap(comparableValues);
+  return pdfValues.some((a) => mdValues.some((b) =>
+    Math.abs(a.value - b.value) <= (a.percent || b.percent ? 0.6 : 0.001)
+  ));
+}
+
+// An endpoint conflicts only when both sources give it quantitative values and
+// none of them can be reconciled. Different endpoints are supplementation, not
+// disagreement.
+function conflictingOutcomeKeys(
+  pdfTexts: string[],
+  entries: MarkdownClinicalOutcomeEntry[],
+  sharedKeys: string[]
+): string[] {
+  const segments = pdfTexts.flatMap((text) => stripMarkdown(text).split(/\n|;|\.(?=\s+[A-Z(]|\s*$)/));
+  return sharedKeys.filter((key) => {
+    const pattern = OUTCOME_PATTERNS.find((p) => p.key === key);
+    if (!pattern) return false;
+    const pdfTokens = segments.filter((segment) => pattern.regex.test(segment)).flatMap(numericTokens);
+    const mdTokens = entries.filter((entry) => entry.key === key).flatMap((entry) => numericTokens(entry.value));
+    return pdfTokens.length > 0 && mdTokens.length > 0 && !outcomeValuesOverlap(pdfTokens, mdTokens);
+  });
+}
+
 export function isQuantitativeClinicalOutcomeText(value: unknown): boolean {
   const text = String(value ?? '').trim();
   if (!meaningful(text)) return false;
@@ -511,6 +555,22 @@ export function reconcileClinicalOutcomeEvidence(
     const mdNumbers = new Set(markdownEvidence.entries.flatMap((entry) => numericTokens(`${entry.label} ${entry.value}`)));
     const sharedNumbers = Array.from(pdfNumbers).filter((value) => mdNumbers.has(value));
     const directlyValidated = sharedKeys.length > 0 && sharedNumbers.length > 0;
+    const conflictKeys = conflictingOutcomeKeys(pdfTexts, markdownEvidence.entries, sharedKeys);
+
+    if (conflictKeys.length) {
+      const labels = conflictKeys
+        .map((key) => OUTCOME_PATTERNS.find((p) => p.key === key)?.label || key)
+        .join(', ');
+      return {
+        status: 'conflict',
+        pdfValue,
+        markdownValue: mdValue,
+        selectedValue: mdValue,
+        evidenceQuote: markdownEvidence.quote,
+        evidenceLocation: markdownEvidence.location,
+        note: `PDF/Gemini and confident current-study Markdown outcome evidence report different values for the same endpoint (${labels}); the Markdown structured value was selected provisionally and needs source confirmation.`,
+      };
+    }
 
     return {
       status: directlyValidated ? 'validated' : 'supplemented',

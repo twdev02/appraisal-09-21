@@ -14,11 +14,19 @@ export type ValidationStatus = 'pass' | 'review' | 'fail';
 
 export interface SelfValidationIssue {
   id: string;
-  status: Exclude<ValidationStatus, 'pass'>;
+  // 'resolved' marks a source conflict the reviewer already settled; it never
+  // affects overallStatus and exists so the choice can be revisited.
+  status: Exclude<ValidationStatus, 'pass'> | 'resolved';
   step: 1 | 2 | 3 | 4;
   targetId: string;
   field?: string;
   message: string;
+  sourceConflict?: {
+    field: 'patientCount' | 'gender' | 'followUp' | 'clinicalOutcome';
+    pdfValue: string;
+    markdownValue: string;
+    resolution?: SourceConflictResolution;
+  };
 }
 
 export interface SelfValidationState {
@@ -609,6 +617,16 @@ export interface DemographicEvidenceValidationItem {
   evidenceQuote: string;
   evidenceLocation: string;
   note: string;
+  // Set once a reviewer picks which source to use for a conflict. Until then
+  // the Markdown value is applied provisionally.
+  resolution?: SourceConflictResolution;
+}
+
+export type SourceConflictChoice = 'pdf' | 'markdown';
+
+export interface SourceConflictResolution {
+  choice: SourceConflictChoice;
+  resolvedAt: string;
 }
 
 export interface EvidenceValidationState {
