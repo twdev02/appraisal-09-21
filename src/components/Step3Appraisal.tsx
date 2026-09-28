@@ -43,6 +43,7 @@ import {
 import { EvidenceBadge } from './EvidenceBadge';
 import { SelfValidationBadge } from './SelfValidationBadge';
 import { issuesForTarget } from '../utils/selfValidation';
+import { unresolvedConflictExportWarning } from '../utils/sourceConflicts';
 import {
   calculateSuitabilityGrade,
   calculateMethodologicalGrade,
@@ -345,6 +346,11 @@ export const Step3Appraisal: React.FC<Step3AppraisalProps> = ({
 
   // Export DOCX handler
   const handleExportDocx = async () => {
+    const warning = unresolvedConflictExportWarning([{
+      name: pdfFileName || 'Current article',
+      count: (selfValidation?.issues || []).filter((issue) => issue.status === 'review' && issue.sourceConflict).length,
+    }]);
+    if (warning && !window.confirm(warning)) return;
     setIsExporting(true);
     try {
       const fullData: FullAppraisalData = {

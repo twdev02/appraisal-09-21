@@ -6,7 +6,12 @@ import {
   DEFAULT_METHODOLOGICAL_CRITERIA,
   DEFAULT_RELEVANCE_ITEMS,
 } from '../data/appraisalStandards';
-import { applySourceConflictChoice, type SourceConflictState } from './sourceConflicts';
+import {
+  applySourceConflictChoice,
+  countUnresolvedSourceConflicts,
+  unresolvedConflictExportWarning,
+  type SourceConflictState,
+} from './sourceConflicts';
 import { runSelfValidation } from './selfValidation';
 
 function conflict(pdfValue: string, markdownValue: string) {
@@ -125,4 +130,20 @@ test('switching sources back and forth is not mistaken for a manual score', () =
   assert.equal(back.methodological.patientsNumber.userFinalScore, 2);
   assert.equal(back.methodological.patientsNumber.aiRecommendedScore, 2);
   assert.doesNotMatch(back.methodological.patientsNumber.comment, /Reviewer-set score kept/);
+});
+
+test('export warning lists only articles with unreviewed conflicts', () => {
+  const s = state();
+  assert.equal(countUnresolvedSourceConflicts(s.evidenceValidation), 3);
+  const partly = applySourceConflictChoice(s, 'gender', 'pdf');
+  assert.equal(countUnresolvedSourceConflicts(partly.evidenceValidation), 2);
+
+  const warning = unresolvedConflictExportWarning([
+    { name: 'a.pdf', count: 2 },
+    { name: 'b.pdf', count: 0 },
+  ]);
+  assert.match(warning || '', /^2 PDF\/Markdown source conflict\(s\)/);
+  assert.match(warning || '', /- a\.pdf: 2/);
+  assert.doesNotMatch(warning || '', /b\.pdf/);
+  assert.equal(unresolvedConflictExportWarning([{ name: 'b.pdf', count: 0 }]), null);
 });

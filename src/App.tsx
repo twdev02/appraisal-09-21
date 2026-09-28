@@ -29,7 +29,12 @@ import {
 } from './data/appraisalStandards';
 import { exportBatchAppraisalDocx } from './utils/docxExport';
 import { runSelfValidation } from './utils/selfValidation';
-import { applySourceConflictChoice, type SourceConflictField } from './utils/sourceConflicts';
+import {
+  applySourceConflictChoice,
+  countUnresolvedSourceConflicts,
+  unresolvedConflictExportWarning,
+  type SourceConflictField,
+} from './utils/sourceConflicts';
 import { SourceConflictResolverContext } from './components/SelfValidationBadge';
 import { callAnalyzePdfApi, AnalysisRequestError } from './features/appraisal/services/appraisalApi';
 
@@ -952,6 +957,17 @@ export default function App() {
     setContribution(next.contribution);
   };
 
+  const handleExportAll = async () => {
+    const warning = unresolvedConflictExportWarning(
+      completedArticles.map((article) => ({
+        name: article.pdfFileName,
+        count: countUnresolvedSourceConflicts(article.data.evidenceValidation),
+      }))
+    );
+    if (warning && !window.confirm(warning)) return;
+    await exportBatchAppraisalDocx(completedArticles);
+  };
+
   const selfValidation = useMemo(() => {
     const active = articles[activeArticleIndex];
     if (!active || active.status !== 'completed') return active?.data?.selfValidation;
@@ -1131,11 +1147,7 @@ export default function App() {
                   {completedArticles.length > 0 && (
                     <button
                       type="button"
-                      onClick={() =>
-                        exportBatchAppraisalDocx(
-                          completedArticles
-                        )
-                      }
+                      onClick={handleExportAll}
                       className={
                         'inline-flex items-center gap-1.5 px-4 py-2 ' +
                         'bg-slate-900 hover:bg-slate-800 text-white ' +
@@ -1203,9 +1215,7 @@ export default function App() {
                 pdfFileName={pdfFileName}
                 selfValidation={selfValidation}
                 onBack={() => setCurrentStep(2)}
-                onExportAll={() =>
-                  exportBatchAppraisalDocx(completedArticles)
-                }
+                onExportAll={handleExportAll}
                 completedArticleCount={completedArticles.length}
               />
               </SourceConflictResolverContext.Provider>

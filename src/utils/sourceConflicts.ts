@@ -68,6 +68,33 @@ function contributionTotal(c: ContributionAppraisalState): number {
     c.clinicalSignificance.userFinalScore;
 }
 
+const CONFLICT_FIELDS: SourceConflictField[] = ['patientCount', 'gender', 'followUp', 'clinicalOutcome'];
+
+// Conflicts still carrying the provisional Markdown value (no reviewer choice).
+export function countUnresolvedSourceConflicts(evidenceValidation?: EvidenceValidationState): number {
+  if (!evidenceValidation) return 0;
+  return CONFLICT_FIELDS.filter((field) => {
+    const item = evidenceValidation[field];
+    return item?.status === 'conflict' && !item.resolution;
+  }).length;
+}
+
+// Builds the pre-export warning, or null when nothing is left to confirm.
+export function unresolvedConflictExportWarning(
+  articles: Array<{ name: string; count: number }>
+): string | null {
+  const pending = articles.filter((article) => article.count > 0);
+  if (!pending.length) return null;
+  const total = pending.reduce((sum, article) => sum + article.count, 0);
+  return [
+    `${total} PDF/Markdown source conflict(s) have not been reviewed. The Markdown value is applied provisionally for these:`,
+    '',
+    ...pending.map((article) => `- ${article.name}: ${article.count}`),
+    '',
+    'Export to Word anyway?',
+  ].join('\n');
+}
+
 /**
  * Applies a reviewer's choice between the PDF/Gemini and Markdown values of a
  * source conflict to every place that value feeds, and records the choice so
