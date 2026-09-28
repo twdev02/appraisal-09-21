@@ -24,7 +24,7 @@ const SourceChoice: React.FC<{ conflict: NonNullable<SelfValidationIssue['source
   ];
 
   return (
-    <span className="mt-1.5 block space-y-1">
+    <span className="mt-2 block space-y-1.5">
       {options.map((option) => {
         const active = current === option.choice;
         const tag = active ? (conflict.resolution ? 'Selected' : 'Provisional') : '';
@@ -33,19 +33,19 @@ const SourceChoice: React.FC<{ conflict: NonNullable<SelfValidationIssue['source
             <span className="flex items-center justify-between gap-2">
               <span className="font-semibold">{option.label}</span>
               {tag && (
-                <span className={`rounded px-1 py-px text-[9px] font-semibold ${
+                <span className={`rounded px-1.5 py-0.5 text-xs font-semibold ${
                   conflict.resolution ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
                 }`}>
                   {tag}
                 </span>
               )}
             </span>
-            <span className="mt-0.5 block max-h-24 overflow-y-auto whitespace-pre-wrap break-words font-normal text-slate-600">
+            <span className="mt-0.5 block max-h-40 overflow-y-auto whitespace-pre-wrap break-words font-normal text-slate-600">
               {option.value || 'Not reported'}
             </span>
           </>
         );
-        const frame = `block w-full rounded border px-2 py-1.5 text-left ${
+        const frame = `block w-full rounded border px-2.5 py-2 text-left ${
           active ? 'border-slate-400 bg-slate-50' : 'border-slate-200 bg-white'
         }`;
         return resolve ? (
@@ -63,7 +63,7 @@ const SourceChoice: React.FC<{ conflict: NonNullable<SelfValidationIssue['source
         );
       })}
       {resolve && !conflict.resolution && (
-        <span className="block text-[9px] text-slate-500">Check the original source, then choose the value to use.</span>
+        <span className="block text-xs text-slate-500">Check the original source, then choose the value to use.</span>
       )}
     </span>
   );
@@ -99,13 +99,13 @@ export const SelfValidationBadge: React.FC<Props> = ({ issues = [], className = 
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className={`inline-flex items-center rounded border px-1.5 py-0.5 text-[9px] font-semibold leading-none cursor-pointer transition-colors ${tone}`}
+        className={`inline-flex items-center rounded border px-2 py-1 text-xs font-semibold leading-none cursor-pointer transition-colors ${tone}`}
         aria-label={`Self-validation ${label}`}
       >
         {label}
       </button>
       {open && (
-        <span className="absolute left-0 top-full z-50 mt-1 w-[320px] max-w-[80vw] rounded-md border border-slate-200 bg-white px-2.5 py-2 text-[10px] font-medium leading-snug text-slate-700 shadow-lg">
+        <span className="absolute left-0 top-full z-50 mt-1 w-[420px] max-w-[85vw] rounded-md border border-slate-200 bg-white px-3 py-2.5 text-sm font-medium leading-snug text-slate-700 shadow-lg">
           {shown.map((issue) => (
             <span key={issue.id} className="block whitespace-normal break-words [&+span]:mt-2">
               {issue.status === 'fail' ? 'Fail' : issue.status === 'resolved' ? 'Resolved' : 'Review'}: {issue.message}
